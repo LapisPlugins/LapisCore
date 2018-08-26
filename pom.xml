@@ -4,7 +4,7 @@
 
     <groupId>net.lapismc</groupId>
     <artifactId>LapisCore</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <name>LapisCore</name>

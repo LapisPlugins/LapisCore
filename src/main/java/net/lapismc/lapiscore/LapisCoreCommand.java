@@ -35,6 +35,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
+import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -72,6 +73,14 @@ public abstract class LapisCoreCommand extends BukkitCommand {
 
     protected void sendMessage(CommandSender sender, String key) {
         sender.sendMessage(core.config.getMessage(key));
+    }
+
+    protected boolean isNotPlayer(CommandSender sender, String key) {
+        if (!(sender instanceof Player)) {
+            sendMessage(sender, key);
+            return true;
+        }
+        return false;
     }
 
 }
