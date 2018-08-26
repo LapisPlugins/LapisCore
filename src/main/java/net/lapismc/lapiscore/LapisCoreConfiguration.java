@@ -68,16 +68,14 @@ public class LapisCoreConfiguration {
                 e.printStackTrace();
             }
         }
-        messages = YamlConfiguration.loadConfiguration(messagesFile);
-        core.primaryColor = ChatColor.translateAlternateColorCodes('&', messages.getString("primaryColor", ChatColor.GOLD.toString()));
-        core.secondaryColor = ChatColor.translateAlternateColorCodes('&', messages.getString("secondaryColor", ChatColor.RED.toString()));
+        reloadMessages(messagesFile);
     }
 
     public void reloadMessages(File f) {
         messagesFile = f;
         messages = YamlConfiguration.loadConfiguration(messagesFile);
-        core.primaryColor = ChatColor.translateAlternateColorCodes('&', messages.getString("primaryColor", ChatColor.GOLD.toString()));
-        core.secondaryColor = ChatColor.translateAlternateColorCodes('&', messages.getString("secondaryColor", ChatColor.RED.toString()));
+        core.primaryColor = ChatColor.translateAlternateColorCodes('&', messages.getString("PrimaryColor", ChatColor.GOLD.toString()));
+        core.secondaryColor = ChatColor.translateAlternateColorCodes('&', messages.getString("SecondaryColor", ChatColor.RED.toString()));
     }
 
     private void checkConfigVersions() {
