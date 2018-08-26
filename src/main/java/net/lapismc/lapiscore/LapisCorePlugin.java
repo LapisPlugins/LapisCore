@@ -40,7 +40,7 @@ public class LapisCorePlugin extends JavaPlugin {
     public String secondaryColor = ChatColor.RED.toString();
     public LapisCoreConfiguration config;
 
-    public LapisCorePlugin(LapisCoreConfiguration config){
+    public void registerConfiguration(LapisCoreConfiguration config) {
         this.config = config;
     }
 
