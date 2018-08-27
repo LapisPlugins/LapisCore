@@ -39,9 +39,14 @@ public class LapisCorePlugin extends JavaPlugin {
     public String primaryColor = ChatColor.GOLD.toString();
     public String secondaryColor = ChatColor.RED.toString();
     public LapisCoreConfiguration config;
+    public LapisCorePermissions perms;
 
     public void registerConfiguration(LapisCoreConfiguration config) {
         this.config = config;
+    }
+
+    public void registerPermissions(LapisCorePermissions perms) {
+        this.perms = perms;
     }
 
 }

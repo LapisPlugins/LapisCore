@@ -63,13 +63,16 @@ public abstract class LapisCoreCommand extends BukkitCommand {
         }
     }
 
-    @Override
-    public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-        onCommand(sender, args);
-        return true;
+    protected boolean isPermitted(CommandSender sender, LapisPermission permission) {
+        if (sender instanceof Player) {
+            if (core.perms != null) {
+                return core.perms.isPermitted(((Player) sender).getUniqueId(), permission);
+            }
+            return false;
+        } else {
+            return true;
+        }
     }
-
-    protected abstract void onCommand(CommandSender sender, String[] args);
 
     protected void sendMessage(CommandSender sender, String key) {
         sender.sendMessage(core.config.getMessage(key));
@@ -83,4 +86,11 @@ public abstract class LapisCoreCommand extends BukkitCommand {
         return false;
     }
 
+    @Override
+    public boolean execute(CommandSender sender, String commandLabel, String[] args) {
+        onCommand(sender, args);
+        return true;
+    }
+
+    protected abstract void onCommand(CommandSender sender, String[] args);
 }
