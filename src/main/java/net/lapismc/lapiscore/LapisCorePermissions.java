@@ -16,7 +16,7 @@ public class LapisCorePermissions {
 
     private final HashMap<org.bukkit.permissions.Permission, HashMap<LapisPermission, Integer>> permissionSet = new HashMap<>();
     private final Cache<UUID, org.bukkit.permissions.Permission> playerPerms = CacheBuilder.newBuilder()
-            .expireAfterWrite(10, TimeUnit.SECONDS).build();
+            .expireAfterWrite(2, TimeUnit.SECONDS).build();
     private LapisCorePlugin core;
     private PermissionManager permissionManager;
 
