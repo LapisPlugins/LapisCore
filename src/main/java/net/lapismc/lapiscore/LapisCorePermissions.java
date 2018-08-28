@@ -41,7 +41,7 @@ public class LapisCorePermissions {
             HashMap<LapisPermission, Integer> permMap = new HashMap<>();
             String permName = perm.replace(",", ".");
             for (LapisPermission permission : permissionManager.getPermissions()) {
-                int i = core.getConfig().getInt("Permissions." + perm + "." + permission.getName());
+                int i = core.getConfig().getInt("Permissions." + perm + "." + permission.getName(), 0);
                 permMap.put(permission, i);
             }
             PermissionDefault permissionDefault;
