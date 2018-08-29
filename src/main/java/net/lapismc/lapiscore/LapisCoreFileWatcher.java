@@ -16,7 +16,7 @@ public class LapisCoreFileWatcher {
     private BukkitTask task;
     private boolean stop;
 
-    LapisCoreFileWatcher(LapisCorePlugin core) {
+    public LapisCoreFileWatcher(LapisCorePlugin core) {
         this.core = core;
         start();
     }
