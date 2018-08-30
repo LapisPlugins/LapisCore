@@ -45,7 +45,7 @@ public class LapisCoreConfiguration {
     private File messagesFile;
     private YamlConfiguration messages;
 
-    protected LapisCoreConfiguration(LapisCorePlugin core, int configVersion, int messagesVersion) {
+    public LapisCoreConfiguration(LapisCorePlugin core, int configVersion, int messagesVersion) {
         this.core = core;
         this.configVersion = configVersion;
         this.messagesVersion = messagesVersion;
