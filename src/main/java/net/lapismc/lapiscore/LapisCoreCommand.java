@@ -32,8 +32,7 @@
 package net.lapismc.lapiscore;
 
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandMap;
-import org.bukkit.command.CommandSender;
+import org.bukkit.command.*;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 
@@ -45,11 +44,26 @@ public abstract class LapisCoreCommand extends BukkitCommand {
     private final LapisCorePlugin core;
 
     protected LapisCoreCommand(LapisCorePlugin core, String name, String desc, ArrayList<String> aliases) {
+        this(core, name, desc, aliases, false);
+    }
+
+    protected LapisCoreCommand(LapisCorePlugin core, String name, String desc, ArrayList<String> aliases, boolean takeConflicts) {
         super(name);
         this.core = core;
         setDescription(desc);
         setAliases(aliases);
-        registerCommand(name);
+        setupCommand(name, takeConflicts);
+    }
+
+    private void setupCommand(String name, boolean takeConflicts) {
+        if (takeConflicts) {
+            Bukkit.getScheduler().runTask(core, () -> {
+                takeConflictingAliases();
+                registerCommand(name);
+            });
+        } else {
+            registerCommand(name);
+        }
     }
 
     private void registerCommand(String name) {
@@ -57,9 +71,20 @@ public abstract class LapisCoreCommand extends BukkitCommand {
             final Field serverCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
             serverCommandMap.setAccessible(true);
             CommandMap commandMap = (CommandMap) serverCommandMap.get(Bukkit.getServer());
-            commandMap.register(name, this);
+            if (!commandMap.register(name, this)) {
+                Bukkit.getPluginCommand(name).setExecutor(new LapisCoreCommandExecutor());
+            }
         } catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void takeConflictingAliases() {
+        for (String alias : this.getAliases()) {
+            if (Bukkit.getPluginCommand(alias) != null) {
+                PluginCommand command = Bukkit.getPluginCommand(alias);
+                command.setExecutor(new LapisCoreCommandExecutor());
+            }
         }
     }
 
@@ -93,4 +118,12 @@ public abstract class LapisCoreCommand extends BukkitCommand {
     }
 
     protected abstract void onCommand(CommandSender sender, String[] args);
+
+    private class LapisCoreCommandExecutor implements CommandExecutor {
+
+        @Override
+        public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+            return execute(sender, label, args);
+        }
+    }
 }
