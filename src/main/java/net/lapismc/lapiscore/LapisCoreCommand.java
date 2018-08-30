@@ -71,20 +71,22 @@ public abstract class LapisCoreCommand extends BukkitCommand {
             final Field serverCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
             serverCommandMap.setAccessible(true);
             CommandMap commandMap = (CommandMap) serverCommandMap.get(Bukkit.getServer());
-            if (!commandMap.register(name, this)) {
-                Bukkit.getPluginCommand(name).setExecutor(new LapisCoreCommandExecutor());
-            }
+            commandMap.register(name, this);
         } catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
 
     public void takeConflictingAliases() {
-        for (String alias : this.getAliases()) {
+        for (String alias : getAliases()) {
             if (Bukkit.getPluginCommand(alias) != null) {
                 PluginCommand command = Bukkit.getPluginCommand(alias);
                 command.setExecutor(new LapisCoreCommandExecutor());
             }
+        }
+        if (Bukkit.getPluginCommand(getName()) != null) {
+            PluginCommand command = Bukkit.getPluginCommand(getName());
+            command.setExecutor(new LapisCoreCommandExecutor());
         }
     }
 
