@@ -94,6 +94,11 @@ public class LapisCoreFileWatcher {
             default:
                 checkOtherFile(f);
         }
+        fileUpdate(f);
+    }
+
+    public void fileUpdate(File f) {
+
     }
 
     public void checkOtherFile(File f) {
