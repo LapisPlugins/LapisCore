@@ -57,13 +57,9 @@ public abstract class LapisCoreCommand extends BukkitCommand {
 
     private void setupCommand(String name, boolean takeConflicts) {
         if (takeConflicts) {
-            Bukkit.getScheduler().runTask(core, () -> {
-                takeConflictingAliases();
-                registerCommand(name);
-            });
-        } else {
-            registerCommand(name);
+            Bukkit.getScheduler().runTask(core, this::takeConflictingAliases);
         }
+        registerCommand(name);
     }
 
     private void registerCommand(String name) {
@@ -86,7 +82,9 @@ public abstract class LapisCoreCommand extends BukkitCommand {
         }
         if (Bukkit.getPluginCommand(getName()) != null) {
             PluginCommand command = Bukkit.getPluginCommand(getName());
-            command.setExecutor(new LapisCoreCommandExecutor());
+            if (!command.getPlugin().equals(core)) {
+                command.setExecutor(new LapisCoreCommandExecutor());
+            }
         }
     }
 
@@ -115,8 +113,12 @@ public abstract class LapisCoreCommand extends BukkitCommand {
 
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-        onCommand(sender, args);
+        onCommand(sender, commandLabel, args);
         return true;
+    }
+
+    protected void onCommand(CommandSender sender, String commandLabel, String[] args) {
+        onCommand(sender, args);
     }
 
     protected abstract void onCommand(CommandSender sender, String[] args);
