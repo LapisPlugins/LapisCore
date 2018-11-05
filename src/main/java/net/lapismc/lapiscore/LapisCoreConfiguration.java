@@ -113,7 +113,8 @@ public class LapisCoreConfiguration {
     }
 
     public String getMessage(String key) {
-        return ChatColor.translateAlternateColorCodes('&', messages.getString(key).replace("&p", core.primaryColor).replace("&s", core.secondaryColor));
+        return ChatColor.translateAlternateColorCodes('&', messages.getString(key, "&sError retrieving message from config")
+                .replace("&p", core.primaryColor).replace("&s", core.secondaryColor));
     }
 
 }
