@@ -14,8 +14,8 @@ import java.util.concurrent.TimeUnit;
 
 public class LapisCorePermissions {
 
-    private final HashMap<org.bukkit.permissions.Permission, HashMap<LapisPermission, Integer>> permissionSet = new HashMap<>();
-    private final Cache<UUID, org.bukkit.permissions.Permission> playerPerms = CacheBuilder.newBuilder()
+    private final ArrayList<PlayerPermission> permissionSet = new ArrayList<>();
+    private final Cache<UUID, Permission> playerPerms = CacheBuilder.newBuilder()
             .expireAfterWrite(2, TimeUnit.SECONDS).build();
     private LapisCorePlugin core;
     private PermissionManager permissionManager;
@@ -26,24 +26,53 @@ public class LapisCorePermissions {
         registerPermissions(new Default(), new Priority());
     }
 
+    /**
+     * Register permissions with LapisPermission objects
+     *
+     * @param permission The permissions you wish to add
+     */
     public void registerPermissions(LapisPermission... permission) {
         for (LapisPermission p : permission) {
             permissionManager.addPermission(p);
         }
     }
 
+    /**
+     * Get the PlayerPermission for a given Bukkit permission
+     *
+     * @param perm The Bukkit permission you wish to look up
+     * @return Returns the PlayerPermission associated with the given Bukkit permission
+     */
+    private PlayerPermission getPlayerPermission(Permission perm) {
+        for (PlayerPermission perms : permissionSet) {
+            if (perms.getPermission().equals(perm)) {
+                return perms;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Force the plugin to load permission values from the config
+     */
     public void loadPermissions() {
         permissionSet.clear();
         playerPerms.invalidateAll();
+        //Get the permissions section of the config
         ConfigurationSection permsSection = core.getConfig().getConfigurationSection("Permissions");
         Set<String> perms = permsSection.getKeys(false);
+        //Loop through each permission
         for (String perm : perms) {
             HashMap<LapisPermission, Integer> permMap = new HashMap<>();
+            //Get the name that will be registered with Bukkit
             String permName = perm.replace(",", ".");
+            //Loop over each permission that has been registered by the plugin
             for (LapisPermission permission : permissionManager.getPermissions()) {
+                //For each, get the integer stored and add it to the map
                 int i = core.getConfig().getInt("Permissions." + perm + "." + permission.getName(), 0);
                 permMap.put(permission, i);
             }
+            //Check the Default permission value and store it for when we make the permission
             PermissionDefault permissionDefault;
             switch (permMap.get(permissionManager.getPermission("Default"))) {
                 case 1:
@@ -57,65 +86,93 @@ public class LapisCorePermissions {
                     permissionDefault = PermissionDefault.FALSE;
                     break;
             }
-            Permission permission = new Permission(permName, permissionDefault);
-            if (Bukkit.getPluginManager().getPermission(permName) == null) {
+            //Attempt to get the permission, if it doesn't exist we create and register it
+            Permission permission = Bukkit.getPluginManager().getPermission(permName);
+            if (permission == null) {
+                permission = new Permission(permName, permissionDefault);
                 Bukkit.getPluginManager().addPermission(permission);
             }
-            permissionSet.put(permission, permMap);
+            //Add it to the permissions set
+            permissionSet.add(new PlayerPermission(permission, permMap));
         }
     }
 
+    /**
+     * Get the permission assigned to a player with the highest priority
+     *
+     * @param uuid The UUID of the player
+     * @return Returns the Bukkit Permission that should apply to the given UUID
+     */
     private Permission getPlayerPermission(UUID uuid) {
         Permission p = null;
+        //Return the players stored permission if one is stored
         if (playerPerms.getIfPresent(uuid) != null) {
             return playerPerms.getIfPresent(uuid);
         }
+        //If one isn't stored we have to find it the hard way
         OfflinePlayer op = Bukkit.getOfflinePlayer(uuid);
+        //If the player is online we can check their permissions
+        //and see if they have any of ours and which has the higher priority
         if (op.isOnline()) {
             Player player = op.getPlayer();
             Integer priority = -1;
-            for (org.bukkit.permissions.Permission perm : permissionSet.keySet()) {
+            //Loop over our permissions and check the priorities to find the permission with the highest priority
+            for (PlayerPermission playerPermission : permissionSet) {
+                Permission perm = playerPermission.getPermission();
                 if (player.hasPermission(perm) &&
-                        (permissionSet.get(perm).get(permissionManager.getPermission("Priority")) > priority)) {
+                        (playerPermission.getPermissions().get(permissionManager.getPermission("Priority")) > priority)) {
                     p = perm;
-                    priority = permissionSet.get(perm).get(permissionManager.getPermission("Priority"));
+                    priority = playerPermission.getPermissions().get(permissionManager.getPermission("Priority"));
                 }
             }
             if (p == null) {
+                //If we don't find a permission of ours we return null
                 return null;
             } else {
+                //If we do find a permission we add it to the cache and save it if that method has been implemented
                 playerPerms.put(uuid, p);
                 savePlayersPermission(op, p);
             }
             return p;
         } else if (op.hasPlayedBefore()) {
+            //If the player isn't online we will attempt to get the permission if the plugin has implemented that feature
             return getOfflinePlayerPermission(op);
         }
         return null;
     }
 
+    /**
+     * Check if the player has a value of 1 or greater for the given LapisPermission
+     *
+     * @param uuid The UUID of a player
+     * @param perm The LapisPermission you wish to check
+     * @return Returns true if the players permission has a value of 1 or higher for the given LapisPermission
+     */
     public Boolean isPermitted(UUID uuid, LapisPermission perm) {
-        HashMap<LapisPermission, Integer> permMap;
         Permission p = getPlayerPermission(uuid);
-        if (!permissionSet.containsKey(p) || permissionSet.get(p) == null) {
+        PlayerPermission permission = getPlayerPermission(p);
+        if (permission == null) {
             loadPermissions();
-            permMap = permissionSet.get(p);
-        } else {
-            permMap = permissionSet.get(p);
+            permission = getPlayerPermission(p);
         }
-        return permMap != null && permMap.get(perm) != null && permMap.get(perm) >= 1;
+        return permission.getPermissions().get(perm) >= 1;
     }
 
+    /**
+     * Get the raw value for the given LapisPermission and UUID
+     *
+     * @param uuid The UUID of the player
+     * @param perm The LapisPermission you want the value of
+     * @return Returns the raw Integer value for the given LapisPermission and Player
+     */
     public Integer getPermissionValue(UUID uuid, LapisPermission perm) {
-        HashMap<LapisPermission, Integer> permMap;
         Permission p = getPlayerPermission(uuid);
-        if (!permissionSet.containsKey(p) || permissionSet.get(p) == null) {
+        PlayerPermission permission = getPlayerPermission(p);
+        if (permission == null) {
             loadPermissions();
-            permMap = permissionSet.get(p);
-        } else {
-            permMap = permissionSet.get(p);
+            permission = getPlayerPermission(p);
         }
-        return permMap.get(perm);
+        return permission.getPermissions().get(perm);
     }
 
     protected Permission getOfflinePlayerPermission(OfflinePlayer op) {
