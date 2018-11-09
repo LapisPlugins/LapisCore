@@ -1,3 +1,19 @@
+/*
+ * Copyright 2018 Benjamin Martin
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package net.lapismc.lapiscore;
 
 import org.bukkit.Bukkit;
@@ -10,12 +26,20 @@ import java.nio.file.*;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_DELETE;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 
+/**
+ * An utility class for reloading files when they are edited
+ */
 public class LapisCoreFileWatcher {
 
     private LapisCorePlugin core;
     private BukkitTask task;
     private boolean stop;
 
+    /**
+     * Start the file watcher
+     *
+     * @param core The LapisCorePlugin that the file watcher should be registered to
+     */
     public LapisCoreFileWatcher(LapisCorePlugin core) {
         this.core = core;
         start();
@@ -32,6 +56,9 @@ public class LapisCoreFileWatcher {
         });
     }
 
+    /**
+     * Used to safely stop the file watcher
+     */
     void stop() {
         stop = true;
         task.cancel();
@@ -97,10 +124,22 @@ public class LapisCoreFileWatcher {
         fileUpdate(f);
     }
 
+    /**
+     * Override this method to deal with a file being edited
+     * This will be fired for every file change, including config.yml and messages.yml files
+     *
+     * @param f The file that has been updated
+     */
     public void fileUpdate(File f) {
 
     }
 
+    /**
+     * Override this method to deal with an unhandled file being edited
+     * This will only be fired for unknown files, it will not trigger when config or messages files are edited
+     *
+     * @param f The file that has been updated
+     */
     public void checkOtherFile(File f) {
 
     }

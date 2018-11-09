@@ -1,32 +1,17 @@
 /*
  * Copyright 2018 Benjamin Martin
  *
- * MICROSOFT REFERENCE SOURCE LICENSE (MS-RSL)
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * This license governs use of the accompanying software. If you use the software, you accept this license. If you do not accept the license, do not use the software.
- * 1. Definitions
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * The terms "reproduce," "reproduction" and "distribution" have the same meaning here as under U.S. copyright law.
- *
- * "You" means the licensee of the software.
- *
- * "Your company" means the company you worked for when you downloaded the software.
- *
- * "Reference use" means use of the software within your company as a reference, in read only form, for the sole purposes of debugging your products, maintaining your products, or enhancing the interoperability of your products with the software, and specifically excludes the right to distribute the software outside of your company.
- *
- * "Licensed patents" means any Licensor patent claims which read directly on the software as distributed by the Licensor under this license.
- * 2. Grant of Rights
- *
- * (A) Copyright Grant- Subject to the terms of this license, the Licensor grants you a non-transferable, non-exclusive, worldwide, royalty-free copyright license to reproduce the software for reference use.
- *
- * (B) Patent Grant- Subject to the terms of this license, the Licensor grants you a non-transferable, non-exclusive, worldwide, royalty-free patent license under licensed patents for reference use.
- * 3. Limitations
- *
- * (A) No Trademark License- This license does not grant you any rights to use the Licensor's name, logo, or trademarks.
- *
- * (B) If you begin patent litigation against the Licensor over patents that you think may apply to the software (including a cross-claim or counterclaim in a lawsuit), your license to the software ends automatically.
- *
- * (C) The software is licensed "as-is." You bear the risk of using it. The Licensor gives no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the Licensor excludes the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package net.lapismc.lapiscore;
@@ -36,6 +21,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;
 
+/**
+ * An utility class for dealing with config.yml and messages.yml files
+ */
 @SuppressWarnings("FieldCanBeLocal")
 public class LapisCoreConfiguration {
 
@@ -45,6 +33,13 @@ public class LapisCoreConfiguration {
     private File messagesFile;
     private YamlConfiguration messages;
 
+    /**
+     * Register the configurations and generate them
+     *
+     * @param core            The LapisCorePlugin that the files should be loaded for
+     * @param configVersion   The current config version for the config.yml
+     * @param messagesVersion The current config version for the messages.yml
+     */
     public LapisCoreConfiguration(LapisCorePlugin core, int configVersion, int messagesVersion) {
         this.core = core;
         this.configVersion = configVersion;
@@ -54,6 +49,10 @@ public class LapisCoreConfiguration {
         checkConfigVersions();
     }
 
+    /**
+     * Generates the default configs from the plugin jar file
+     * Will not overwrite existing files, will only generate them if they don't exist
+     */
     public void generateConfigs() {
         core.saveDefaultConfig();
         if (!messagesFile.exists()) {
@@ -71,6 +70,11 @@ public class LapisCoreConfiguration {
         reloadMessages(messagesFile);
     }
 
+    /**
+     * Load the given file into memory as the messages.yml
+     *
+     * @param f The messages.yml file
+     */
     public void reloadMessages(File f) {
         messagesFile = f;
         messages = YamlConfiguration.loadConfiguration(messagesFile);
@@ -108,10 +112,21 @@ public class LapisCoreConfiguration {
         }
     }
 
+    /**
+     * Get the messages.yml as a {@link YamlConfiguration}
+     *
+     * @return Returns the messages.yml as a YamlConfiguration
+     */
     public YamlConfiguration getMessages() {
         return messages;
     }
 
+    /**
+     * Get a message from the messages.yml, This method will colorize the file when it is loaded
+     *
+     * @param key The key in the messages.yml
+     * @return Returns a colorized string from the given key in the messages.yml
+     */
     public String getMessage(String key) {
         return ChatColor.translateAlternateColorCodes('&', messages.getString(key, "&sError retrieving message from config")
                 .replace("&p", core.primaryColor).replace("&s", core.secondaryColor));

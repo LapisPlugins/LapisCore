@@ -1,32 +1,17 @@
 /*
  * Copyright 2018 Benjamin Martin
  *
- * MICROSOFT REFERENCE SOURCE LICENSE (MS-RSL)
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * This license governs use of the accompanying software. If you use the software, you accept this license. If you do not accept the license, do not use the software.
- * 1. Definitions
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * The terms "reproduce," "reproduction" and "distribution" have the same meaning here as under U.S. copyright law.
- *
- * "You" means the licensee of the software.
- *
- * "Your company" means the company you worked for when you downloaded the software.
- *
- * "Reference use" means use of the software within your company as a reference, in read only form, for the sole purposes of debugging your products, maintaining your products, or enhancing the interoperability of your products with the software, and specifically excludes the right to distribute the software outside of your company.
- *
- * "Licensed patents" means any Licensor patent claims which read directly on the software as distributed by the Licensor under this license.
- * 2. Grant of Rights
- *
- * (A) Copyright Grant- Subject to the terms of this license, the Licensor grants you a non-transferable, non-exclusive, worldwide, royalty-free copyright license to reproduce the software for reference use.
- *
- * (B) Patent Grant- Subject to the terms of this license, the Licensor grants you a non-transferable, non-exclusive, worldwide, royalty-free patent license under licensed patents for reference use.
- * 3. Limitations
- *
- * (A) No Trademark License- This license does not grant you any rights to use the Licensor's name, logo, or trademarks.
- *
- * (B) If you begin patent litigation against the Licensor over patents that you think may apply to the software (including a cross-claim or counterclaim in a lawsuit), your license to the software ends automatically.
- *
- * (C) The software is licensed "as-is." You bear the risk of using it. The Licensor gives no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the Licensor excludes the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package net.lapismc.lapiscore;
@@ -39,14 +24,34 @@ import org.bukkit.entity.Player;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
+/**
+ * An utility class to make custom commands that are not in the plugin.yml
+ */
 public abstract class LapisCoreCommand extends BukkitCommand {
 
     private final LapisCorePlugin core;
 
+    /**
+     * If in doubt use this constructor
+     *
+     * @param core    The {@link LapisCorePlugin} that the command should be registered to
+     * @param name    The name of the command, this wont include the slash
+     * @param desc    The description for the /help menu
+     * @param aliases Any aliases that should run this command
+     */
     protected LapisCoreCommand(LapisCorePlugin core, String name, String desc, ArrayList<String> aliases) {
         this(core, name, desc, aliases, false);
     }
 
+    /**
+     * This constructor allows you to take conflicting commands and aliases
+     *
+     * @param core          The {@link LapisCorePlugin} that the command should be registered to
+     * @param name          The name of the command, this wont include the slash
+     * @param desc          The description for the /help menu
+     * @param aliases       Any aliases that should run this command
+     * @param takeConflicts Set to true if you would like to forcefully take control of any commands of the same name or alias
+     */
     protected LapisCoreCommand(LapisCorePlugin core, String name, String desc, ArrayList<String> aliases, boolean takeConflicts) {
         super(name);
         this.core = core;
@@ -73,7 +78,7 @@ public abstract class LapisCoreCommand extends BukkitCommand {
         }
     }
 
-    public void takeConflictingAliases() {
+    private void takeConflictingAliases() {
         for (String alias : getAliases()) {
             if (Bukkit.getPluginCommand(alias) != null) {
                 PluginCommand command = Bukkit.getPluginCommand(alias);
@@ -88,6 +93,13 @@ public abstract class LapisCoreCommand extends BukkitCommand {
         }
     }
 
+    /**
+     * Check if a sender is permitted, requires {@link LapisCorePermissions} to be registered in {@link LapisCorePlugin}
+     *
+     * @param sender     The sender of a command, player or console
+     * @param permission The LapisPermission you wish to check
+     * @return Returns true if the value of the given permission is greater than 0 or if the sender is not a {@link Player}
+     */
     protected boolean isPermitted(CommandSender sender, LapisPermission permission) {
         if (sender instanceof Player) {
             if (core.perms != null) {
@@ -99,6 +111,13 @@ public abstract class LapisCoreCommand extends BukkitCommand {
         }
     }
 
+    /**
+     * Send a message from the messages.yml to the command sender provided,
+     * requires {@link LapisCoreConfiguration} to be registered in {@link LapisCorePlugin}
+     *
+     * @param sender The command sender who you wish to send a message to
+     * @param key    The key for the message in the messages.yml
+     */
     protected void sendMessage(CommandSender sender, String key) {
         sender.sendMessage(core.config.getMessage(key));
     }
@@ -129,5 +148,7 @@ public abstract class LapisCoreCommand extends BukkitCommand {
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
             return execute(sender, label, args);
         }
+
     }
+
 }

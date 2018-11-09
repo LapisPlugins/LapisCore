@@ -30,6 +30,9 @@ import java.nio.channels.ReadableByteChannel;
 import java.util.Date;
 import java.util.logging.Logger;
 
+/**
+ * An utility class to check and download plugin updates using GitHub
+ */
 public class LapisUpdater {
 
     private String ID;
