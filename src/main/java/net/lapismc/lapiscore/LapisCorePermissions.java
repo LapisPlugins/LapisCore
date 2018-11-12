@@ -60,12 +60,19 @@ public class LapisCorePermissions {
      * @return Returns the PlayerPermission associated with the given Bukkit permission
      */
     private PlayerPermission getPlayerPermission(Permission perm) {
+        PlayerPermission lowestPriority = permissionSet.get(0);
         for (PlayerPermission perms : permissionSet) {
+            if (lowestPriority == null ||
+                    lowestPriority.getPermissions().get(permissionManager.getPermission("Priority"))
+                            > perms.getPermissions().get(permissionManager.getPermission("Priority"))) {
+                lowestPriority = perms;
+            }
             if (perms.getPermission().equals(perm)) {
                 return perms;
             }
         }
-        return null;
+        //If we fail to get a player permission we return the lowest priority one
+        return lowestPriority;
     }
 
     /**
@@ -171,7 +178,6 @@ public class LapisCorePermissions {
             loadPermissions();
             permission = getPlayerPermission(p);
         }
-        //noinspection ConstantConditions
         return permission.getPermissions().get(perm) >= 1;
     }
 
@@ -189,7 +195,6 @@ public class LapisCorePermissions {
             loadPermissions();
             permission = getPlayerPermission(p);
         }
-        //noinspection ConstantConditions
         return permission.getPermissions().get(perm);
     }
 
