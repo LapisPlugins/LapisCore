@@ -59,7 +59,7 @@ public class LapisCoreFileWatcher {
     /**
      * Used to safely stop the file watcher
      */
-    void stop() {
+    public void stop() {
         stop = true;
         task.cancel();
     }
