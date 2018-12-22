@@ -69,6 +69,13 @@ public class LapisCorePermissions {
             String permName = configPermission.replace(",", ".");
             //make a map to store the values
             Map<LapisPermission, Integer> permMap = new HashMap<>();
+            //loop through all registered values
+            for (LapisPermission value : permissionManager.getPermissions()) {
+                //get the config path for the value
+                String path = "Permissions." + configPermission + "." + value.getName();
+                //load it from the config with a default of 0
+                permMap.put(value, core.getConfig().getInt(path, 0));
+            }
             //If the permission doesnt exist we want to register it
             if (Bukkit.getPluginManager().getPermission(permName) == null) {
                 //get the permission default so that it is registered correctly
