@@ -19,7 +19,6 @@ package net.lapismc.lapiscore;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
@@ -172,15 +171,17 @@ public class LapisCorePermissions {
                     assignedPermission = candidatePerm;
                 }
             }
-            //put the assigned permission in the cache before returning it
+            //put the assigned permission in the cache and send it to plugins before returning it
             //only add it to the cache if its not null
-            if (assignedPermission != null)
+            if (assignedPermission != null) {
+                savePlayersPermission(uuid, assignedPermission.getPermission());
                 assignedPermissionCache.put(uuid, assignedPermission);
+            }
             return assignedPermission;
         } else {
             //get the permission from the plugin should it be implemented
             PlayerPermission assignedPermission = convertPermission(
-                    getOfflinePlayerPermission(Bukkit.getOfflinePlayer(uuid)));
+                    getOfflinePlayerPermission(uuid));
             //only add it to the cache if its not null
             if (assignedPermission != null)
                 assignedPermissionCache.put(uuid, assignedPermission);
@@ -205,20 +206,20 @@ public class LapisCorePermissions {
     /**
      * Override this method to provide a method of retrieving the players permission while they are offline
      *
-     * @param op The player we want the permission of
+     * @param uuid The UUID of the player we want the permission of
      * @return Return the Bukkit Permission that is assigned to this player
      */
-    protected Permission getOfflinePlayerPermission(OfflinePlayer op) {
+    protected Permission getOfflinePlayerPermission(UUID uuid) {
         return null;
     }
 
     /**
      * Override this method to save the players permission for retrieval when they are offline
      *
-     * @param op   The player the permission is assigned to
+     * @param uuid The UUID of the player the permission is assigned to
      * @param perm The permission the player has been assigned
      */
-    protected void savePlayersPermission(OfflinePlayer op, Permission perm) {
+    protected void savePlayersPermission(UUID uuid, Permission perm) {
 
     }
 
