@@ -105,6 +105,19 @@ public class LapisCorePermissions {
     }
 
     /**
+     * Get the Bukkit permission assigned to a player
+     *
+     * @param uuid The UUID of the player
+     * @return Returns the Bukkit Permission that the plugin is using for permission calculations
+     */
+    public Permission getAssignedPermission(UUID uuid) {
+        if (calculatePermission(uuid) != null)
+            return calculatePermission(uuid).getPermission();
+        else
+            return null;
+    }
+
+    /**
      * Get the raw Integer value of the permission for a player
      *
      * @param uuid       The UUID of the player
