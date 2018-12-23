@@ -121,10 +121,14 @@ public class LapisCorePermissions {
      *
      * @param uuid       The UUID of the player
      * @param permission The Permission you want a value for
-     * @return Returns the Integer value for the permission assigned to the player
+     * @return Returns the Integer value for the permission assigned to the player,
+     * returns 0 if a permission could not be calculated
      */
     public Integer getPermissionValue(UUID uuid, LapisPermission permission) {
         PlayerPermission playerPerm = calculatePermission(uuid);
+        //If its null its safest to send a 0
+        if (playerPerm == null)
+            return 0;
         return playerPerm.getPermissionValue(permission);
     }
 
@@ -136,6 +140,7 @@ public class LapisCorePermissions {
      * @return Returns true if the value of Permission is greater than 0 otherwise false
      */
     public boolean isPermitted(UUID uuid, LapisPermission permission) {
+        Integer value = getPermissionValue(uuid, permission);
         return getPermissionValue(uuid, permission) > 0;
     }
 
