@@ -62,4 +62,9 @@ public class PlayerPermission {
     public Permission getPermission() {
         return permission;
     }
+
+    @Override
+    public String toString() {
+        return permission.getName() + " : " + permissions.toString();
+    }
 }

@@ -33,7 +33,7 @@ public class LapisCorePermissions {
     private PermissionManager permissionManager;
     private ArrayList<PlayerPermission> permissions = new ArrayList<>();
     private Cache<UUID, PlayerPermission> assignedPermissionCache = CacheBuilder.newBuilder()
-            .expireAfterWrite(2, TimeUnit.SECONDS).build();
+            .expireAfterWrite(10, TimeUnit.SECONDS).build();
 
     public LapisCorePermissions(LapisCorePlugin core) {
         this.core = core;
@@ -152,8 +152,9 @@ public class LapisCorePermissions {
      */
     private PlayerPermission calculatePermission(UUID uuid) {
         //first check the cache
-        if (assignedPermissionCache.getIfPresent(uuid) != null) {
-            return assignedPermissionCache.getIfPresent(uuid);
+        PlayerPermission cachedValue = assignedPermissionCache.getIfPresent(uuid);
+        if (cachedValue != null) {
+            return cachedValue;
         }
         //if its not in the cache then we much calculate it
         if (Bukkit.getOfflinePlayer(uuid).isOnline()) {

@@ -20,7 +20,7 @@
 
     <groupId>net.lapismc</groupId>
     <artifactId>LapisCore</artifactId>
-    <version>1.3.0</version>
+    <version>1.3.1</version>
     <packaging>jar</packaging>
 
     <name>LapisCore</name>
@@ -71,24 +71,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.1</version>
-                <configuration>
-                    <sourceFileIncludes>
-                        <exclude>net/lapismc/lapiscore/*.java</exclude>
-                    </sourceFileIncludes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
         <resources>
             <resource>
@@ -97,6 +79,14 @@
             </resource>
         </resources>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>bintray-lapisplugins-LapisPlugins</id>
+            <name>lapisplugins-LapisPlugins</name>
+            <url>https://api.bintray.com/maven/lapisplugins/LapisPlugins/${project.name}/;publish=1</url>
+        </repository>
+    </distributionManagement>
 
     <repositories>
         <repository>

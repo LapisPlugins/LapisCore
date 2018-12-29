@@ -38,4 +38,9 @@ public class LapisPermission {
         return name;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
 }
