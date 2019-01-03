@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Benjamin Martin
+ * Copyright 2019 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -150,7 +150,7 @@ public class LapisCorePermissions {
      * @param uuid The UUID of the player
      * @return Returns the PlayerPermission assigned to the player
      */
-    private PlayerPermission calculatePermission(UUID uuid) {
+    public PlayerPermission calculatePermission(UUID uuid) {
         //first check the cache
         PlayerPermission cachedValue = assignedPermissionCache.getIfPresent(uuid);
         if (cachedValue != null) {
