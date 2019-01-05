@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Benjamin Martin
+ * Copyright 2019 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,16 @@
 
 package net.lapismc.lapiscore;
 
+import com.google.common.collect.ImmutableList;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An utility class to make custom commands that are not in the plugin.yml
@@ -30,6 +33,7 @@ import java.util.ArrayList;
 public abstract class LapisCoreCommand extends BukkitCommand {
 
     private final LapisCorePlugin core;
+    private TabCompleter tabCompleter;
 
     /**
      * If in doubt use this constructor
@@ -94,6 +98,15 @@ public abstract class LapisCoreCommand extends BukkitCommand {
     }
 
     /**
+     * Registers the given class as the tab completer for this command
+     *
+     * @param completer The class you wish to deal with tab completions for this command
+     */
+    protected void registerTabCompleter(TabCompleter completer) {
+        tabCompleter = completer;
+    }
+
+    /**
      * Check if a sender is permitted, requires {@link LapisCorePermissions} to be registered in {@link LapisCorePlugin}
      *
      * @param sender     The sender of a command, player or console
@@ -141,6 +154,32 @@ public abstract class LapisCoreCommand extends BukkitCommand {
     }
 
     protected abstract void onCommand(CommandSender sender, String[] args);
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, String alias, String[] args) {
+        if (tabCompleter == null) {
+            if (args.length == 0) {
+                return ImmutableList.of();
+            }
+
+            String lastWord = args[args.length - 1];
+
+            Player senderPlayer = sender instanceof Player ? (Player) sender : null;
+
+            ArrayList<String> matchedPlayers = new ArrayList<>();
+            for (Player player : sender.getServer().getOnlinePlayers()) {
+                String name = player.getName();
+                if ((senderPlayer == null || senderPlayer.canSee(player)) && StringUtil.startsWithIgnoreCase(name, lastWord)) {
+                    matchedPlayers.add(name);
+                }
+            }
+
+            matchedPlayers.sort(String.CASE_INSENSITIVE_ORDER);
+            return matchedPlayers;
+        } else {
+            return tabCompleter.onTabComplete(sender, this, alias, args);
+        }
+    }
 
     private class LapisCoreCommandExecutor implements CommandExecutor {
 
