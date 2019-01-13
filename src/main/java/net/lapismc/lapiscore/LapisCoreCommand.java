@@ -68,20 +68,26 @@ public abstract class LapisCoreCommand extends BukkitCommand {
         if (takeConflicts) {
             Bukkit.getScheduler().runTask(core, this::takeConflictingAliases);
         }
-        registerCommand(name);
+        registerCommand();
     }
 
-    private void registerCommand(String name) {
+    /**
+     * Registers the command in the servers command map
+     */
+    private void registerCommand() {
         try {
             final Field serverCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
             serverCommandMap.setAccessible(true);
             CommandMap commandMap = (CommandMap) serverCommandMap.get(Bukkit.getServer());
-            commandMap.register(name, this);
+            commandMap.register(getName(), this);
         } catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Attempts to redirect conflicting commands or aliases to this command
+     */
     private void takeConflictingAliases() {
         for (String alias : getAliases()) {
             if (Bukkit.getPluginCommand(alias) != null) {
@@ -135,6 +141,13 @@ public abstract class LapisCoreCommand extends BukkitCommand {
         sender.sendMessage(core.config.getMessage(key));
     }
 
+    /**
+     * Test if the sender is a player and send them a message if they are not a player
+     *
+     * @param sender The command sender you wish to test for
+     * @param key    The key of the message they should receive if they are not a player
+     * @return Returns true if the sender is not a player, otherwise returns false
+     */
     protected boolean isNotPlayer(CommandSender sender, String key) {
         if (!(sender instanceof Player)) {
             sendMessage(sender, key);
@@ -155,6 +168,15 @@ public abstract class LapisCoreCommand extends BukkitCommand {
 
     protected abstract void onCommand(CommandSender sender, String[] args);
 
+    /**
+     * The default behavior of the TabCompleter, Override this to make your own behaviour,
+     * from 1.13 onwards this is constantly triggered for possible completions displayed above the chat bar
+     *
+     * @param sender The sender who has attempted to tab complete
+     * @param alias  Alias of the command that they are using
+     * @param args   The current arguments of the command
+     * @return Returns a list of possible completions for the current arguments
+     */
     @Override
     public List<String> tabComplete(CommandSender sender, String alias, String[] args) {
         if (tabCompleter == null) {
