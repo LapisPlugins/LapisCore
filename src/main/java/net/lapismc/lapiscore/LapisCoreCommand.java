@@ -17,6 +17,7 @@
 package net.lapismc.lapiscore;
 
 import com.google.common.collect.ImmutableList;
+import net.lapismc.lapiscore.permissions.LapisPermission;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.command.defaults.BukkitCommand;

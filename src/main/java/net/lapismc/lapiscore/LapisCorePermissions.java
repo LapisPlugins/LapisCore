@@ -18,6 +18,8 @@ package net.lapismc.lapiscore;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import net.lapismc.lapiscore.permissions.LapisPermission;
+import net.lapismc.lapiscore.permissions.PlayerPermission;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
