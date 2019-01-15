@@ -16,13 +16,11 @@
 
 package net.lapismc.lapiscore;
 
-import com.google.common.collect.ImmutableList;
 import net.lapismc.lapiscore.permissions.LapisPermission;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
-import org.bukkit.util.StringUtil;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -170,7 +168,7 @@ public abstract class LapisCoreCommand extends BukkitCommand {
     protected abstract void onCommand(CommandSender sender, String[] args);
 
     /**
-     * The default behavior of the TabCompleter, Override this to make your own behaviour,
+     * Calls the default behaviour unless a tab completer has been set with {@link #registerTabCompleter(TabCompleter)},
      * from 1.13 onwards this is constantly triggered for possible completions displayed above the chat bar
      *
      * @param sender The sender who has attempted to tab complete
@@ -181,24 +179,7 @@ public abstract class LapisCoreCommand extends BukkitCommand {
     @Override
     public List<String> tabComplete(CommandSender sender, String alias, String[] args) {
         if (tabCompleter == null) {
-            if (args.length == 0) {
-                return ImmutableList.of();
-            }
-
-            String lastWord = args[args.length - 1];
-
-            Player senderPlayer = sender instanceof Player ? (Player) sender : null;
-
-            ArrayList<String> matchedPlayers = new ArrayList<>();
-            for (Player player : sender.getServer().getOnlinePlayers()) {
-                String name = player.getName();
-                if ((senderPlayer == null || senderPlayer.canSee(player)) && StringUtil.startsWithIgnoreCase(name, lastWord)) {
-                    matchedPlayers.add(name);
-                }
-            }
-
-            matchedPlayers.sort(String.CASE_INSENSITIVE_ORDER);
-            return matchedPlayers;
+            return super.tabComplete(sender, alias, args);
         } else {
             return tabCompleter.onTabComplete(sender, this, alias, args);
         }
