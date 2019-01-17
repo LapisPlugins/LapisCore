@@ -81,7 +81,7 @@
                         <phase>install</phase>
                         <configuration>
                             <target>
-                                <copy file="target/${project.name}.jar" tofile="../compiled/${project.name}.jar"/>
+                                <copy file="target/${project.name}.jar" tofile="compiled/${project.name}.jar"/>
                             </target>
                         </configuration>
                         <goals>
