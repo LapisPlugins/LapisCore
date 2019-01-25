@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package net.lapismc.lapiscore;
+package net.lapismc.lapiscore.utils;
+
+import net.lapismc.lapiscore.LapisCorePlugin;
 
 import java.io.IOException;
 import java.net.URL;

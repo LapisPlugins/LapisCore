@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Benjamin Martin
+ * Copyright 2019 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,6 +42,15 @@ public class LapisCorePlugin extends JavaPlugin {
      */
     public void registerPermissions(LapisCorePermissions perms) {
         this.perms = perms;
+    }
+
+    /**
+     * Get the normally protected class loader from the JavaPlugin class
+     *
+     * @return Returns this plugins class loader
+     */
+    public ClassLoader getPluginClassLoader() {
+        return super.getClassLoader();
     }
 
 }
