@@ -22,11 +22,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -88,13 +85,11 @@ public class LapisUpdater {
                 URL changeLogURL = new URL(
                         "https://raw.githubusercontent.com/" + username + "/" + repoName + "/" + branch + "/updater" +
                                 "/changelog.yml");
-                ReadableByteChannel changelogByteChannel = Channels.newChannel(changeLogURL.openStream());
                 File changeLogFile = new File(plugin.getDataFolder().getAbsolutePath() + File.separator +
                         "changelog.yml");
                 URL jarURL = new URL(
                         "https://raw.githubusercontent.com/" + username + "/" + repoName + "/" + branch + "/updater/"
                                 + ID + "/" + jarName + ".jar");
-                ReadableByteChannel jarByteChannel = Channels.newChannel(jarURL.openStream());
                 File update = plugin.getServer().getUpdateFolderFile();
                 if (!update.exists()) {
                     if (!update.mkdir()) {
@@ -102,22 +97,7 @@ public class LapisUpdater {
                     }
                 }
                 File jar = new File(update.getAbsolutePath() + File.separator + jarName + ".jar");
-                if (!jar.exists()) {
-                    if (!jar.createNewFile()) {
-                        logger.severe("Failed to generate " + jar.getName());
-                    }
-                }
-                FileOutputStream jarOutputStream = new FileOutputStream(jar);
-                jarOutputStream.getChannel().transferFrom(jarByteChannel, 0, Long.MAX_VALUE);
-                jarByteChannel.close();
-                jarOutputStream.flush();
-                jarOutputStream.close();
-
-                FileOutputStream changeLogOutputStream = new FileOutputStream(changeLogFile);
-                changeLogOutputStream.getChannel().transferFrom(changelogByteChannel, 0, Long.MAX_VALUE);
-                changelogByteChannel.close();
-                changeLogOutputStream.flush();
-                changeLogOutputStream.close();
+                new FileDownloader().downloadFile(changeLogURL, changeLogFile).downloadFile(jarURL, jar);
                 YamlConfiguration changeLog = YamlConfiguration.loadConfiguration(changeLogFile);
                 logger.info("Changes in newest Version \n" +
                         changeLog.getStringList(newVersionRawString).toString().replace("[", "").replace("]", ""));
@@ -132,26 +112,21 @@ public class LapisUpdater {
     private boolean updateCheck() {
         Integer oldVersion;
         Integer newVersion;
-        File f;
+        File updateFile;
         YamlConfiguration yaml;
         try {
-            URL website = new URL(
+            URL remoteUpdate = new URL(
                     "https://raw.githubusercontent.com/" + username + "/" + repoName + "/" + branch + "/updater" +
                             "/update.yml");
-            ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-            f = new File(plugin.getDataFolder().getAbsolutePath() + File.separator +
+            updateFile = new File(plugin.getDataFolder().getAbsolutePath() + File.separator +
                     "update.yml");
-            Date d = new Date(f.lastModified());
+            Date d = new Date(updateFile.lastModified());
             Date d0 = new Date();
             d0.setTime(d0.getTime() - 3600);
-            if (!f.exists() || force || d.before(d0)) {
-                FileOutputStream fos = new FileOutputStream(f);
-                fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-                rbc.close();
-                fos.flush();
-                fos.close();
-                if (!f.setLastModified(d0.getTime())) {
-                    logger.info("Failed to set modified time for " + f.getName());
+            if (!updateFile.exists() || force || d.before(d0)) {
+                new FileDownloader().downloadFile(remoteUpdate, updateFile);
+                if (!updateFile.setLastModified(d0.getTime())) {
+                    logger.info("Failed to set modified time for " + updateFile.getName());
                 }
             }
         } catch (IOException e) {
@@ -161,7 +136,7 @@ public class LapisUpdater {
             return false;
         }
         try {
-            yaml = YamlConfiguration.loadConfiguration(f);
+            yaml = YamlConfiguration.loadConfiguration(updateFile);
             if (!yaml.contains(ID)) {
                 return false;
             }
@@ -175,8 +150,8 @@ public class LapisUpdater {
             logger.severe("Failed to load update.yml or parse the values!" +
                     " It may be corrupt!");
             logger.severe("Please try again later");
-            if (!f.delete()) {
-                logger.info("Failed to delete " + f.getName());
+            if (!updateFile.delete()) {
+                logger.info("Failed to delete " + updateFile.getName());
             }
             return false;
         }
