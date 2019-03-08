@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Benjamin Martin
+ * Copyright 2019 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -128,8 +128,18 @@ public class LapisCoreConfiguration {
      * @return Returns a colorized string from the given key in the messages.yml
      */
     public String getMessage(String key) {
-        return ChatColor.translateAlternateColorCodes('&', messages.getString(key, "&sError retrieving message from config")
-                .replace("&p", core.primaryColor).replace("&s", core.secondaryColor));
+        return colorMessage(messages.getString(key, "&sError retrieving message from config"));
+    }
+
+    /**
+     * Colorize any string with color codes, this is used to support the p and s color codes that you might retrieve directly
+     *
+     * @param msg The string you wish to colorize
+     * @return Returns a colored string
+     */
+    public String colorMessage(String msg) {
+        return ChatColor.translateAlternateColorCodes('&', msg.replace("&p", core.primaryColor)
+                .replace("&s", core.secondaryColor));
     }
 
 }
