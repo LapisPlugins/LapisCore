@@ -122,13 +122,28 @@ public class LapisCoreConfiguration {
     }
 
     /**
+     * Gets the raw String from the messages.yml file
+     * Also has a failsafe for if something has happened to the messages YML in memory
+     * This will reload the messages file if it cant find the message on the first pass
+     *
+     * @param key The message to be retrieved
+     * @return Returns a String from the messages.yml
+     */
+    private String getRawMessage(String key) {
+        if (!messages.contains(key)) {
+            reloadMessages(messagesFile);
+        }
+        return messages.getString(key, "&sError retrieving message from config");
+    }
+
+    /**
      * Get a message from the messages.yml, This method will colorize the file when it is loaded
      *
      * @param key The key in the messages.yml
      * @return Returns a colorized string from the given key in the messages.yml
      */
     public String getMessage(String key) {
-        return colorMessage(messages.getString(key, "&sError retrieving message from config"));
+        return colorMessage(getRawMessage(key));
     }
 
     /**
