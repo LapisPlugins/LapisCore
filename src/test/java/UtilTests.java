@@ -16,15 +16,15 @@
 
 import net.lapismc.lapiscore.utils.LocationUtils;
 import org.bukkit.Location;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-public class UtilTests {
+class UtilTests {
 
     @Test
-    public void locationUtilTest() {
+    void locationUtilTest() {
         String locString = new LocationUtils().parseLocationToString(getTestLocation());
-        Assert.assertEquals(locString, "Test,1.0,2.0,3.0,0.0,0.0");
+        Assertions.assertEquals(locString, "Test,1.0,2.0,3.0,0.0,0.0");
     }
 
     private Location getTestLocation() {

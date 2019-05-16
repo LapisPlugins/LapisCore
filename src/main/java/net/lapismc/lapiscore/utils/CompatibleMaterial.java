@@ -20,12 +20,14 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * Class made by Hex_27 and adapted for LapisCore by Dart2112
  * The original code can be found at https://www.spigotmc.org/threads/329630/
  * It is under the MIT licence
  */
+@SuppressWarnings("unused")
 public enum CompatibleMaterial {
     ACACIA_BOAT(0, "BOAT_ACACIA"),
     ACACIA_BUTTON(0, "WOOD_BUTTON"),
@@ -939,7 +941,7 @@ public enum CompatibleMaterial {
         }
         //noinspection deprecation
         if (comp.getType() == this.parseMaterial() &&
-                (int) comp.getData().getData() == this.data) {
+                (int) Objects.requireNonNull(comp.getData()).getData() == this.data) {
             return true;
         }
         CompatibleMaterial xmat = fromMaterial(comp.getType());
@@ -970,32 +972,19 @@ public enum CompatibleMaterial {
         int length = split.length;
         switch (split[length - 1]) {
             case "HELMET":
-                return true;
-            case "CHESTPLATE":
-                return true;
-            case "LEGGINGS":
-                return true;
-            case "BOOTS":
-                return true;
-            case "SWORD":
-                return true;
-            case "AXE":
-                return true;
-            case "PICKAXE":
-                return true;
             case "SHOVEL":
-                return true;
-            case "HOE":
-                return true;
-            case "ELYTRA":
-                return true;
-            case "TURTLE_HELMET":
-                return true;
-            case "TRIDENT":
-                return true;
-            case "HORSE_ARMOR":
-                return true;
+            case "CHESTPLATE":
             case "SHEARS":
+            case "HORSE_ARMOR":
+            case "TRIDENT":
+            case "TURTLE_HELMET":
+            case "ELYTRA":
+            case "HOE":
+            case "PICKAXE":
+            case "AXE":
+            case "SWORD":
+            case "BOOTS":
+            case "LEGGINGS":
                 return true;
             default:
                 return false;

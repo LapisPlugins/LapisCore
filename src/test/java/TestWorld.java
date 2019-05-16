@@ -25,7 +25,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.util.BoundingBox;
 import org.bukkit.util.Consumer;
+import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
 import java.io.File;
@@ -33,7 +35,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.Predicate;
 
+@SuppressWarnings("ALL")
 public class TestWorld implements World {
 
     private String name;
@@ -108,6 +112,11 @@ public class TestWorld implements World {
     }
 
     @Override
+    public boolean isChunkGenerated(int i, int i1) {
+        return false;
+    }
+
+    @Override
     public boolean isChunkInUse(int x, int z) {
         return false;
     }
@@ -138,17 +147,7 @@ public class TestWorld implements World {
     }
 
     @Override
-    public boolean unloadChunk(int x, int z, boolean save, boolean safe) {
-        return false;
-    }
-
-    @Override
     public boolean unloadChunkRequest(int x, int z) {
-        return false;
-    }
-
-    @Override
-    public boolean unloadChunkRequest(int x, int z, boolean safe) {
         return false;
     }
 
@@ -160,6 +159,21 @@ public class TestWorld implements World {
     @Override
     public boolean refreshChunk(int x, int z) {
         return false;
+    }
+
+    @Override
+    public boolean isChunkForceLoaded(int i, int i1) {
+        return false;
+    }
+
+    @Override
+    public void setChunkForceLoaded(int i, int i1, boolean b) {
+
+    }
+
+    @Override
+    public Collection<Chunk> getForceLoadedChunks() {
+        return null;
     }
 
     @Override
@@ -178,7 +192,7 @@ public class TestWorld implements World {
     }
 
     @Override
-    public <T extends Arrow> T spawnArrow(Location location, Vector direction, float speed, float spread, Class<T> clazz) {
+    public <T extends AbstractArrow> T spawnArrow(Location location, Vector vector, float v, float v1, Class<T> aClass) {
         return null;
     }
 
@@ -239,6 +253,61 @@ public class TestWorld implements World {
 
     @Override
     public Collection<Entity> getNearbyEntities(Location location, double x, double y, double z) {
+        return null;
+    }
+
+    @Override
+    public Collection<Entity> getNearbyEntities(Location location, double v, double v1, double v2, Predicate<Entity> predicate) {
+        return null;
+    }
+
+    @Override
+    public Collection<Entity> getNearbyEntities(BoundingBox boundingBox) {
+        return null;
+    }
+
+    @Override
+    public Collection<Entity> getNearbyEntities(BoundingBox boundingBox, Predicate<Entity> predicate) {
+        return null;
+    }
+
+    @Override
+    public RayTraceResult rayTraceEntities(Location location, Vector vector, double v) {
+        return null;
+    }
+
+    @Override
+    public RayTraceResult rayTraceEntities(Location location, Vector vector, double v, double v1) {
+        return null;
+    }
+
+    @Override
+    public RayTraceResult rayTraceEntities(Location location, Vector vector, double v, Predicate<Entity> predicate) {
+        return null;
+    }
+
+    @Override
+    public RayTraceResult rayTraceEntities(Location location, Vector vector, double v, double v1, Predicate<Entity> predicate) {
+        return null;
+    }
+
+    @Override
+    public RayTraceResult rayTraceBlocks(Location location, Vector vector, double v) {
+        return null;
+    }
+
+    @Override
+    public RayTraceResult rayTraceBlocks(Location location, Vector vector, double v, FluidCollisionMode fluidCollisionMode) {
+        return null;
+    }
+
+    @Override
+    public RayTraceResult rayTraceBlocks(Location location, Vector vector, double v, FluidCollisionMode fluidCollisionMode, boolean b) {
+        return null;
+    }
+
+    @Override
+    public RayTraceResult rayTrace(Location location, Vector vector, double v, FluidCollisionMode fluidCollisionMode, boolean b, double v1, Predicate<Entity> predicate) {
         return null;
     }
 
@@ -705,6 +774,21 @@ public class TestWorld implements World {
     @Override
     public <T> void spawnParticle(Particle particle, double x, double y, double z, int count, double offsetX, double offsetY, double offsetZ, double extra, T data) {
 
+    }
+
+    @Override
+    public <T> void spawnParticle(Particle particle, Location location, int i, double v, double v1, double v2, double v3, T t, boolean b) {
+
+    }
+
+    @Override
+    public <T> void spawnParticle(Particle particle, double v, double v1, double v2, int i, double v3, double v4, double v5, double v6, T t, boolean b) {
+
+    }
+
+    @Override
+    public Location locateNearestStructure(Location location, StructureType structureType, int i, boolean b) {
+        return null;
     }
 
     @Override
