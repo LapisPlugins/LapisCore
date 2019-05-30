@@ -9,6 +9,6 @@ Simply use the LapisCore dependency and Maven will fetch the API
 <dependency>
   <groupId>net.lapismc</groupId>
   <artifactId>LapisCore</artifactId>
-  <version>1.5.1</version>
+  <version>1.7.2</version>
 </dependency>
 ```
