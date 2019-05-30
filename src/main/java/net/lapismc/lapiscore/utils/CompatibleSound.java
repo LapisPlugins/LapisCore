@@ -22,6 +22,7 @@ import org.bukkit.Sound;
  * Original class by XxTreme_Creeper_ adapted for LapisCore by Dart2112
  * The original code can be found at https://www.spigotmc.org/threads/355519/
  */
+@SuppressWarnings("unused")
 public enum CompatibleSound {
 
     AMBIENCE_CAVE("AMBIENCE_CAVE", "AMBIENT_CAVE"),
