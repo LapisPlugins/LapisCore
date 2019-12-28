@@ -58,7 +58,6 @@ public class LapisItemBuilder {
         }
         ItemMeta meta = i.getItemMeta();
         if (!name.equals("")) {
-            System.out.println("Name set, meta = " + (meta != null));
             if (meta != null)
                 meta.setDisplayName(name);
         }
