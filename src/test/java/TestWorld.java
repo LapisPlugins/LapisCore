@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Benjamin Martin
+ * Copyright 2020 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,10 +31,7 @@ import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
 import java.io.File;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Predicate;
 
 @SuppressWarnings("ALL")
@@ -173,6 +170,31 @@ public class TestWorld implements World {
 
     @Override
     public Collection<Chunk> getForceLoadedChunks() {
+        return null;
+    }
+
+    @Override
+    public boolean addPluginChunkTicket(int x, int z, Plugin plugin) {
+        return false;
+    }
+
+    @Override
+    public boolean removePluginChunkTicket(int x, int z, Plugin plugin) {
+        return false;
+    }
+
+    @Override
+    public void removePluginChunkTickets(Plugin plugin) {
+
+    }
+
+    @Override
+    public Collection<Plugin> getPluginChunkTickets(int x, int z) {
+        return null;
+    }
+
+    @Override
+    public Map<Plugin, Collection<Chunk>> getPluginChunkTickets() {
         return null;
     }
 
@@ -412,12 +434,27 @@ public class TestWorld implements World {
     }
 
     @Override
+    public boolean createExplosion(double x, double y, double z, float power, boolean setFire, boolean breakBlocks, Entity source) {
+        return false;
+    }
+
+    @Override
     public boolean createExplosion(Location loc, float power) {
         return false;
     }
 
     @Override
     public boolean createExplosion(Location loc, float power, boolean setFire) {
+        return false;
+    }
+
+    @Override
+    public boolean createExplosion(Location loc, float power, boolean setFire, boolean breakBlocks) {
+        return false;
+    }
+
+    @Override
+    public boolean createExplosion(Location loc, float power, boolean setFire, boolean breakBlocks, Entity source) {
         return false;
     }
 
@@ -527,7 +564,17 @@ public class TestWorld implements World {
     }
 
     @Override
+    public Biome getBiome(int x, int y, int z) {
+        return null;
+    }
+
+    @Override
     public void setBiome(int x, int z, Biome bio) {
+
+    }
+
+    @Override
+    public void setBiome(int x, int y, int z, Biome bio) {
 
     }
 
@@ -537,7 +584,17 @@ public class TestWorld implements World {
     }
 
     @Override
+    public double getTemperature(int x, int y, int z) {
+        return 0;
+    }
+
+    @Override
     public double getHumidity(int x, int z) {
+        return 0;
+    }
+
+    @Override
+    public double getHumidity(int x, int y, int z) {
         return 0;
     }
 
@@ -792,7 +849,22 @@ public class TestWorld implements World {
     }
 
     @Override
+    public int getViewDistance() {
+        return 0;
+    }
+
+    @Override
     public Spigot spigot() {
+        return null;
+    }
+
+    @Override
+    public Raid locateNearestRaid(Location location, int radius) {
+        return null;
+    }
+
+    @Override
+    public List<Raid> getRaids() {
         return null;
     }
 
