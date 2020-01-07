@@ -44,6 +44,15 @@ public class TestWorld implements World {
     }
 
     @Override
+    public boolean isHardcore() {
+        return false;
+    }
+
+    @Override
+    public void setHardcore(boolean hardcore) {
+    }
+
+    @Override
     public Block getBlockAt(int x, int y, int z) {
         return null;
     }

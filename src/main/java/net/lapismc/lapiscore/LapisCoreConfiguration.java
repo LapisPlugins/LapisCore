@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Benjamin Martin
+ * Copyright 2020 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 package net.lapismc.lapiscore;
 
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;
@@ -67,17 +68,22 @@ public class LapisCoreConfiguration {
                 e.printStackTrace();
             }
         }
-        reloadMessages(messagesFile);
+        reloadMessages();
     }
 
     /**
-     * Load the given file into memory as the messages.yml
-     *
-     * @param f The messages.yml file
+     * Reload the messages file into memory as the messages.yml
      */
-    public void reloadMessages(File f) {
-        messagesFile = f;
-        messages = YamlConfiguration.loadConfiguration(messagesFile);
+    public void reloadMessages() {
+        try {
+            if (messages == null) {
+                messages = YamlConfiguration.loadConfiguration(messagesFile);
+            } else {
+                messages.load(messagesFile);
+            }
+        } catch (IOException | InvalidConfigurationException e) {
+            e.printStackTrace();
+        }
         core.primaryColor = ChatColor.translateAlternateColorCodes('&', messages.getString("PrimaryColor", ChatColor.GOLD.toString()));
         core.secondaryColor = ChatColor.translateAlternateColorCodes('&', messages.getString("SecondaryColor", ChatColor.RED.toString()));
     }
@@ -131,7 +137,7 @@ public class LapisCoreConfiguration {
      */
     private String getRawMessage(String key) {
         if (!messages.contains(key)) {
-            reloadMessages(messagesFile);
+            reloadMessages();
         }
         return messages.getString(key, "&sError retrieving message from config");
     }

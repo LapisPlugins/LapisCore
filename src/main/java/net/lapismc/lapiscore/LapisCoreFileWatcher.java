@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Benjamin Martin
+ * Copyright 2020 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -115,7 +115,7 @@ public class LapisCoreFileWatcher {
                 core.getLogger().info("Changes made to the " + core.getName() + " config have been loaded");
                 break;
             case "messages":
-                core.config.reloadMessages(f);
+                core.config.reloadMessages();
                 core.getLogger().info("Changes made to " + core.getName() + " messages.yml have been loaded");
                 break;
             default:
