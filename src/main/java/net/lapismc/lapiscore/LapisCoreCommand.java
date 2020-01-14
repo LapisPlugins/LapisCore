@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Benjamin Martin
+ * Copyright 2020 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,14 +60,14 @@ public abstract class LapisCoreCommand extends BukkitCommand {
         this.core = core;
         setDescription(desc);
         setAliases(aliases);
-        setupCommand(name, takeConflicts);
+        setupCommand(takeConflicts);
     }
 
-    private void setupCommand(String name, boolean takeConflicts) {
+    private void setupCommand(boolean takeConflicts) {
+        registerCommand();
         if (takeConflicts) {
             Bukkit.getScheduler().runTask(core, this::takeConflictingAliases);
         }
-        registerCommand();
     }
 
     /**

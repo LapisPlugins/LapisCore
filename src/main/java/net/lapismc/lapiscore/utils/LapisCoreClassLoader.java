@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Benjamin Martin
+ * Copyright 2020 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package net.lapismc.lapiscore;
+package net.lapismc.lapiscore.utils;
+
+import net.lapismc.lapiscore.LapisCorePlugin;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;

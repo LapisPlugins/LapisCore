@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Benjamin Martin
+ * Copyright 2020 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,15 @@
  * limitations under the License.
  */
 
-package net.lapismc.lapiscore;
+package net.lapismc.lapiscore.placeholder;
 
-import org.bukkit.event.Event;
-import org.bukkit.event.HandlerList;
+import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.OfflinePlayer;
 
-/**
- * An utility class for making notification events
- */
-public class LapisCoreEvent extends Event {
+public class PlaceholderAPIHook {
 
-    public static HandlerList handlers = new HandlerList();
-
-    public static HandlerList getHandlerList() {
-        return handlers;
-    }
-
-    @Override
-    public HandlerList getHandlers() {
-        return handlers;
+    public static String processPlaceholders(OfflinePlayer op, String input) {
+        return PlaceholderAPI.setPlaceholders(op, input);
     }
 
 }

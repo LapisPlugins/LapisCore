@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package net.lapismc.lapiscore;
+package net.lapismc.lapiscore.utils;
 
+import net.lapismc.lapiscore.LapisCorePlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
 

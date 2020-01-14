@@ -16,9 +16,12 @@
 
 package net.lapismc.lapiscore.utils;
 
+import net.lapismc.lapiscore.compatibility.XMaterial;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.material.MaterialData;
 
 import java.util.ArrayList;
@@ -31,6 +34,7 @@ public class LapisItemBuilder {
     byte data = 0;
     String name = "";
     int amount = 1;
+    OfflinePlayer owner;
     List<String> lore = new ArrayList<>();
 
     /**
@@ -40,6 +44,16 @@ public class LapisItemBuilder {
      */
     public LapisItemBuilder(Material mat) {
         this.mat = mat;
+    }
+
+    /**
+     * Initialize a new item builder with a player head
+     *
+     * @param offlinePlayer The owner of the head
+     */
+    public LapisItemBuilder(OfflinePlayer offlinePlayer) {
+        mat = XMaterial.PLAYER_HEAD.parseMaterial();
+        owner = offlinePlayer;
     }
 
     /**
@@ -94,7 +108,7 @@ public class LapisItemBuilder {
      * @return The new {@link LapisItemBuilder}
      */
     public LapisItemBuilder setWoolColor(WoolColor color) {
-        CompatibleMaterial compMat = CompatibleMaterial.matchXMaterial(color.name() + "_WOOL");
+        XMaterial compMat = XMaterial.matchXMaterial(color.name() + "_WOOL").get();
         mat = compMat.parseMaterial();
         data = compMat.getData();
         return this;
@@ -116,6 +130,9 @@ public class LapisItemBuilder {
         if (meta != null) {
             if (!name.equals("")) {
                 meta.setDisplayName(name);
+            }
+            if (owner != null && meta instanceof SkullMeta) {
+                ((SkullMeta) meta).setOwningPlayer(owner);
             }
             if (!lore.isEmpty()) {
                 meta.setLore(lore);
