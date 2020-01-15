@@ -23,7 +23,6 @@ import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,7 +41,7 @@ public abstract class LapisCoreCommand extends BukkitCommand {
      * @param desc    The description for the /help menu
      * @param aliases Any aliases that should run this command
      */
-    protected LapisCoreCommand(LapisCorePlugin core, String name, String desc, ArrayList<String> aliases) {
+    protected LapisCoreCommand(LapisCorePlugin core, String name, String desc, List<String> aliases) {
         this(core, name, desc, aliases, false);
     }
 
@@ -55,7 +54,7 @@ public abstract class LapisCoreCommand extends BukkitCommand {
      * @param aliases       Any aliases that should run this command
      * @param takeConflicts Set to true if you would like to forcefully take control of any commands of the same name or alias
      */
-    protected LapisCoreCommand(LapisCorePlugin core, String name, String desc, ArrayList<String> aliases, boolean takeConflicts) {
+    protected LapisCoreCommand(LapisCorePlugin core, String name, String desc, List<String> aliases, boolean takeConflicts) {
         super(name);
         this.core = core;
         setDescription(desc);
