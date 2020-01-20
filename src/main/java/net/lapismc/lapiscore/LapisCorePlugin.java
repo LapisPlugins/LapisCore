@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Benjamin Martin
+ * Copyright 2020 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class LapisCorePlugin extends JavaPlugin {
 
+    private static LapisCorePlugin instance;
     public String primaryColor = ChatColor.GOLD.toString();
     public String secondaryColor = ChatColor.RED.toString();
     public LapisCoreConfiguration config;
     public LapisCorePermissions perms;
+
+    public LapisCorePlugin() {
+        instance = this;
+    }
 
     /**
      * Register a {@link LapisCoreConfiguration} class to be accessed with this.config
@@ -51,6 +56,15 @@ public class LapisCorePlugin extends JavaPlugin {
      */
     public ClassLoader getPluginClassLoader() {
         return super.getClassLoader();
+    }
+
+    /**
+     * Get the main instance of this class for use in Bukkit methods in places where dependancy injection isnt viable
+     *
+     * @return The instance of {@link LapisCorePlugin}
+     */
+    public static LapisCorePlugin getInstance() {
+        return instance;
     }
 
 }
