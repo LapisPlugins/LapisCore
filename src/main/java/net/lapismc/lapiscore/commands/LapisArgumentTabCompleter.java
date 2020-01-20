@@ -45,8 +45,13 @@ public class LapisArgumentTabCompleter implements TabCompleter {
                 for (LapisArgument currentArg : currentLevelArguments) {
                     if (currentArg.getArgument().equalsIgnoreCase(arg)) {
                         //TODO: Navigate down a level and then break so that we check the next arg
+                        currentLevelArguments = currentArg.getChildren();
+                        break;
                     }
                 }
+            }
+            for (LapisArgument arg : currentLevelArguments) {
+                possibleArguments.add(arg.getArgument());
             }
         }
         return possibleArguments;
