@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5da35981-2407-48f3-944e-e4b415e69e19" name="Default Changelist" comment="" />
+    <list default="true" id="5da35981-2407-48f3-944e-e4b415e69e19" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/lapismc/lapiscore/commands/LapisArgument.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_spigotmc_spigot_api_1_15_1_R0_1_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_spigotmc_spigot_api_1_15_1_R0_1_SNAPSHOT.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/lapismc/lapiscore/LapisCoreCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/lapismc/lapiscore/commands/LapisCoreCommand.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,7 +68,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.build.tools" />
+    <property name="settings.editor.selected.configurable" value="application.passwordSafe" />
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
@@ -155,6 +161,11 @@
       <workItem from="1579058008475" duration="118000" />
       <workItem from="1579216215744" duration="213000" />
       <workItem from="1579254591655" duration="25000" />
+      <workItem from="1579406022673" duration="122000" />
+      <workItem from="1579406162986" duration="1288000" />
+      <workItem from="1579479413273" duration="299000" />
+      <workItem from="1579487466947" duration="292000" />
+      <workItem from="1579494054686" duration="313000" />
     </task>
     <task id="LOCAL-00001" summary="Updated to auto reload the messages.yml when a message cannot be found">
       <created>1556453561309</created>
@@ -275,116 +286,65 @@
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2688" y="236" width="374" height="570" key="#com.intellij.ide.util.MemberChooser" timestamp="1577939014052">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state x="555" y="182" width="806" height="675" key="#Project_Structure" timestamp="1579406184511">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="555" y="182" width="806" height="675" key="#Project_Structure/0.0.1920.1040@0.0.1920.1040" timestamp="1579406184511" />
+    <state x="768" y="227" width="374" height="570" key="#com.intellij.ide.util.MemberChooser" timestamp="1579487810293">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="768" y="227" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579487810293" />
     <state x="2688" y="236" width="374" height="570" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1050/1920.0.1920.1080@1920.0.1920.1080" timestamp="1577939014052" />
     <state x="2489" y="121" width="899" height="843" key="CommitChangelistDialog2" timestamp="1579058116019">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="569" y="118" width="899" height="843" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1920.1080@0.0.1920.1050" timestamp="1578993757688" />
     <state x="2489" y="121" width="772" height="801" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1920.1080@1920.0.1920.1080" timestamp="1579058116019" />
-    <state width="1878" height="278" key="GridCell.Tab.0.bottom" timestamp="1579216439417">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="741" y="277" width="430" height="482" key="FileChooserDialogImpl" timestamp="1579406182330">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="741" y="277" width="430" height="482" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1579406182330" />
+    <state width="1878" height="277" key="GridCell.Tab.0.bottom" timestamp="1579407450964">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1878" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1579407450964" />
     <state width="1878" height="278" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1080@0.0.1920.1050" timestamp="1579216439417" />
     <state width="1878" height="278" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1080@1920.0.1920.1080" timestamp="1579058126233" />
     <state width="1878" height="288" key="GridCell.Tab.0.bottom/1920.1080/1920.1080" timestamp="1575346366845" />
-    <state width="1878" height="278" key="GridCell.Tab.0.center" timestamp="1579216439417">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1878" height="277" key="GridCell.Tab.0.center" timestamp="1579407450964">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1878" height="277" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1579407450964" />
     <state width="1878" height="278" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1080@0.0.1920.1050" timestamp="1579216439417" />
     <state width="1878" height="278" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1080@1920.0.1920.1080" timestamp="1579058126233" />
     <state width="1878" height="288" key="GridCell.Tab.0.center/1920.1080/1920.1080" timestamp="1575346366846" />
-    <state width="1878" height="278" key="GridCell.Tab.0.left" timestamp="1579216439417">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1878" height="277" key="GridCell.Tab.0.left" timestamp="1579407450963">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1878" height="277" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1579407450963" />
     <state width="1878" height="278" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1080@0.0.1920.1050" timestamp="1579216439417" />
     <state width="1878" height="278" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1080@1920.0.1920.1080" timestamp="1579058126233" />
     <state width="1878" height="288" key="GridCell.Tab.0.left/1920.1080/1920.1080" timestamp="1575346366846" />
-    <state width="1878" height="278" key="GridCell.Tab.0.right" timestamp="1579216439417">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1878" height="277" key="GridCell.Tab.0.right" timestamp="1579407450964">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1878" height="277" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1579407450964" />
     <state width="1878" height="278" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1080@0.0.1920.1050" timestamp="1579216439417" />
     <state width="1878" height="278" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1080@1920.0.1920.1080" timestamp="1579058126233" />
     <state width="1878" height="288" key="GridCell.Tab.0.right/1920.1080/1920.1080" timestamp="1575346366846" />
-    <state x="2363" y="117" key="SettingsEditor" timestamp="1575346366846" />
+    <state x="556" y="143" key="SettingsEditor" timestamp="1579407037472">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="556" y="143" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579407037472" />
     <state x="2363" y="117" key="SettingsEditor/1920.1080/1920.1080" timestamp="1575346366846" />
+    <state x="648" y="347" key="com.intellij.ide.util.TipDialog" timestamp="1579406027694">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="648" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579406027694" />
     <state x="624" y="240" width="672" height="677" key="run.anything.popup" timestamp="1579216240235">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="624" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1050/1920.0.1920.1080@0.0.1920.1050" timestamp="1579216240235" />
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
   <component name="mavenExecuteGoalHistory">
     <option value="$PROJECT_DIR$" />

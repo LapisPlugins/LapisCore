@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-package net.lapismc.lapiscore;
+package net.lapismc.lapiscore.commands;
 
+import net.lapismc.lapiscore.LapisCoreConfiguration;
+import net.lapismc.lapiscore.LapisCorePermissions;
+import net.lapismc.lapiscore.LapisCorePlugin;
 import net.lapismc.lapiscore.permissions.LapisPermission;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
