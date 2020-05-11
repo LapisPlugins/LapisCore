@@ -59,7 +59,8 @@ public class LapisCorePlugin extends JavaPlugin {
     }
 
     /**
-     * Get the main instance of this class for use in Bukkit methods in places where dependancy injection isnt viable
+     * Get the main instance of this class for use in Bukkit methods in places where dependency injection isn't viable
+     * Should only be used when 100% necessary, don't use this if you can get a normal reference to the main class in some way
      *
      * @return The instance of {@link LapisCorePlugin}
      */
