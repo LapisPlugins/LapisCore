@@ -32,8 +32,9 @@ import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
  */
 public class LapisCoreFileWatcher {
 
-    private LapisCorePlugin core;
+    private final LapisCorePlugin core;
     private BukkitTask task;
+    private WatchService watcher;
     private boolean stop;
 
     /**
@@ -61,12 +62,19 @@ public class LapisCoreFileWatcher {
      * Used to safely stop the file watcher
      */
     public void stop() {
+        //Stop if the watcher runs
         stop = true;
+        //Cancel the runnable
         task.cancel();
+        //Stopping the watcher will stop the thread
+        try {
+            watcher.close();
+        } catch (IOException ignored) {
+        }
     }
 
     private void watcher() throws IOException, InterruptedException {
-        WatchService watcher = FileSystems.getDefault().newWatchService();
+        watcher = FileSystems.getDefault().newWatchService();
         Path dir = Paths.get(core.getDataFolder().getAbsolutePath());
         dir.register(watcher, ENTRY_DELETE, ENTRY_MODIFY);
         core.getLogger().info(core.getName() + " file watcher started!");
@@ -99,11 +107,14 @@ public class LapisCoreFileWatcher {
             }
             key.reset();
             if (!stop) {
-                key = watcher.take();
+                try {
+                    key = watcher.take();
+                } catch (ClosedWatchServiceException ignored) {
+                    //This is us stopping the watcher service
+                    return;
+                }
             }
         }
-        if (!stop)
-            throw new IOException("File watcher failed");
     }
 
     private void checkConfig(File f) {
