@@ -1,0 +1,61 @@
+/*
+ * Copyright 2020 Benjamin Martin
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id "com.github.johnrengelman.shadow" version "5.2.0"
+}
+
+repositories{
+    mavenCentral()
+    mavenLocal()
+    maven {
+        url = uri('https://hub.spigotmc.org/nexus/content/groups/public/')
+    }
+    maven {
+        url = uri('http://repo.extendedclip.com/content/repositories/placeholderapi/')
+    }
+}
+
+dependencies {
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+    compileOnly 'org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT'
+    compileOnly 'me.clip:placeholderapi:2.10.3'
+}
+
+group = 'net.lapismc'
+version = '1.7.7'
+description = 'LapisCore'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+shadowJar {
+    relocate('com.google.code', 'net.lapismc.google.code')
+}
+
+javadoc {
+    exclude 'net/lapismc/lapiscore/compatibility'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
