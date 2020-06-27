@@ -17,6 +17,7 @@
 plugins {
     id 'java'
     id 'maven-publish'
+    id 'maven'
     id "com.github.johnrengelman.shadow" version "5.2.0"
 }
 
@@ -33,7 +34,7 @@ repositories{
 
 dependencies {
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
-    compileOnly 'org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.16.1-R0.1-SNAPSHOT'
     compileOnly 'me.clip:placeholderapi:2.10.3'
 }
 
