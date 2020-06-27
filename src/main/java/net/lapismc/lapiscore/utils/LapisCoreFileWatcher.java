@@ -54,6 +54,7 @@ public class LapisCoreFileWatcher {
             } catch (IOException | InterruptedException e) {
                 core.getLogger().warning(core.getName() + " file watcher has stopped," +
                         " configs wont be reloaded until the server restarts");
+            } catch (ClosedWatchServiceException ignored) {
             }
         });
     }
