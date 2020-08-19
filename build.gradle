@@ -21,6 +21,17 @@ plugins {
     id "com.github.johnrengelman.shadow" version "5.2.0"
 }
 
+group = 'net.lapismc'
+archivesBaseName = "LapisCore"
+version = '1.7.8'
+description = 'LapisCore'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 repositories{
     mavenCentral()
     mavenLocal()
@@ -38,17 +49,6 @@ dependencies {
     compileOnly 'me.clip:placeholderapi:2.10.3'
 }
 
-group = 'net.lapismc'
-version = '1.7.8'
-description = 'LapisCore'
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
-
-java {
-    withSourcesJar()
-    withJavadocJar()
-}
-
 shadowJar {
     relocate('com.google.code', 'net.lapismc.google.code')
 }
@@ -57,6 +57,17 @@ javadoc {
     exclude 'net/lapismc/lapiscore/compatibility'
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
 }
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
