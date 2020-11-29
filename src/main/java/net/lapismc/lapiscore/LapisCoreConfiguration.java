@@ -16,7 +16,10 @@
 
 package net.lapismc.lapiscore;
 
+import net.lapismc.lapiscore.placeholder.PlaceholderAPIHook;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -28,10 +31,10 @@ import java.io.*;
 @SuppressWarnings("FieldCanBeLocal")
 public class LapisCoreConfiguration {
 
-    private int configVersion;
-    private int messagesVersion;
-    private LapisCorePlugin core;
-    private File messagesFile;
+    private final int configVersion;
+    private final int messagesVersion;
+    private final LapisCorePlugin core;
+    private final File messagesFile;
     private YamlConfiguration messages;
 
     /**
@@ -153,6 +156,17 @@ public class LapisCoreConfiguration {
     }
 
     /**
+     * Overloaded {@link #getMessage(String)} for dealing with placeholder API
+     *
+     * @param key The key in the messages.yml
+     * @param op  The player that this message will be sent too
+     * @return Returns a colorized string with placeholders replaced from the given key in the messages.yml
+     */
+    public String getMessage(String key, OfflinePlayer op) {
+        return colorMessage(replacePlaceholders(getRawMessage(key), op));
+    }
+
+    /**
      * Colorize any string with color codes, this is used to support the p and s color codes that you might retrieve directly
      *
      * @param msg The string you wish to colorize
@@ -161,6 +175,20 @@ public class LapisCoreConfiguration {
     public String colorMessage(String msg) {
         return ChatColor.translateAlternateColorCodes('&', msg.replace("&p", core.primaryColor)
                 .replace("&s", core.secondaryColor));
+    }
+
+    /**
+     * A utility method to replace placeholders from PAPI
+     *
+     * @param s  The string to replace placeholders from
+     * @param op The player that the messages are in relation to
+     * @return A string with papi placeholders replaced if PAPI is installed, otherwise returns s
+     */
+    public String replacePlaceholders(String s, OfflinePlayer op) {
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
+            return PlaceholderAPIHook.processPlaceholders(op, s);
+        else
+            return s;
     }
 
 }
