@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Benjamin Martin
+ * Copyright 2020 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,15 +32,15 @@ import java.util.logging.Logger;
  */
 public class LapisUpdater {
 
-    private String ID;
-    private String jarName;
-    private String username;
-    private String repoName;
-    private String branch;
-    private JavaPlugin plugin;
-    private Logger logger;
+    private final String ID;
+    private final String jarName;
+    private final String username;
+    private final String repoName;
+    private final String branch;
+    private final JavaPlugin plugin;
+    private final Logger logger;
     private Boolean force;
-    private String newVersionRawString;
+    private String newVersion;
 
     /**
      * The URL to the latest jar should be https://raw.githubusercontent.com/username/repoName/branch/updater/ID/jarName.jar
@@ -100,7 +100,7 @@ public class LapisUpdater {
                 new FileDownloader().downloadFile(changeLogURL, changeLogFile).downloadFile(jarURL, jar);
                 YamlConfiguration changeLog = YamlConfiguration.loadConfiguration(changeLogFile);
                 logger.info("Changes in newest Version \n" +
-                        changeLog.getStringList(newVersionRawString).toString().replace("[", "").replace("]", ""));
+                        changeLog.getStringList(newVersion).toString().replace("[", "").replace("]", ""));
             } catch (IOException e) {
                 logger.severe("HomeSpawn updater failed to download updates!");
                 logger.severe("Please check your internet connection and" +
@@ -110,8 +110,8 @@ public class LapisUpdater {
     }
 
     private boolean updateCheck() {
-        Integer oldVersion;
-        Integer newVersion;
+        String oldVersion;
+        String newVersion;
         File updateFile;
         YamlConfiguration yaml;
         try {
@@ -140,12 +140,8 @@ public class LapisUpdater {
             if (!yaml.contains(ID)) {
                 return false;
             }
-            String oldVersionString = plugin.getDescription().getVersion()
-                    .replace(".", "");
-            newVersionRawString = yaml.getString(ID);
-            String newVersionString = yaml.getString(ID).replace(".", "");
-            oldVersion = Integer.parseInt(oldVersionString);
-            newVersion = Integer.parseInt(newVersionString);
+            oldVersion = plugin.getDescription().getVersion();
+            newVersion = yaml.getString(ID);
         } catch (Exception e) {
             logger.severe("Failed to load update.yml or parse the values!" +
                     " It may be corrupt!");
@@ -155,6 +151,7 @@ public class LapisUpdater {
             }
             return false;
         }
+        this.newVersion = newVersion;
         return !oldVersion.equals(newVersion);
     }
 }
