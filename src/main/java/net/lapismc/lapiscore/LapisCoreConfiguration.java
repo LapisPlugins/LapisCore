@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Benjamin Martin
+ * Copyright 2021 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,8 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * An utility class for dealing with config.yml and messages.yml files
@@ -173,9 +175,33 @@ public class LapisCoreConfiguration {
      * @return Returns a colored string
      */
     public String colorMessage(String msg) {
+        msg = translateHexColorCodes(msg);
         return ChatColor.translateAlternateColorCodes('&', msg.replace("&p", core.primaryColor)
                 .replace("&s", core.secondaryColor));
     }
+
+    /**
+     * Translate hex color codes that start with #
+     * Sourced from https://github.com/SpigotMC/BungeeCord/pull/2883#issuecomment-653955600
+     *
+     * @param msg the message to be colored
+     * @return returns the text with the color approved
+     */
+    private String translateHexColorCodes(String msg) {
+        final Pattern hexPattern = Pattern.compile("#" + "([A-Fa-f0-9]{6})");
+        Matcher matcher = hexPattern.matcher(msg);
+        StringBuffer buffer = new StringBuffer(msg.length() + 4 * 8);
+        while (matcher.find()) {
+            String group = matcher.group(1);
+            matcher.appendReplacement(buffer, ChatColor.COLOR_CHAR + "x"
+                    + ChatColor.COLOR_CHAR + group.charAt(0) + ChatColor.COLOR_CHAR + group.charAt(1)
+                    + ChatColor.COLOR_CHAR + group.charAt(2) + ChatColor.COLOR_CHAR + group.charAt(3)
+                    + ChatColor.COLOR_CHAR + group.charAt(4) + ChatColor.COLOR_CHAR + group.charAt(5)
+            );
+        }
+        return matcher.appendTail(buffer).toString();
+    }
+
 
     /**
      * A utility method to replace placeholders from PAPI
