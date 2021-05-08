@@ -89,8 +89,8 @@ public class LapisCoreConfiguration {
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
-        core.primaryColor = ChatColor.translateAlternateColorCodes('&', messages.getString("PrimaryColor", ChatColor.GOLD.toString()));
-        core.secondaryColor = ChatColor.translateAlternateColorCodes('&', messages.getString("SecondaryColor", ChatColor.RED.toString()));
+        core.primaryColor = colorMessage(messages.getString("PrimaryColor", ChatColor.GOLD.toString()));
+        core.secondaryColor = colorMessage(messages.getString("SecondaryColor", ChatColor.RED.toString()));
     }
 
     private void checkConfigVersions() {
