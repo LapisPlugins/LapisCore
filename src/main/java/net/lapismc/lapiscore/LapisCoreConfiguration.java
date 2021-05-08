@@ -182,7 +182,7 @@ public class LapisCoreConfiguration {
 
     /**
      * Translate hex color codes that start with #
-     * Sourced from https://github.com/SpigotMC/BungeeCord/pull/2883#issuecomment-653955600
+     * Derived from https://github.com/SpigotMC/BungeeCord/pull/2883#issuecomment-653955600
      *
      * @param msg the message to be colored
      * @return returns the text with the color approved
