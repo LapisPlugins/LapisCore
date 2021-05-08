@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Benjamin Martin
+ * Copyright 2021 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,8 @@ package net.lapismc.lapiscore.permissions;
 
 public class LapisPermission {
 
-    private String name;
+    private final String name;
+    private int defaultValue = 0;
 
     /**
      * Create a permission with the given name
@@ -30,12 +31,32 @@ public class LapisPermission {
     }
 
     /**
+     * Overloads {@link #LapisPermission(String)} with a default value
+     *
+     * @param name This name will be used to find values in the config.yml
+     */
+    public LapisPermission(String name, int defaultValue) {
+        this.name = name;
+        this.defaultValue = defaultValue;
+    }
+
+    /**
      * Get the name of this permission
      *
      * @return Returns the name of this permission
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Get the default state for this permission, definined in the plugin implementing it
+     * defaults to 0 if not set by plugin
+     *
+     * @return default value for permission
+     */
+    public int getDefaultValue() {
+        return defaultValue;
     }
 
     @Override

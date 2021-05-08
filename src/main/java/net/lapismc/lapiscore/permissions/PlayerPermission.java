@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Benjamin Martin
+ * Copyright 2021 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +26,8 @@ import java.util.Map;
  */
 public class PlayerPermission {
 
-    private Permission permission;
-    private Map<LapisPermission, Integer> permissions;
+    private final Permission permission;
+    private final Map<LapisPermission, Integer> permissions;
 
     /**
      * @param permission  The Bukkit permission a player must have to be given this set of LapisPermission values

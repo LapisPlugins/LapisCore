@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Benjamin Martin
+ * Copyright 2021 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,10 +31,10 @@ import java.util.concurrent.TimeUnit;
 
 public class LapisCorePermissions {
 
-    private LapisCorePlugin core;
-    private PermissionManager permissionManager;
-    private ArrayList<PlayerPermission> permissions = new ArrayList<>();
-    private Cache<UUID, PlayerPermission> assignedPermissionCache = CacheBuilder.newBuilder()
+    private final LapisCorePlugin core;
+    private final PermissionManager permissionManager;
+    private final ArrayList<PlayerPermission> permissions = new ArrayList<>();
+    private final Cache<UUID, PlayerPermission> assignedPermissionCache = CacheBuilder.newBuilder()
             .expireAfterWrite(10, TimeUnit.SECONDS).build();
 
     public LapisCorePermissions(LapisCorePlugin core) {
@@ -231,9 +231,9 @@ public class LapisCorePermissions {
 
     }
 
-    public class PermissionManager {
+    public static class PermissionManager {
 
-        private ArrayList<LapisPermission> permissions = new ArrayList<>();
+        private final ArrayList<LapisPermission> permissions = new ArrayList<>();
 
         protected void addPermission(LapisPermission permission) {
             permissions.add(permission);
@@ -253,15 +253,15 @@ public class LapisCorePermissions {
         }
     }
 
-    private class Priority extends LapisPermission {
+    private static class Priority extends LapisPermission {
         Priority() {
-            super("Priority");
+            super("Priority", 0);
         }
     }
 
-    private class Default extends LapisPermission {
+    private static class Default extends LapisPermission {
         Default() {
-            super("Default");
+            super("Default", 0);
         }
     }
 }
