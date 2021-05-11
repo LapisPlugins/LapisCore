@@ -16,7 +16,6 @@
 
 plugins {
     id 'java'
-    id 'maven-publish'
     id 'maven'
     id 'signing'
     id "com.github.johnrengelman.shadow" version "5.2.0"
@@ -30,11 +29,7 @@ description = 'LapisCore'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-
-repositories{
+repositories {
     mavenCentral()
     mavenLocal()
     maven {
@@ -60,12 +55,12 @@ javadoc {
 }
 
 task javadocJar(type: Jar) {
-    classifier = 'javadoc'
+    archiveClassifier.set('javadoc')
     from javadoc
 }
 
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
+    archiveClassifier.set('sources')
     from sourceSets.main.allSource
 }
 
@@ -75,6 +70,10 @@ artifacts {
 
 signing {
     sign configurations.archives
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
 
 nexusStaging {
