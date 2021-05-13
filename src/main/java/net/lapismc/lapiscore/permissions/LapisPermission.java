@@ -33,7 +33,8 @@ public class LapisPermission {
     /**
      * Overloads {@link #LapisPermission(String)} with a default value
      *
-     * @param name This name will be used to find values in the config.yml
+     * @param name         This name will be used to find values in the config.yml
+     * @param defaultValue The value that this permission should default to, useful for complex permissions
      */
     public LapisPermission(String name, int defaultValue) {
         this.name = name;
