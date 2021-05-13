@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Benjamin Martin
+ * Copyright 2021 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import org.bukkit.entity.Player;
  */
 public abstract class PlaceholderAPIExpansion extends PlaceholderExpansion {
 
-    private LapisCorePlugin plugin;
+    private final LapisCorePlugin plugin;
 
     /**
      * Since we register the expansion inside our own plugin, we

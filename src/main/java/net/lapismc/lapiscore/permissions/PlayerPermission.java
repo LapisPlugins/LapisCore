@@ -20,6 +20,7 @@ import org.bukkit.permissions.Permission;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A class to represent the permissions given to players and the values applied to them
@@ -42,10 +43,7 @@ public class PlayerPermission {
      * @return Returns the map of LapisPermissions and values for this PlayerPermission
      */
     public Map<LapisPermission, Integer> getPermissions() {
-        if (permissions != null)
-            return permissions;
-        else
-            return new HashMap<>();
+        return Objects.requireNonNullElseGet(permissions, HashMap::new);
     }
 
     /**
