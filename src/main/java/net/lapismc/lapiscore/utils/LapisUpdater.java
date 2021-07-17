@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Benjamin Martin
+ * Copyright 2021 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 package net.lapismc.lapiscore.utils;
 
 
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -58,7 +57,7 @@ public class LapisUpdater {
         this.username = username;
         this.repoName = repoName;
         this.branch = branch;
-        this.logger = Bukkit.getLogger();
+        this.logger = plugin.getLogger();
     }
 
     /**
@@ -102,7 +101,7 @@ public class LapisUpdater {
                 logger.info("Changes in newest Version \n" +
                         changeLog.getStringList(newVersion).toString().replace("[", "").replace("]", ""));
             } catch (IOException e) {
-                logger.severe("HomeSpawn updater failed to download updates!");
+                logger.severe("Updater failed to download updates!");
                 logger.severe("Please check your internet connection and" +
                         " firewall settings and try again later");
             }
