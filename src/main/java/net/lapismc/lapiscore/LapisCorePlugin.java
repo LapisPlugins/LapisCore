@@ -16,6 +16,7 @@
 
 package net.lapismc.lapiscore;
 
+import net.lapismc.lapiscore.utils.LapisCoreFileWatcher;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -26,6 +27,7 @@ public class LapisCorePlugin extends JavaPlugin {
     public String secondaryColor = ChatColor.RED.toString();
     public LapisCoreConfiguration config;
     public LapisCorePermissions perms;
+    public LapisCoreFileWatcher fileWatcher;
 
     public LapisCorePlugin() {
         instance = this;
