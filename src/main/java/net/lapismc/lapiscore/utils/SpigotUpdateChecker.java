@@ -22,6 +22,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
 
+/**
+ * Class used to check for updates on Spigot resources
+ * Useful for closed source/premium plugins
+ */
 public class SpigotUpdateChecker {
 
     private final LapisCorePlugin plugin;

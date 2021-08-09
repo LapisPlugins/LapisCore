@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Benjamin Martin
+ * Copyright 2021 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,18 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 
+/**
+ * A simple file downloading class
+ * This is not Async so do that your self
+ */
 public class FileDownloader {
 
+    /**
+     * Download a file
+     *
+     * @param url  The URL of the file
+     * @param dest Where you want the file saved
+     */
     public FileDownloader downloadFile(URL url, File dest) throws IOException {
         dest.createNewFile();
         ReadableByteChannel rbc = Channels.newChannel(url.openStream());

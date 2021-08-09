@@ -17,6 +17,7 @@
 package net.lapismc.lapiscore;
 
 import net.lapismc.lapiscore.placeholder.PlaceholderAPIHook;
+import net.lapismc.lapiscore.utils.LapisCoreConfigUpdater;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -95,31 +96,12 @@ public class LapisCoreConfiguration {
 
     private void checkConfigVersions() {
         if (core.getConfig().getInt("ConfigVersion") != configVersion) {
-            File oldConfig = new File(core.getDataFolder() + File.separator + "config_PRE_" + core.getDescription().getVersion() + ".yml");
-            File config = new File(core.getDataFolder() + File.separator + "config.yml");
-            if (oldConfig.exists()) {
-                oldConfig.delete();
-            }
-            config.renameTo(oldConfig);
-            if (config.exists()) {
-                config.delete();
-            }
-            core.saveDefaultConfig();
-            core.getLogger().info("The config.yml file has been updated, it is now called config_PRE_" + core.getDescription().getVersion() + ".yml," +
-                    " please transfer any values into the new config.yml");
+            new LapisCoreConfigUpdater(core, configVersion, new File(core.getDataFolder(), "config.yml"));
+            core.reloadConfig();
         }
         if (messages.getInt("ConfigVersion") != messagesVersion) {
-            File oldMessages = new File(core.getDataFolder() + File.separator + "messages_PRE_" + core.getDescription().getVersion() + ".yml");
-            if (oldMessages.exists()) {
-                oldMessages.delete();
-            }
-            messagesFile.renameTo(oldMessages);
-            if (messagesFile.exists()) {
-                messagesFile.delete();
-            }
-            generateConfigs();
-            core.getLogger().info("The messages.yml file has been updated, it is now called messages_PRE_" + core.getDescription().getVersion() + ".yml," +
-                    " please transfer any values into the new messages.yml");
+            new LapisCoreConfigUpdater(core, messagesVersion, new File(core.getDataFolder(), "messages.yml"));
+            reloadMessages();
         }
     }
 
