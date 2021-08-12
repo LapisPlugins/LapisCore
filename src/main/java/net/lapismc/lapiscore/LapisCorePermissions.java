@@ -29,6 +29,9 @@ import org.bukkit.permissions.PermissionDefault;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This class handles the complex custom permission system that LapisCore
+ */
 public class LapisCorePermissions {
 
     private final LapisCorePlugin core;
@@ -37,6 +40,9 @@ public class LapisCorePermissions {
     private final Cache<UUID, PlayerPermission> assignedPermissionCache = CacheBuilder.newBuilder()
             .expireAfterWrite(10, TimeUnit.SECONDS).build();
 
+    /**
+     * @param core The LapisCore class that the permissions should be assigned too
+     */
     public LapisCorePermissions(LapisCorePlugin core) {
         this.core = core;
         permissionManager = new PermissionManager();
@@ -231,18 +237,37 @@ public class LapisCorePermissions {
 
     }
 
+    /**
+     * This class is used to store and retrieve permissions
+     */
     public static class PermissionManager {
 
         private final ArrayList<LapisPermission> permissions = new ArrayList<>();
 
+        /**
+         * Adds the given permission to the stored permissions for later use
+         *
+         * @param permission The permission to be added
+         */
         protected void addPermission(LapisPermission permission) {
             permissions.add(permission);
         }
 
+        /**
+         * Get all registered permissions
+         *
+         * @return A list of all registered LapisPermissions
+         */
         protected List<LapisPermission> getPermissions() {
             return permissions;
         }
 
+        /**
+         * Retrieve a specific permission given its name
+         *
+         * @param name The name of the permission you wish to receive
+         * @return the LapisPermission with the given name, null if there is no permission with this name
+         */
         public LapisPermission getPermission(String name) {
             for (LapisPermission permission : permissions) {
                 if (permission.getName().equalsIgnoreCase(name)) {

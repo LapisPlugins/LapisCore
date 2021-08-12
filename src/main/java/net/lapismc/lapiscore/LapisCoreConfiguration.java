@@ -98,10 +98,14 @@ public class LapisCoreConfiguration {
         if (core.getConfig().getInt("ConfigVersion") != configVersion) {
             new LapisCoreConfigUpdater(core, configVersion, new File(core.getDataFolder(), "config.yml"));
             core.reloadConfig();
+            core.getLogger().info("The config has been updated to version " + configVersion + ", this should have happened seamlessly." +
+                    " You might want to check that it is still configured the way you would like and set new values");
         }
         if (messages.getInt("ConfigVersion") != messagesVersion) {
             new LapisCoreConfigUpdater(core, messagesVersion, new File(core.getDataFolder(), "messages.yml"));
             reloadMessages();
+            core.getLogger().info("The messages yaml has been updated to version " + messagesVersion + ", this should have happened seamlessly." +
+                    " You might want to check that it is still configured the way you would like and set new values");
         }
     }
 

@@ -34,6 +34,8 @@ public class FileDownloader {
      *
      * @param url  The URL of the file
      * @param dest Where you want the file saved
+     * @return returns itself since it's an initializer
+     * @throws IOException if the download fails
      */
     public FileDownloader downloadFile(URL url, File dest) throws IOException {
         dest.createNewFile();

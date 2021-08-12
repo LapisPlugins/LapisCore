@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Benjamin Martin
+ * Copyright 2021 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -163,10 +163,23 @@ public abstract class LapisCoreCommand extends BukkitCommand {
         return true;
     }
 
+    /**
+     * This is here to allow legacy commands to be moved over to this API easily
+     *
+     * @param sender       The sender of the command, could be a player or console
+     * @param commandLabel The string representation of the form of the command being used
+     * @param args         The arguments provided with the command
+     */
     protected void onCommand(CommandSender sender, String commandLabel, String[] args) {
         onCommand(sender, args);
     }
 
+    /**
+     * Implement this to process commands
+     *
+     * @param sender The sender of the command, could be a player or console
+     * @param args   The arguments provided with the command
+     */
     protected abstract void onCommand(CommandSender sender, String[] args);
 
     /**

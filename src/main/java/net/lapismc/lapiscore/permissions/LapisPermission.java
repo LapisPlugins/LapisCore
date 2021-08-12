@@ -16,6 +16,9 @@
 
 package net.lapismc.lapiscore.permissions;
 
+/**
+ * This class is used to represent a setting that can be set for each permission
+ */
 public class LapisPermission {
 
     private final String name;

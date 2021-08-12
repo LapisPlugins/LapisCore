@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Benjamin Martin
+ * Copyright 2021 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +24,16 @@ import org.bukkit.event.HandlerList;
  */
 public class LapisCoreEvent extends Event {
 
+    /**
+     * This is a list required by the Spigot API
+     */
     public static HandlerList handlers = new HandlerList();
 
+    /**
+     * Another requirement of the Spigot API
+     *
+     * @return the handler list
+     */
     public static HandlerList getHandlerList() {
         return handlers;
     }

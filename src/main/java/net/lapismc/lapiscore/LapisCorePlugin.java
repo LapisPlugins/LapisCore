@@ -20,15 +20,36 @@ import net.lapismc.lapiscore.utils.LapisCoreFileWatcher;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * An extendable class that adds utility to the core JavaPlugin class
+ */
 public class LapisCorePlugin extends JavaPlugin {
 
     private static LapisCorePlugin instance;
+    /**
+     * The primary color pulled from the config
+     */
     public String primaryColor = ChatColor.GOLD.toString();
+    /**
+     * The secondary color pulled from the config
+     */
     public String secondaryColor = ChatColor.RED.toString();
+    /**
+     * The config management class is registered here so that it can be accessed mainly for message retrieval
+     */
     public LapisCoreConfiguration config;
+    /**
+     * The permission management class is registered here so that it can be accessed throughout the plugin for checking permissions
+     */
     public LapisCorePermissions perms;
+    /**
+     * PLease store your LapisCoreFileWatcher here so that it can be stopped on disable
+     */
     public LapisCoreFileWatcher fileWatcher;
 
+    /**
+     * Used to register the instance of the plugin for static access, this is called by Bukkit when it loads the plugin
+     */
     public LapisCorePlugin() {
         instance = this;
     }
