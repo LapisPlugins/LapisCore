@@ -44,7 +44,7 @@ public class LapisCoreConfigUpdater {
         yaml.set("ConfigVersion", newVersion);
         try {
             yaml.save(f);
-            ConfigUpdater.update(plugin, f.getName(), f, new ArrayList<>(Collections.singleton("Permissions")));
+            ConfigUpdater.update(plugin, f.getName(), f, new ArrayList<>(Collections.singletonList("Permissions")));
         } catch (IOException e) {
             e.printStackTrace();
         }
