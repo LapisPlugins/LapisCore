@@ -23,6 +23,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * This class uses the ConfigUpdater by tchristofferson
@@ -43,7 +44,7 @@ public class LapisCoreConfigUpdater {
         yaml.set("ConfigVersion", newVersion);
         try {
             yaml.save(f);
-            ConfigUpdater.update(plugin, f.getName(), f, new ArrayList<>());
+            ConfigUpdater.update(plugin, f.getName(), f, new ArrayList<>(Collections.singleton("Permissions")));
         } catch (IOException e) {
             e.printStackTrace();
         }
