@@ -24,7 +24,7 @@ plugins {
 
 group = 'net.lapismc'
 archivesBaseName = "LapisCore"
-version = '1.9.2'
+version = '1.9.3'
 description = 'LapisCore'
 sourceCompatibility = '11'
 targetCompatibility = '11'
@@ -42,8 +42,8 @@ repositories {
 
 dependencies {
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
-    implementation 'com.tchristofferson:ConfigUpdater:1.2-SNAPSHOT'
-    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+    implementation 'com.tchristofferson:ConfigUpdater:2.0-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
     compileOnly 'me.clip:placeholderapi:2.10.9'
 }
 
