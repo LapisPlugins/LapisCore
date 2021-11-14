@@ -26,6 +26,7 @@ import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +36,7 @@ public abstract class LapisCoreCommand extends BukkitCommand {
 
     private final LapisCorePlugin core;
     private TabCompleter tabCompleter;
+    private List<String> takenAliases;
 
     /**
      * If in doubt use this constructor
@@ -46,6 +48,8 @@ public abstract class LapisCoreCommand extends BukkitCommand {
      */
     protected LapisCoreCommand(LapisCorePlugin core, String name, String desc, List<String> aliases) {
         this(core, name, desc, aliases, false);
+        takenAliases = new ArrayList<>();
+        CommandRegistry.registerCommand(this);
     }
 
     /**
@@ -63,6 +67,10 @@ public abstract class LapisCoreCommand extends BukkitCommand {
         setDescription(desc);
         setAliases(aliases);
         setupCommand(takeConflicts);
+    }
+
+    public List<String> getTakenAliases() {
+        return takenAliases;
     }
 
     private void setupCommand(boolean takeConflicts) {
@@ -94,12 +102,15 @@ public abstract class LapisCoreCommand extends BukkitCommand {
             if (Bukkit.getPluginCommand(alias) != null) {
                 PluginCommand command = Bukkit.getPluginCommand(alias);
                 command.setExecutor(new LapisCoreCommandExecutor());
+                takenAliases.add(alias);
+                takenAliases.addAll(command.getAliases());
             }
         }
         if (Bukkit.getPluginCommand(getName()) != null) {
             PluginCommand command = Bukkit.getPluginCommand(getName());
             if (!command.getPlugin().equals(core)) {
                 command.setExecutor(new LapisCoreCommandExecutor());
+                takenAliases.addAll(command.getAliases());
             }
         }
     }
