@@ -49,7 +49,6 @@ public abstract class LapisCoreCommand extends BukkitCommand {
     protected LapisCoreCommand(LapisCorePlugin core, String name, String desc, List<String> aliases) {
         this(core, name, desc, aliases, false);
         takenAliases = new ArrayList<>();
-        CommandRegistry.registerCommand(this);
     }
 
     /**
@@ -67,8 +66,14 @@ public abstract class LapisCoreCommand extends BukkitCommand {
         setDescription(desc);
         setAliases(aliases);
         setupCommand(takeConflicts);
+        CommandRegistry.registerCommand(this);
     }
 
+    /**
+     * Get a list of aliases that this command has attempted to override from other plugins
+     *
+     * @return A list of command names as strings
+     */
     public List<String> getTakenAliases() {
         return takenAliases;
     }

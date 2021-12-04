@@ -19,14 +19,28 @@ package net.lapismc.lapiscore.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Place to store the LapisCoreCommands that are registered to each plugin
+ */
 public class CommandRegistry {
 
     private static final List<LapisCoreCommand> registeredCommands = new ArrayList<>();
 
+    /**
+     * Regster a command to this plugin for later retrieval
+     *
+     * @param command The command to be stored
+     */
     public static void registerCommand(LapisCoreCommand command) {
         registeredCommands.add(command);
     }
 
+    /**
+     * Get a LapisCore command registered to this plugin
+     *
+     * @param name The name of the command you wish to get
+     * @return the command by the name given, or null if not found
+     */
     public static LapisCoreCommand getCommand(String name) {
         for (LapisCoreCommand command : registeredCommands) {
             if (command.getName().equalsIgnoreCase(name) || command.getAliases().contains(name)) {
