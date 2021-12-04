@@ -36,7 +36,7 @@ public abstract class LapisCoreCommand extends BukkitCommand {
 
     private final LapisCorePlugin core;
     private TabCompleter tabCompleter;
-    private List<String> takenAliases;
+    private final List<String> takenAliases;
 
     /**
      * If in doubt use this constructor
@@ -48,7 +48,6 @@ public abstract class LapisCoreCommand extends BukkitCommand {
      */
     protected LapisCoreCommand(LapisCorePlugin core, String name, String desc, List<String> aliases) {
         this(core, name, desc, aliases, false);
-        takenAliases = new ArrayList<>();
     }
 
     /**
@@ -63,6 +62,7 @@ public abstract class LapisCoreCommand extends BukkitCommand {
     protected LapisCoreCommand(LapisCorePlugin core, String name, String desc, List<String> aliases, boolean takeConflicts) {
         super(name);
         this.core = core;
+        takenAliases = new ArrayList<>();
         setDescription(desc);
         setAliases(aliases);
         setupCommand(takeConflicts);
