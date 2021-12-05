@@ -17,6 +17,7 @@
 package net.lapismc.lapiscore;
 
 import net.lapismc.lapiscore.utils.LapisCoreFileWatcher;
+import net.lapismc.lapiscore.utils.LapisTaskHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -48,10 +49,16 @@ public class LapisCorePlugin extends JavaPlugin {
     public LapisCoreFileWatcher fileWatcher;
 
     /**
+     * Please use this object to store tasks since it means stopping them all is so easy
+     */
+    public LapisTaskHandler tasks;
+
+    /**
      * Used to register the instance of the plugin for static access, this is called by Bukkit when it loads the plugin
      */
     public LapisCorePlugin() {
         instance = this;
+        tasks = new LapisTaskHandler();
     }
 
     /**
@@ -91,4 +98,8 @@ public class LapisCorePlugin extends JavaPlugin {
         return instance;
     }
 
+    @Override
+    public void onDisable() {
+        tasks.stopALlTasks();
+    }
 }
