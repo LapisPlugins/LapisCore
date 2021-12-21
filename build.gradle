@@ -24,7 +24,7 @@ plugins {
 
 group = 'net.lapismc'
 archivesBaseName = "LapisCore"
-version = '1.9.7'
+version = '1.10.0'
 description = 'LapisCore'
 sourceCompatibility = '11'
 targetCompatibility = '11'
@@ -44,7 +44,7 @@ dependencies {
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
     implementation 'com.tchristofferson:ConfigUpdater:2.0-SNAPSHOT'
     compileOnly 'org.spigotmc:spigot-api:1.18-R0.1-SNAPSHOT'
-    compileOnly 'me.clip:placeholderapi:2.10.10'
+    compileOnly 'me.clip:placeholderapi:2.11.0'
 }
 
 shadowJar {

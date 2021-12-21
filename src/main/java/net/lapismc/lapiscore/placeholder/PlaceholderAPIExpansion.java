@@ -18,7 +18,8 @@ package net.lapismc.lapiscore.placeholder;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import net.lapismc.lapiscore.LapisCorePlugin;
-import org.bukkit.entity.Player;
+import org.bukkit.OfflinePlayer;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Extend this class and implement the abstract methods to implement it
@@ -71,7 +72,7 @@ public abstract class PlaceholderAPIExpansion extends PlaceholderExpansion {
      * @return The name of the author as a String.
      */
     @Override
-    public String getAuthor() {
+    public @NotNull String getAuthor() {
         return plugin.getDescription().getAuthors().toString();
     }
 
@@ -85,7 +86,7 @@ public abstract class PlaceholderAPIExpansion extends PlaceholderExpansion {
      * @return The identifier in {@code %<identifier>_<value>%} as String.
      */
     @Override
-    public String getIdentifier() {
+    public @NotNull String getIdentifier() {
         return plugin.getName();
     }
 
@@ -98,21 +99,19 @@ public abstract class PlaceholderAPIExpansion extends PlaceholderExpansion {
      * @return The version as a String.
      */
     @Override
-    public String getVersion() {
+    public @NotNull String getVersion() {
         return plugin.getDescription().getVersion();
     }
 
     /**
      * This is the method called when a placeholder with our identifier
      * is found and needs a value.
-     * <br>We specify the value identifier in this method.
-     * <br>Since version 2.9.1 can you use OfflinePlayers in your requests.
      *
-     * @param player     A {@link Player Player}.
-     * @param identifier A String containing the identifier/value.
+     * @param offlinePayer A {@link OfflinePlayer Player}.
+     * @param identifier   A String containing the identifier/value.
      * @return possibly-null String of the requested identifier.
      */
     @Override
-    public abstract String onPlaceholderRequest(Player player, String identifier);
+    public abstract String onRequest(OfflinePlayer offlinePayer, @NotNull String identifier);
 }
 

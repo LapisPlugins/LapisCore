@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="Gradle: com.tchristofferson:ConfigUpdater:2.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tchristofferson/ConfigUpdater/2.0-SNAPSHOT/f9a11d05300c965a494c26cc0089eae7020e379d/ConfigUpdater-2.0-SNAPSHOT.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/tchristofferson/ConfigUpdater/2.0-SNAPSHOT/ConfigUpdater-2.0-SNAPSHOT.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

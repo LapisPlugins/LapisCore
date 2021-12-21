@@ -148,7 +148,6 @@ public class LapisCorePermissions {
      * @return Returns true if the value of Permission is greater than 0 otherwise false
      */
     public boolean isPermitted(UUID uuid, LapisPermission permission) {
-        Integer value = getPermissionValue(uuid, permission);
         return getPermissionValue(uuid, permission) > 0;
     }
 
