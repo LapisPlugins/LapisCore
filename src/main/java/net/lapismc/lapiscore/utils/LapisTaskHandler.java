@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Benjamin Martin
+ * Copyright 2022 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ import java.util.List;
 public class LapisTaskHandler {
 
     private final List<BukkitTask> tasks = new ArrayList<>();
+    private final List<Runnable> shutdownTasks = new ArrayList<>();
 
     /**
      * Add a task so that it can be canceled later
@@ -38,12 +39,21 @@ public class LapisTaskHandler {
     }
 
     /**
+     * Adds a task to be run when the plugin is disabled
+     *
+     * @param task The Runnable to run
+     */
+    public void addShutdownTask(Runnable task) {
+        shutdownTasks.add(task);
+    }
+
+
+    /**
      * Should only be called from on disable as it will cancel all registered commands
      */
     public void stopALlTasks() {
-        for (BukkitTask task : tasks) {
-            task.cancel();
-        }
+        tasks.forEach(BukkitTask::cancel);
+        shutdownTasks.forEach(Runnable::run);
     }
 
 }
