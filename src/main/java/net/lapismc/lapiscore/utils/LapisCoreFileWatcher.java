@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Benjamin Martin
+ * Copyright 2022 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,6 +54,14 @@ public class LapisCoreFileWatcher {
             } catch (IOException | InterruptedException e) {
                 core.getLogger().warning(core.getName() + " file watcher has stopped," +
                         " configs wont be reloaded until the server restarts");
+                //Failed to start so we close it all out now
+                stop = true;
+                if (watcher != null) {
+                    try {
+                        watcher.close();
+                    } catch (IOException ignored) {
+                    }
+                }
             } catch (ClosedWatchServiceException ignored) {
             }
         });
@@ -63,6 +71,9 @@ public class LapisCoreFileWatcher {
      * Used to safely stop the file watcher
      */
     public void stop() {
+        //Don't run the stop method if the watcher has already been shutdown e.g. when it fails to start
+        if (stop)
+            return;
         //Stop if the watcher runs
         stop = true;
         //Cancel the runnable

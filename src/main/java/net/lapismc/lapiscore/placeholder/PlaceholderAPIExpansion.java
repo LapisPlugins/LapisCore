@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Benjamin Martin
+ * Copyright 2022 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ package net.lapismc.lapiscore.placeholder;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import net.lapismc.lapiscore.LapisCorePlugin;
 import org.bukkit.OfflinePlayer;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Extend this class and implement the abstract methods to implement it
@@ -72,7 +71,7 @@ public abstract class PlaceholderAPIExpansion extends PlaceholderExpansion {
      * @return The name of the author as a String.
      */
     @Override
-    public @NotNull String getAuthor() {
+    public String getAuthor() {
         return plugin.getDescription().getAuthors().toString();
     }
 
@@ -86,7 +85,7 @@ public abstract class PlaceholderAPIExpansion extends PlaceholderExpansion {
      * @return The identifier in {@code %<identifier>_<value>%} as String.
      */
     @Override
-    public @NotNull String getIdentifier() {
+    public String getIdentifier() {
         return plugin.getName();
     }
 
@@ -99,7 +98,7 @@ public abstract class PlaceholderAPIExpansion extends PlaceholderExpansion {
      * @return The version as a String.
      */
     @Override
-    public @NotNull String getVersion() {
+    public String getVersion() {
         return plugin.getDescription().getVersion();
     }
 
@@ -112,6 +111,6 @@ public abstract class PlaceholderAPIExpansion extends PlaceholderExpansion {
      * @return possibly-null String of the requested identifier.
      */
     @Override
-    public abstract String onRequest(OfflinePlayer offlinePayer, @NotNull String identifier);
+    public abstract String onRequest(OfflinePlayer offlinePayer, String identifier);
 }
 

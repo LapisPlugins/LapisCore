@@ -1,9 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: me.clip:placeholderapi:2.11.0">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/me/clip/placeholderapi/2.11.0/placeholderapi-2.11.0.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.clip/placeholderapi/2.11.0/2e7f1d277a81716c4e5fc6b285297ae582c8b6b5/placeholderapi-2.11.0.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.clip/placeholderapi/2.11.0/f5826fd1c29c6233ce930bb12ea539eae1cfeadb/placeholderapi-2.11.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>
