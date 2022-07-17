@@ -16,6 +16,7 @@
 
 package net.lapismc.lapiscore.utils;
 
+import io.methvin.watcher.DirectoryWatcher;
 import net.lapismc.lapiscore.LapisCorePlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
@@ -33,8 +34,7 @@ import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 public class LapisCoreFileWatcher {
 
     private final LapisCorePlugin core;
-    private BukkitTask task;
-    private WatchService watcher;
+    private DirectoryWatcher watcher;
     private boolean stop;
 
     /**
@@ -44,27 +44,36 @@ public class LapisCoreFileWatcher {
      */
     public LapisCoreFileWatcher(LapisCorePlugin core) {
         this.core = core;
-        start();
+        try {
+            init();
+        } catch (IOException e) {
+            core.getLogger().warning(core.getName() + " file watcher has stopped," +
+                    " configs wont be reloaded until the server restarts");
+            //Failed to start so we close it all out now
+            stop = true;
+            if (watcher != null) {
+                try {
+                    watcher.close();
+                } catch (IOException ignored) {
+                }
+            }
+        }
     }
 
-    private void start() {
-        task = Bukkit.getScheduler().runTaskAsynchronously(core, () -> {
-            try {
-                watcher();
-            } catch (IOException | InterruptedException e) {
-                core.getLogger().warning(core.getName() + " file watcher has stopped," +
-                        " configs wont be reloaded until the server restarts");
-                //Failed to start so we close it all out now
-                stop = true;
-                if (watcher != null) {
-                    try {
-                        watcher.close();
-                    } catch (IOException ignored) {
+    private void init() throws IOException {
+        Path dir = Paths.get(core.getDataFolder().getAbsolutePath());
+        this.watcher = DirectoryWatcher.builder()
+                .path(dir).listener(event -> {
+                    switch (event.eventType()) {
+                        case MODIFY:
+                            if (event.path().toFile().getName().endsWith(".yml")) checkConfig(event.path().toFile());
+                            break;
+                        case DELETE:
+                            if (event.path().toFile().getName().endsWith(".yml")) regenConfig(event.path().toFile());
+                            break;
                     }
-                }
-            } catch (ClosedWatchServiceException ignored) {
-            }
-        });
+                }).build();
+        watcher.watchAsync();
     }
 
     /**
@@ -76,8 +85,6 @@ public class LapisCoreFileWatcher {
             return;
         //Stop if the watcher runs
         stop = true;
-        //Cancel the runnable
-        task.cancel();
         //Stopping the watcher will stop the thread
         try {
             watcher.close();
@@ -85,47 +92,16 @@ public class LapisCoreFileWatcher {
         }
     }
 
-    private void watcher() throws IOException, InterruptedException {
-        watcher = FileSystems.getDefault().newWatchService();
-        Path dir = Paths.get(core.getDataFolder().getAbsolutePath());
-        dir.register(watcher, ENTRY_DELETE, ENTRY_MODIFY);
-        core.getLogger().info(core.getName() + " file watcher started!");
-        WatchKey key = watcher.take();
-        while (key != null && !stop) {
-            for (WatchEvent<?> event : key.pollEvents()) {
-                WatchEvent.Kind<?> kind = event.kind();
-                @SuppressWarnings("unchecked")
-                WatchEvent<Path> ev = (WatchEvent<Path>) event;
-                Path fileName = ev.context();
-                File f = fileName.toFile();
-                if (kind == ENTRY_DELETE) {
-                    if (f.getName().endsWith(".yml")) {
-                        String name = f.getName().replace(".yml", "");
-                        switch (name) {
-                            case "config":
-                                core.saveDefaultConfig();
-                                core.reloadConfig();
-                                break;
-                            case "messages":
-                                core.config.generateConfigs();
-                                break;
-                        }
-                    }
-                } else if (kind == ENTRY_MODIFY) {
-                    if (f.getName().endsWith(".yml")) {
-                        checkConfig(f);
-                    }
-                }
-            }
-            key.reset();
-            if (!stop) {
-                try {
-                    key = watcher.take();
-                } catch (ClosedWatchServiceException ignored) {
-                    //This is us stopping the watcher service
-                    return;
-                }
-            }
+    private void regenConfig(File f) {
+        String name = f.getName().replace(".yml", "");
+        switch (name) {
+            case "config":
+                core.saveDefaultConfig();
+                core.reloadConfig();
+                break;
+            case "messages":
+                core.config.generateConfigs();
+                break;
         }
     }
 

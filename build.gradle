@@ -24,7 +24,7 @@ plugins {
 
 group = 'net.lapismc'
 archivesBaseName = "LapisCore"
-version = '1.11.0'
+version = '1.11.1'
 description = 'LapisCore'
 sourceCompatibility = '11'
 targetCompatibility = '11'
@@ -41,15 +41,23 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.google.code.findbugs:jsr305:3.0.2'
-    implementation 'com.tchristofferson:ConfigUpdater:2.0-SNAPSHOT'
+    compile 'com.tchristofferson:ConfigUpdater:2.0-SNAPSHOT'
+    compile 'io.methvin:directory-watcher-core:2.0'
     compileOnly 'org.spigotmc:spigot-api:1.18-R0.1-SNAPSHOT'
     compileOnly 'me.clip:placeholderapi:2.11.0'
     compileOnly 'net.luckperms:api:5.4'
 }
 
 shadowJar {
-    relocate('com.google.code', 'net.lapismc.google.code')
+    archiveFileName.set(archivesBaseName + "-" + project.getVersion() + ".jar")
+    exclude 'javax/**'
+    relocate('com.tchristofferson.configupdater', 'net.lapismc.lapiscore.utils.configupdater')
+    //File Watcher
+    relocate('io.methvin', 'net.lapismc.lapiscore.utils.filewatcher')
+    //Remove all the dependencies that get brought back outside of relocate
+    exclude 'com/**'
+    exclude 'org/**'
+    exclude 'licenses/**'
 }
 
 javadoc {

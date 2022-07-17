@@ -10,7 +10,10 @@
       </option>
       <option name="taskNames">
         <list>
+          <option value="clean" />
           <option value="build" />
+          <option value="shadowJar" />
+          <option value="signArchives" />
           <option value="install" />
         </list>
       </option>
