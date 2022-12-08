@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Benjamin Martin
+ * Copyright 2022 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ package net.lapismc.lapiscore.permissions;
 public class LapisPermission {
 
     private final String name;
-    private int defaultValue = 0;
+    private final int defaultValue;
 
     /**
      * Create a permission with the given name
@@ -30,7 +30,7 @@ public class LapisPermission {
      * @param name This name will be used to find values in the config.yml
      */
     public LapisPermission(String name) {
-        this.name = name;
+        this(name, 0);
     }
 
     /**

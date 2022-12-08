@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Benjamin Martin
+ * Copyright 2022 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 package net.lapismc.lapiscore.utils;
 
-import net.lapismc.lapiscore.compatibility.XMaterial;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
@@ -52,7 +51,7 @@ public class LapisItemBuilder {
      * @param offlinePlayer The owner of the head
      */
     public LapisItemBuilder(OfflinePlayer offlinePlayer) {
-        mat = XMaterial.PLAYER_HEAD.parseMaterial();
+        mat = Material.PLAYER_HEAD;
         owner = offlinePlayer;
     }
 
@@ -108,9 +107,7 @@ public class LapisItemBuilder {
      * @return The new {@link LapisItemBuilder}
      */
     public LapisItemBuilder setWoolColor(WoolColor color) {
-        XMaterial compMat = XMaterial.matchXMaterial(color.name() + "_WOOL").get();
-        mat = compMat.parseMaterial();
-        data = compMat.getData();
+        mat = Material.getMaterial(color.name() + "_WOOL");
         return this;
     }
 
