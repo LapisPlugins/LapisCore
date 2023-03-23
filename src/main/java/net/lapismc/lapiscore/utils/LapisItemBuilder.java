@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Benjamin Martin
+ * Copyright 2023 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.material.MaterialData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +29,6 @@ import java.util.List;
 public class LapisItemBuilder {
 
     Material mat;
-    byte data = 0;
     String name = "";
     int amount = 1;
     OfflinePlayer owner;
@@ -118,14 +116,9 @@ public class LapisItemBuilder {
      */
     public ItemStack build() {
         ItemStack i = new ItemStack(mat);
-        if (data != 0) {
-            MaterialData matData = new MaterialData(mat);
-            matData.setData(data);
-            i.setData(matData);
-        }
         ItemMeta meta = i.getItemMeta();
         if (meta != null) {
-            if (!name.equals("")) {
+            if (name != null && !name.equals("")) {
                 meta.setDisplayName(name);
             }
             if (owner != null && meta instanceof SkullMeta) {

@@ -43,8 +43,8 @@ repositories {
 dependencies {
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
     implementation 'com.tchristofferson:ConfigUpdater:2.0-SNAPSHOT'
-    compileOnly 'org.spigotmc:spigot-api:1.18-R0.1-SNAPSHOT'
-    compileOnly 'me.clip:placeholderapi:2.11.0'
+    compileOnly 'org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT'
+    compileOnly 'me.clip:placeholderapi:2.11.2'
     compileOnly 'net.luckperms:api:5.4'
 }
 
