@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Benjamin Martin
+ * Copyright 2023 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -98,8 +98,20 @@ public class LapisCorePlugin extends JavaPlugin {
         return instance;
     }
 
+    /**
+     * A default onEnable to send a success message, can be called with using super key word
+     */
+    @Override
+    public void onEnable() {
+        getLogger().info(getName() + " v." + getDescription().getVersion() + " has been enabled!");
+    }
+
+    /**
+     * A default onDisable to stop all tasks and send a success message, can be called with using super key word
+     */
     @Override
     public void onDisable() {
         tasks.stopALlTasks();
+        getLogger().info(getName() + " has been enabled!");
     }
 }
