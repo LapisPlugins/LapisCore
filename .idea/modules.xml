@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/LapisCore.iml" filepath="$PROJECT_DIR$/.idea/modules/LapisCore.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/LapisCore.main.iml" filepath="$PROJECT_DIR$/.idea/modules/LapisCore.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/LapisCore.test.iml" filepath="$PROJECT_DIR$/.idea/modules/LapisCore.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/net.lapismc.LapisCore.test.iml" filepath="$PROJECT_DIR$/.idea/modules/net.lapismc.LapisCore.test.iml" />
     </modules>
   </component>
 </project>

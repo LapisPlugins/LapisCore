@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Benjamin Martin
+ * Copyright 2023 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,6 +36,15 @@ public class LapisTaskHandler {
      */
     public void addTask(BukkitTask task) {
         tasks.add(task);
+    }
+
+    /**
+     * Remove a task, this should be used if you manually cancel a task
+     *
+     * @param task The task to remove
+     */
+    public void removeTask(BukkitTask task) {
+        tasks.remove(task);
     }
 
     /**
