@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Benjamin Martin
+ * Copyright 2023 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -148,14 +148,15 @@ public abstract class LapisCoreCommand extends BukkitCommand {
     }
 
     /**
-     * Send a message from the messages.yml to the command sender provided,
+     * Send message(s) from the messages.yml to the command sender provided,
      * requires {@link LapisCoreConfiguration} to be registered in {@link LapisCorePlugin}
      *
      * @param sender The command sender who you wish to send a message to
-     * @param key    The key for the message in the messages.yml
+     * @param keys   The keys for the messages in the messages.yml
      */
-    protected void sendMessage(CommandSender sender, String key) {
-        sender.sendMessage(core.config.getMessage(key));
+    protected void sendMessage(CommandSender sender, String... keys) {
+        for (String key : keys)
+            sender.sendMessage(core.config.getMessage(key));
     }
 
     /**

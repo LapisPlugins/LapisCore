@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: com.tchristofferson:ConfigUpdater:2.0-SNAPSHOT">
+  <library name="Gradle: com.tchristofferson:ConfigUpdater:2.0-SNAPSHOT" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/com/tchristofferson/ConfigUpdater/2.0-SNAPSHOT/ConfigUpdater-2.0-SNAPSHOT.jar!/" />
     </CLASSES>
