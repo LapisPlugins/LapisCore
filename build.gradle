@@ -17,9 +17,9 @@
 plugins {
     id 'java'
     id 'maven'
+    id 'maven-publish'
     id 'signing'
     id "com.github.johnrengelman.shadow" version "5.2.0"
-    id 'io.codearte.nexus-staging' version '0.30.0'
 }
 
 group = 'net.lapismc'
@@ -73,59 +73,28 @@ artifacts {
     archives javadocJar, sourcesJar
 }
 
-signing {
-    useGpgCmd()
-    sign configurations.archives
-}
-
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-nexusStaging {
-    packageGroup = "net.lapismc" //optional if packageGroup == project.getGroup()
+java {
+    withSourcesJar()
+    withJavadocJar()
 }
 
-uploadArchives {
+publishing {
+    publications {
+        shadow(MavenPublication) {
+            from components.java
+        }
+    }
     repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-
-            pom.project {
-                name 'LapisCore'
-                packaging 'jar'
-                // optionally artifactId can be defined here
-                description 'The core library for my plugins'
-                url 'https://github.com/LapisPlugins/LapisCore'
-
-                scm {
-                    connection 'git@github.com:LapisPlugins/LapisCore.git'
-                    developerConnection 'git@github.com:LapisPlugins/LapisCore.git'
-                    url 'https://github.com/LapisPlugins/LapisCore'
-                }
-
-                licenses {
-                    license {
-                        name 'The Apache License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id 'Dart2112'
-                        name 'Benjamin Martin'
-                        email 'dart2112@lapismc.net'
-                    }
-                }
+        maven {
+            name 'nexus'
+            url "https://nexus.dnablue2112.com/repository/maven-releases/"
+            credentials {
+                username repoUser
+                password repoPassword
             }
         }
     }
