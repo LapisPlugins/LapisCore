@@ -15,10 +15,10 @@ Simply use the LapisCore repo and dependency and Maven or Gradle will fetch the 
 Declare Repo:
 
 ```
-    maven {
-        name = "lapismc-repo"
-        url = "https://maven.lapismc.net/repository/maven/"
-    }
+maven {
+    name = "lapismc-repo"
+    url = "https://maven.lapismc.net/repository/maven/"
+}
 ```
 
 Declare Dependency:
@@ -33,10 +33,10 @@ dependencies {
 Declare Repo:
 
 ```
-        <repository>
-            <id>lapismc-repo</id>
-            <url>https://maven.lapismc.net/repository/maven/</url>
-        </repository>
+<repository>
+    <id>lapismc-repo</id>
+    <url>https://maven.lapismc.net/repository/maven/</url>
+</repository>
 ```
 
 Declare Dependency:
