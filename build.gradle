@@ -16,24 +16,25 @@
 
 plugins {
     id 'java'
-    id 'maven'
     id 'maven-publish'
-    id 'signing'
-    id "com.github.johnrengelman.shadow" version "5.2.0"
 }
 
 group = 'net.lapismc'
 archivesBaseName = "LapisCore"
-version = '1.12.6'
+version = '1.12.7'
 description = 'LapisCore'
-sourceCompatibility = '11'
-targetCompatibility = '11'
+sourceCompatibility = '17'
+targetCompatibility = '17'
 
 repositories {
     mavenCentral()
-    mavenLocal()
     maven {
         url = uri('https://hub.spigotmc.org/nexus/content/groups/public/')
+    }
+    //Personal Repo
+    maven {
+        name = "lapismc-repo"
+        url = "https://maven.lapismc.net/repository/maven/"
     }
     maven {
         url = uri('https://repo.extendedclip.com/content/repositories/placeholderapi/')
@@ -41,15 +42,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.google.code.findbugs:jsr305:3.0.2'
     implementation 'com.tchristofferson:ConfigUpdater:2.1'
-    compileOnly 'org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT'
     compileOnly 'me.clip:placeholderapi:2.11.4'
     compileOnly 'net.luckperms:api:5.4'
-}
-
-shadowJar {
-    relocate('com.google.code', 'net.lapismc.google.code')
 }
 
 javadoc {
