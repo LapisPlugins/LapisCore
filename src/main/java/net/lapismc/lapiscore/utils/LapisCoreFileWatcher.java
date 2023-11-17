@@ -18,8 +18,9 @@ package net.lapismc.lapiscore.utils;
 
 import net.lapismc.lapiscore.LapisCorePlugin;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.scheduler.BukkitTask;
-import org.yaml.snakeyaml.scanner.ScannerException;
 
 import java.io.File;
 import java.io.IOException;
@@ -134,25 +135,30 @@ public class LapisCoreFileWatcher {
     private void checkConfig(File f) {
         String name = f.getName().replace(".yml", "");
         try {
-            switch (name) {
-                case "config":
-                    core.reloadConfig();
-                    if (core.perms != null)
-                        core.perms.loadPermissions();
-                    core.getLogger().info("Changes made to the " + core.getName() + " config have been loaded");
-                    break;
-                case "messages":
-                    core.config.reloadMessages();
-                    core.getLogger().info("Changes made to " + core.getName() + " messages.yml have been loaded");
-                    break;
-                default:
-                    checkOtherFile(f);
-            }
-        } catch (ScannerException e) {
+            //Get the actual file path
+            File file = new File(core.getDataFolder().getAbsolutePath(), f.getPath());
+            //Try loading it to see if the config is valid before we continue
+            new YamlConfiguration().load(file);
+        } catch (InvalidConfigurationException | IOException e) {
+            //Display an error and do not continue to load it, this allows the end user to fix the issue and try again
             core.getLogger().warning("An error occurred loading changes to " + f.getName() + "!");
             core.getLogger().warning("See the below stack trace:");
             e.printStackTrace();
             return;
+        }
+        switch (name) {
+            case "config":
+                core.reloadConfig();
+                if (core.perms != null)
+                    core.perms.loadPermissions();
+                core.getLogger().info("Changes made to the " + core.getName() + " config have been loaded");
+                break;
+            case "messages":
+                core.config.reloadMessages();
+                core.getLogger().info("Changes made to " + core.getName() + " messages.yml have been loaded");
+                break;
+            default:
+                checkOtherFile(f);
         }
         fileUpdate(f);
     }
