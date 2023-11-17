@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Benjamin Martin
+ * Copyright 2023 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ package net.lapismc.lapiscore.utils;
 import net.lapismc.lapiscore.LapisCorePlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
+import org.yaml.snakeyaml.scanner.ScannerException;
 
 import java.io.File;
 import java.io.IOException;
@@ -65,6 +66,7 @@ public class LapisCoreFileWatcher {
             } catch (ClosedWatchServiceException ignored) {
             }
         });
+        core.tasks.addShutdownTask(this::stop);
     }
 
     /**
@@ -131,19 +133,26 @@ public class LapisCoreFileWatcher {
 
     private void checkConfig(File f) {
         String name = f.getName().replace(".yml", "");
-        switch (name) {
-            case "config":
-                core.reloadConfig();
-                if (core.perms != null)
-                    core.perms.loadPermissions();
-                core.getLogger().info("Changes made to the " + core.getName() + " config have been loaded");
-                break;
-            case "messages":
-                core.config.reloadMessages();
-                core.getLogger().info("Changes made to " + core.getName() + " messages.yml have been loaded");
-                break;
-            default:
-                checkOtherFile(f);
+        try {
+            switch (name) {
+                case "config":
+                    core.reloadConfig();
+                    if (core.perms != null)
+                        core.perms.loadPermissions();
+                    core.getLogger().info("Changes made to the " + core.getName() + " config have been loaded");
+                    break;
+                case "messages":
+                    core.config.reloadMessages();
+                    core.getLogger().info("Changes made to " + core.getName() + " messages.yml have been loaded");
+                    break;
+                default:
+                    checkOtherFile(f);
+            }
+        } catch (ScannerException e) {
+            core.getLogger().warning("An error occurred loading changes to " + f.getName() + "!");
+            core.getLogger().warning("See the below stack trace:");
+            e.printStackTrace();
+            return;
         }
         fileUpdate(f);
     }
