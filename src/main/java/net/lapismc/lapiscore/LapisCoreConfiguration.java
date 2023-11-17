@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Benjamin Martin
+ * Copyright 2023 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,9 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,13 +50,17 @@ public class LapisCoreConfiguration {
      * @param configVersion   The current config version for the config.yml
      * @param messagesVersion The current config version for the messages.yml
      */
-    public LapisCoreConfiguration(LapisCorePlugin core, int configVersion, int messagesVersion) {
+    public LapisCoreConfiguration(LapisCorePlugin core, int configVersion, int messagesVersion, List<String> ignoredSections) {
         this.core = core;
         this.configVersion = configVersion;
         this.messagesVersion = messagesVersion;
         messagesFile = new File(core.getDataFolder() + File.separator + "messages.yml");
         generateConfigs();
-        checkConfigVersions();
+        checkConfigVersions(ignoredSections);
+    }
+
+    public LapisCoreConfiguration(LapisCorePlugin core, int configVersion, int messagesVersion) {
+        this(core, configVersion, messagesVersion, new ArrayList<>(Collections.singletonList("Permissions")));
     }
 
     /**
@@ -94,15 +101,15 @@ public class LapisCoreConfiguration {
         core.secondaryColor = colorMessage(messages.getString("SecondaryColor", ChatColor.RED.toString()));
     }
 
-    private void checkConfigVersions() {
+    private void checkConfigVersions(List<String> ignoredSections) {
         if (core.getConfig().getInt("ConfigVersion") != configVersion) {
-            new LapisCoreConfigUpdater(core, configVersion, new File(core.getDataFolder(), "config.yml"));
+            new LapisCoreConfigUpdater(core, configVersion, new File(core.getDataFolder(), "config.yml"), ignoredSections);
             core.reloadConfig();
             core.getLogger().info("The config has been updated to version " + configVersion + ", this should have happened seamlessly." +
                     " You might want to check that it is still configured the way you would like and set new values");
         }
         if (messages.getInt("ConfigVersion") != messagesVersion) {
-            new LapisCoreConfigUpdater(core, messagesVersion, new File(core.getDataFolder(), "messages.yml"));
+            new LapisCoreConfigUpdater(core, messagesVersion, new File(core.getDataFolder(), "messages.yml"), new ArrayList<>());
             reloadMessages();
             core.getLogger().info("The messages yaml has been updated to version " + messagesVersion + ", this should have happened seamlessly." +
                     " You might want to check that it is still configured the way you would like and set new values");

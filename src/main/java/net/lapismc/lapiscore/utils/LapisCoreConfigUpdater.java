@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Benjamin Martin
+ * Copyright 2023 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
 
 /**
  * This class uses the ConfigUpdater by tchristofferson
@@ -39,12 +38,12 @@ public class LapisCoreConfigUpdater {
      * @param newVersion The new ConfigVersion that we are upgrading to
      * @param f          The file we are updating
      */
-    public LapisCoreConfigUpdater(LapisCorePlugin plugin, int newVersion, File f) {
+    public LapisCoreConfigUpdater(LapisCorePlugin plugin, int newVersion, File f, List<String> ignoredSections) {
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
         yaml.set("ConfigVersion", newVersion);
         try {
             yaml.save(f);
-            ConfigUpdater.update(plugin, f.getName(), f, new ArrayList<>(Collections.singletonList("Permissions")));
+            ConfigUpdater.update(plugin, f.getName(), f, ignoredSections);
         } catch (IOException e) {
             e.printStackTrace();
         }
