@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Benjamin Martin
+ * Copyright 2023 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,32 +16,46 @@
 
 package net.lapismc.lapiscore.utils.luckperms;
 
-import net.lapismc.lapiscore.LapisCorePlugin;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.context.ContextManager;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class for dealing with LuckPerms Contexts
+ */
 public class LapisCoreContexts {
 
     private final ContextManager contextManager;
     private final List<LapisCoreContextCalculator<Player>> registeredCalculators = new ArrayList<>();
 
-    public LapisCoreContexts(LapisCorePlugin plugin) {
-        LuckPerms luckPerms = plugin.getServer().getServicesManager().load(LuckPerms.class);
+    /**
+     * Sets us up to manage contexts on the server if LuckPerms is installed
+     */
+    public LapisCoreContexts() {
+        LuckPerms luckPerms = Bukkit.getServer().getServicesManager().load(LuckPerms.class);
         if (luckPerms == null) {
             throw new IllegalStateException("LuckPerms API not loaded.");
         }
         this.contextManager = luckPerms.getContextManager();
     }
 
+    /**
+     * Register a context calculator with LuckPerms, be sure to call {@link #unregisterAll()} on disable
+     *
+     * @param calculator The calculator you wish to register
+     */
     public void registerContext(LapisCoreContextCalculator<Player> calculator) {
         contextManager.registerCalculator(calculator);
         registeredCalculators.add(calculator);
     }
 
+    /**
+     * Unregisters all contexts being managed by this class
+     */
     public void unregisterAll() {
         registeredCalculators.forEach(contextManager::unregisterCalculator);
         registeredCalculators.clear();

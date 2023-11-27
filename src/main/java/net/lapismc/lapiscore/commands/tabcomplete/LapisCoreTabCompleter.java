@@ -25,10 +25,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * A class to handle dynamic and complex tab completions for @{@link LapisCoreCommand} classes
+ */
 public class LapisCoreTabCompleter implements TabCompleter {
 
     HashMap<LapisCoreCommand, List<LapisTabOption>> topLevelOptions = new HashMap<>();
 
+    /**
+     * Register the top level options for the given command
+     *
+     * @param command The command that these completions should be shown on
+     * @param options The top level options for this command, children should be stored within each option
+     */
     public void registerTopLevelOptions(LapisCoreCommand command, List<LapisTabOption> options) {
         topLevelOptions.put(command, options);
     }

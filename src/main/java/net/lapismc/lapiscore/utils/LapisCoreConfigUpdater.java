@@ -27,16 +27,17 @@ import java.util.List;
 /**
  * This class uses the ConfigUpdater by tchristofferson
  * This project can be found here
- * https://github.com/tchristofferson/Config-Updater
+ * <a href="https://github.com/tchristofferson/Config-Updater">Config Updater</a>
  */
 public class LapisCoreConfigUpdater {
 
     /**
      * Adds new keys to configs without loosing comments
      *
-     * @param plugin     The plugin where the configs are stored
-     * @param newVersion The new ConfigVersion that we are upgrading to
-     * @param f          The file we are updating
+     * @param plugin          The plugin where the configs are stored
+     * @param newVersion      The new ConfigVersion that we are upgrading to
+     * @param f               The file we are updating
+     * @param ignoredSections A list of config sections that should be ignored when updating the config
      */
     public LapisCoreConfigUpdater(LapisCorePlugin plugin, int newVersion, File f, List<String> ignoredSections) {
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);

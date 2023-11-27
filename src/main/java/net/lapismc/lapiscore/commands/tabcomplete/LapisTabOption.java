@@ -20,10 +20,26 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
+/**
+ * This interface provides a structure for command completion levels with the ability to dynamically fetch options and their children
+ * This allows very complex and adaptable command completions including permission based completions
+ */
 public interface LapisTabOption {
 
+    /**
+     * Get a list of strings that should be displayed as options in the tab complete menu
+     *
+     * @param sender The CommandSender typing a command
+     * @return A list of Strings which represent possible command arguments
+     */
     List<String> getOptions(CommandSender sender);
 
+    /**
+     * Get the children of this option, these are LapisTabOption classes which may have their own children
+     *
+     * @param sender The CommandSender typing a command
+     * @return A list of @{@link LapisTabOption} classes which represent the possible child options of the current option
+     */
     List<LapisTabOption> getChildren(CommandSender sender);
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Benjamin Martin
+ * Copyright 2023 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,21 @@ package net.lapismc.lapiscore.utils.luckperms;
 import net.lapismc.lapiscore.LapisCorePlugin;
 import net.luckperms.api.context.ContextCalculator;
 
+/**
+ * An abstract class for implementing LuckPerms contexts on players
+ *
+ * @param <Player> Player since these contexts are to be applied to players
+ */
 public abstract class LapisCoreContextCalculator<Player> implements ContextCalculator<Player> {
 
+    /**
+     * Plugin instance to be used by the implementing class
+     */
     protected LapisCorePlugin plugin;
 
+    /**
+     * Simple constructor that sets the plugin object to the core plugin instance
+     */
     public LapisCoreContextCalculator() {
         this.plugin = LapisCorePlugin.getInstance();
     }

@@ -49,6 +49,7 @@ public class LapisCoreConfiguration {
      * @param core            The LapisCorePlugin that the files should be loaded for
      * @param configVersion   The current config version for the config.yml
      * @param messagesVersion The current config version for the messages.yml
+     * @param ignoredSections A list of config sections that should be ignored when updating the config
      */
     public LapisCoreConfiguration(LapisCorePlugin core, int configVersion, int messagesVersion, List<String> ignoredSections) {
         this.core = core;
@@ -59,6 +60,13 @@ public class LapisCoreConfiguration {
         checkConfigVersions(ignoredSections);
     }
 
+    /**
+     * Register the configurations and generate them
+     *
+     * @param core            The LapisCorePlugin that the files should be loaded for
+     * @param configVersion   The current config version for the config.yml
+     * @param messagesVersion The current config version for the messages.yml
+     */
     public LapisCoreConfiguration(LapisCorePlugin core, int configVersion, int messagesVersion) {
         this(core, configVersion, messagesVersion, new ArrayList<>(Collections.singletonList("Permissions")));
     }
