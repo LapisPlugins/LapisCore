@@ -9,10 +9,7 @@
         <list />
       </option>
       <option name="taskNames">
-        <list>
-          <option value="clean" />
-          <option value="build" />
-        </list>
+        <list />
       </option>
       <option name="vmOptions" value="" />
     </ExternalSystemSettings>

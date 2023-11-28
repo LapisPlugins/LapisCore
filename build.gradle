@@ -25,6 +25,7 @@ version = '1.12.10'
 description = 'LapisCore'
 sourceCompatibility = '17'
 targetCompatibility = '17'
+defaultTasks 'clean', 'build'
 
 repositories {
     mavenCentral()
