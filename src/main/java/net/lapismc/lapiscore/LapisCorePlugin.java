@@ -112,6 +112,6 @@ public class LapisCorePlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         tasks.stopALlTasks();
-        getLogger().info(getName() + " has been enabled!");
+        getLogger().info(getName() + " has been disabled!");
     }
 }
