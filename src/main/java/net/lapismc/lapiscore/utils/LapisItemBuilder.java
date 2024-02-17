@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Benjamin Martin
+ * Copyright 2024 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,6 +36,7 @@ public class LapisItemBuilder {
     int amount = 1;
     OfflinePlayer owner;
     PotionType potionType;
+    int modelData = 0;
     List<String> lore = new ArrayList<>();
 
     /**
@@ -125,6 +126,17 @@ public class LapisItemBuilder {
     }
 
     /**
+     * Set the custom model data value, used for applying models from resource packs
+     *
+     * @param modelData An integer specifying which model to use for this item
+     * @return the new {@link LapisItemBuilder}
+     */
+    public LapisItemBuilder setCustomModelData(int modelData) {
+        this.modelData = modelData;
+        return this;
+    }
+
+    /**
      * Build the item based on the set variables in the builder
      *
      * @return the ItemStack requested
@@ -144,6 +156,9 @@ public class LapisItemBuilder {
             }
             if (!lore.isEmpty()) {
                 meta.setLore(lore);
+            }
+            if (modelData != 0) {
+                meta.setCustomModelData(modelData);
             }
             i.setItemMeta(meta);
         }

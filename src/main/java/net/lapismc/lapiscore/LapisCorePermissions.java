@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Benjamin Martin
+ * Copyright 2024 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
- * This class handles the complex custom permission system that LapisCore
+ * This class handles the complex custom permission system that LapisCore uses
  */
 public class LapisCorePermissions {
 

@@ -21,7 +21,7 @@ plugins {
 
 group = 'net.lapismc'
 archivesBaseName = "LapisCore"
-version = '1.12.11'
+version = '1.12.12'
 description = 'LapisCore'
 sourceCompatibility = '17'
 targetCompatibility = '17'
