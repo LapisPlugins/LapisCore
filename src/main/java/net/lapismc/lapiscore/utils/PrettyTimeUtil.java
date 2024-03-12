@@ -25,10 +25,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * A util class to allow formatting time in a human-readable way using the PrettyTime API
+ */
 public class PrettyTimeUtil {
 
     private final PrettyTime prettyTime;
 
+    /**
+     * Initialize the PrettyTime API with your own locale
+     *
+     * @param locale        The locale that PrettyTime should use
+     * @param removeJustNow Should "Just Now" be removed as a time unit
+     */
     public PrettyTimeUtil(String locale, boolean removeJustNow) {
         Locale loc = new Locale(locale);
         prettyTime = new PrettyTime(loc);
@@ -37,10 +46,18 @@ public class PrettyTimeUtil {
         prettyTime.removeUnit(Millisecond.class);
     }
 
+    /**
+     * Initialize the PrettyTime API with your own locale
+     *
+     * @param locale The locale that PrettyTime should use
+     */
     public PrettyTimeUtil(String locale) {
         this(locale, true);
     }
 
+    /**
+     * Initialize with defaults of English and JustNow disabled
+     */
     public PrettyTimeUtil() {
         this("en", true);
     }
