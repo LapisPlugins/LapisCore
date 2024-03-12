@@ -17,11 +17,12 @@
 plugins {
     id 'java'
     id 'maven-publish'
+    //TODO: Maybe include shadow to do PrettyTime and ConfigUpdater
 }
 
 group = 'net.lapismc'
 archivesBaseName = "LapisCore"
-version = '1.12.12'
+version = '1.12.13'
 description = 'LapisCore'
 sourceCompatibility = '17'
 targetCompatibility = '17'
@@ -44,6 +45,7 @@ repositories {
 
 dependencies {
     implementation 'com.tchristofferson:ConfigUpdater:2.1'
+    implementation 'org.ocpsoft.prettytime:prettytime:5.0.7.Final'
     compileOnly 'org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT'
     compileOnly 'me.clip:placeholderapi:2.11.4'
     compileOnly 'net.luckperms:api:5.4'
