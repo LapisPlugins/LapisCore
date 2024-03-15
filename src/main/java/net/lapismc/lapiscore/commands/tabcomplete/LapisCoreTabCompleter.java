@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Benjamin Martin
+ * Copyright 2024 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package net.lapismc.lapiscore.commands.tabcomplete;
 
+import net.lapismc.lapiscore.commands.CommandRegistry;
 import net.lapismc.lapiscore.commands.LapisCoreCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -44,11 +45,35 @@ public class LapisCoreTabCompleter implements TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        LapisCoreCommand cmd = null;
+        //Find which LapisCore Command this command is meant to be
         if (!(command instanceof LapisCoreCommand)) {
-            return null;
+            //It's a command we have taken the alias of, we need to find our command class
+            for (LapisCoreCommand possibleCommand : CommandRegistry.getAllCommands()) {
+                if (command.getName().equalsIgnoreCase(possibleCommand.getName())) {
+                    //The commands name matches, so we know this is the correct command
+                    cmd = possibleCommand;
+                    break;
+                }
+                for (String takenAlias : possibleCommand.getTakenAliases()) {
+                    if (takenAlias.equalsIgnoreCase(command.getName())) {
+                        //The alias matches one that we took, so we know this is the correct command
+                        cmd = possibleCommand;
+                        break;
+                    }
+                }
+                //The command was found in the alias loop, so we break here to save searching other commands
+                if (cmd != null)
+                    break;
+            }
+            //We couldn't find the command
+            if (cmd == null)
+                return null;
+        } else {
+            cmd = (LapisCoreCommand) command;
         }
         List<String> result = new ArrayList<>();
-        List<LapisTabOption> options = topLevelOptions.get(command);
+        List<LapisTabOption> options = topLevelOptions.get(cmd);
         //If args length is 0, then they haven't typed any arguments at all yet, so we just show all top level options
         if (args.length == 0) {
             for (LapisTabOption option : options) {

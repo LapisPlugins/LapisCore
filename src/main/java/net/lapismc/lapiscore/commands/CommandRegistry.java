@@ -50,4 +50,14 @@ public class CommandRegistry {
         return null;
     }
 
+    /**
+     * Get all the commands that have been registered using this CommandRegistry
+     * This means it's probably only commands from this plugin
+     *
+     * @return a list of all registered LapisCoreCommands
+     */
+    public static List<LapisCoreCommand> getAllCommands() {
+        return registeredCommands;
+    }
+
 }

@@ -42,7 +42,7 @@ public abstract class LapisCoreCommand extends BukkitCommand {
      * If in doubt use this constructor
      *
      * @param core    The {@link LapisCorePlugin} that the command should be registered to
-     * @param name    The name of the command, this wont include the slash
+     * @param name    The name of the command, this won't include the slash
      * @param desc    The description for the /help menu
      * @param aliases Any aliases that should run this command
      */
