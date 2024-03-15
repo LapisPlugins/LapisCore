@@ -18,15 +18,16 @@ plugins {
     id 'java'
     id 'maven-publish'
     //TODO: Maybe include shadow to do PrettyTime and ConfigUpdater
+    id "com.github.johnrengelman.shadow" version "8.1.1"
 }
 
 group = 'net.lapismc'
 archivesBaseName = "LapisCore"
-version = '1.12.15'
+version = '1.12.17'
 description = 'LapisCore'
 sourceCompatibility = '17'
 targetCompatibility = '17'
-defaultTasks 'clean', 'build'
+defaultTasks 'clean', 'build', 'shadow'
 
 repositories {
     mavenCentral()
@@ -56,6 +57,13 @@ javadoc {
     exclude 'net/lapismc/lapiscore/placeholder'
     exclude 'net/lapismc/lapiscore/utils/LapisItemBuilder.java'
     exclude 'net/lapismc/lapiscore/utils/Metrics.java'
+}
+
+shadowJar {
+    archiveFileName.set(archivesBaseName + "-" + project.version + ".jar")
+    exclude 'javax/**'
+    relocate("org.ocpsoft.prettytime", "net.lapismc.lapiscore.utils.prettytime")
+    relocate("com.tchristofferson.configupdater", "net.lapismc.lapiscore.utils.configupdater")
 }
 
 task javadocJar(type: Jar) {
