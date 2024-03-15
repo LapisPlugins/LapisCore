@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Benjamin Martin
+ * Copyright 2024 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,7 +54,7 @@ public abstract class LapisCoreCommand extends BukkitCommand {
      * This constructor allows you to take conflicting commands and aliases
      *
      * @param core          The {@link LapisCorePlugin} that the command should be registered to
-     * @param name          The name of the command, this wont include the slash
+     * @param name          The name of the command, this won't include the slash
      * @param desc          The description for the /help menu
      * @param aliases       Any aliases that should run this command
      * @param takeConflicts Set to true if you would like to forcefully take control of any commands of the same name or alias
@@ -81,7 +81,7 @@ public abstract class LapisCoreCommand extends BukkitCommand {
     private void setupCommand(boolean takeConflicts) {
         registerCommand();
         if (takeConflicts) {
-            Bukkit.getScheduler().runTask(core, this::takeConflictingAliases);
+            Bukkit.getScheduler().runTask(core, this::takeConflictingCommands);
         }
     }
 
@@ -102,11 +102,13 @@ public abstract class LapisCoreCommand extends BukkitCommand {
     /**
      * Attempts to redirect conflicting commands or aliases to this command
      */
-    private void takeConflictingAliases() {
+    private void takeConflictingCommands() {
         for (String alias : getAliases()) {
             if (Bukkit.getPluginCommand(alias) != null) {
                 PluginCommand command = Bukkit.getPluginCommand(alias);
                 command.setExecutor(new LapisCoreCommandExecutor());
+                if (tabCompleter != null)
+                    command.setTabCompleter(tabCompleter);
                 takenAliases.add(alias);
                 takenAliases.addAll(command.getAliases());
             }
@@ -115,6 +117,8 @@ public abstract class LapisCoreCommand extends BukkitCommand {
             PluginCommand command = Bukkit.getPluginCommand(getName());
             if (!command.getPlugin().equals(core)) {
                 command.setExecutor(new LapisCoreCommandExecutor());
+                if (tabCompleter != null)
+                    command.setTabCompleter(tabCompleter);
                 takenAliases.addAll(command.getAliases());
             }
         }
