@@ -17,13 +17,12 @@
 plugins {
     id 'java'
     id 'maven-publish'
-    //TODO: Maybe include shadow to do PrettyTime and ConfigUpdater
     id "com.github.johnrengelman.shadow" version "8.1.1"
 }
 
 group = 'net.lapismc'
 archivesBaseName = "LapisCore"
-version = '1.12.17'
+version = '1.12.18'
 description = 'LapisCore'
 sourceCompatibility = '17'
 targetCompatibility = '17'

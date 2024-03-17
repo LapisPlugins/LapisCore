@@ -18,6 +18,7 @@ package net.lapismc.lapiscore.utils;
 
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -38,6 +39,7 @@ public class LapisItemBuilder {
     PotionType potionType;
     int modelData = 0;
     List<String> lore = new ArrayList<>();
+    List<ItemFlag> flags = new ArrayList<>();
 
     /**
      * Initialize a new item builder based on a material
@@ -137,6 +139,17 @@ public class LapisItemBuilder {
     }
 
     /**
+     * Add item flags to this ItemStack
+     *
+     * @param flags The flags you wish to be added
+     * @return the new {@link LapisItemBuilder}
+     */
+    public LapisItemBuilder addFlags(ItemFlag... flags) {
+        this.flags.addAll(List.of(flags));
+        return this;
+    }
+
+    /**
      * Build the item based on the set variables in the builder
      *
      * @return the ItemStack requested
@@ -145,7 +158,7 @@ public class LapisItemBuilder {
         ItemStack i = new ItemStack(mat);
         ItemMeta meta = i.getItemMeta();
         if (meta != null) {
-            if (name != null && !name.equals("")) {
+            if (name != null && !name.isEmpty()) {
                 meta.setDisplayName(name);
             }
             if (owner != null && meta instanceof SkullMeta) {
@@ -159,6 +172,10 @@ public class LapisItemBuilder {
             }
             if (modelData != 0) {
                 meta.setCustomModelData(modelData);
+            }
+            if (flags != null && !flags.isEmpty()) {
+                for (ItemFlag flag : flags)
+                    meta.addItemFlags(flag);
             }
             i.setItemMeta(meta);
         }
