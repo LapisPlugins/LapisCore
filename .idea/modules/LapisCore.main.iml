@@ -18,11 +18,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: me.clip:placeholderapi:2.11.4" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.spigotmc:spigot-api:1.20.3-R0.1-SNAPSHOT" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: me.clip:placeholderapi:2.11.6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: net.luckperms:api:5.4" level="project" />
     <orderEntry type="library" name="Gradle: com.tchristofferson:ConfigUpdater:2.1" level="project" />
-    <orderEntry type="library" name="Gradle: org.ocpsoft.prettytime:prettytime:5.0.7.Final" level="project" />
+    <orderEntry type="library" name="Gradle: org.ocpsoft.prettytime:prettytime:5.0.8.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: net.md-5:bungeecord-chat:1.20-R0.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.google.guava:guava:32.1.2-jre" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.google.code.gson:gson:2.10.1" level="project" />

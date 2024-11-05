@@ -8,7 +8,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="LapisCore.main" />
     <orderEntry type="library" name="Gradle: com.tchristofferson:ConfigUpdater:2.1" level="project" />
-    <orderEntry type="library" name="Gradle: org.ocpsoft.prettytime:prettytime:5.0.7.Final" level="project" />
+    <orderEntry type="library" name="Gradle: org.ocpsoft.prettytime:prettytime:5.0.8.Final" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="LapisCore.main" />
 </module>

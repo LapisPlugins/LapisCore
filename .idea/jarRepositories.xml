@@ -66,5 +66,10 @@
       <option name="name" value="lapismc-repo" />
       <option name="url" value="https://maven.lapismc.net/repository/maven/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven2" />
+      <option name="name" value="maven2" />
+      <option name="url" value="https://repo.helpch.at/releases/" />
+    </remote-repository>
   </component>
 </project>

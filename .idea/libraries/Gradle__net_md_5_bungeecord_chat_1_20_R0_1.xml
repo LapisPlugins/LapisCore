@@ -5,8 +5,6 @@
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.md-5/bungeecord-chat/1.20-R0.1/29f53c8d16cfdefe9af98c450b9bdff51eca78e4/bungeecord-chat-1.20-R0.1.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.md-5/bungeecord-chat/1.20-R0.1/27e401a811784a25a45f4ec35e48df89bbb4e00e/bungeecord-chat-1.20-R0.1-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>
