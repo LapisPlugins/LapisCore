@@ -95,6 +95,9 @@ public class LapisCoreTabCompleter implements TabCompleter {
             return result;
         for (LapisTabOption option : options) {
             for (String s : option.getOptions(sender)) {
+                //Null check the option, this shouldn't need to be handled, but somehow it has happened
+                if (s == null)
+                    continue;
                 //Check if this is complete, if it is we need to go down another level
                 if (s.equalsIgnoreCase(args.get(0))) {
                     //Get the options one level down the tree
