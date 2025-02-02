@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Benjamin Martin
+ * Copyright 2025 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ plugins {
 
 group = 'net.lapismc'
 archivesBaseName = "LapisCore"
-version = '1.12.18'
+version = '1.12.19'
 description = 'LapisCore'
 sourceCompatibility = '17'
 targetCompatibility = '17'
@@ -30,6 +30,7 @@ defaultTasks 'clean', 'build', 'shadow'
 
 repositories {
     mavenCentral()
+    //Spigot Repo
     maven {
         url = uri('https://hub.spigotmc.org/nexus/content/groups/public/')
     }
@@ -38,6 +39,11 @@ repositories {
         name = "lapismc-repo"
         url = "https://maven.lapismc.net/repository/maven/"
     }
+    //DiscordSRV Repo
+    maven {
+        url 'https://nexus.scarsz.me/content/groups/public/'
+    }
+    //PAPI Repo
     maven {
         url = uri('https://repo.helpch.at/releases/')
     }
@@ -49,6 +55,7 @@ dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.20.3-R0.1-SNAPSHOT'
     compileOnly 'me.clip:placeholderapi:2.11.6'
     compileOnly 'net.luckperms:api:5.4'
+    compileOnly 'com.discordsrv:discordsrv:1.29.0'
 }
 
 javadoc {
