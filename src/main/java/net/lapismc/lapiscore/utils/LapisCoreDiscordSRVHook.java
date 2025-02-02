@@ -17,7 +17,13 @@
 package net.lapismc.lapiscore.utils;
 
 import github.scarsz.discordsrv.DiscordSRV;
+import github.scarsz.discordsrv.dependencies.jda.api.MessageBuilder;
+import github.scarsz.discordsrv.dependencies.jda.api.entities.Message;
+import org.bukkit.ChatColor;
 
+/**
+ * A class for handling boilerplate code in pushing messages to the DiscordSRV API
+ */
 public class LapisCoreDiscordSRVHook {
 
     /**
@@ -30,7 +36,9 @@ public class LapisCoreDiscordSRVHook {
         if (channelName == null || channelName.isEmpty()) {
             channelName = "global";
         }
-        DiscordSRV.getPlugin().getDestinationTextChannelForGameChannelName(channelName).sendMessage(msg);
+        msg = ChatColor.stripColor(msg);
+        Message message = new MessageBuilder().setContent(msg).build();
+        DiscordSRV.getPlugin().getDestinationTextChannelForGameChannelName(channelName).sendMessage(message).queue();
     }
 
 }
