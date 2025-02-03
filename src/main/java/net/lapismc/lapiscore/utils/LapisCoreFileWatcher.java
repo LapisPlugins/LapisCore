@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Benjamin Martin
+ * Copyright 2025 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -136,7 +136,7 @@ public class LapisCoreFileWatcher {
         String name = f.getName().replace(".yml", "");
         //Check if this is the update or changelog yaml
         //If it is either of these, we ignore it
-        if (name.equalsIgnoreCase("changelog") || name.equalsIgnoreCase("update")) {
+        if (f.getName().startsWith("changelog") || f.getName().startsWith("update")) {
             return;
         }
         try {
