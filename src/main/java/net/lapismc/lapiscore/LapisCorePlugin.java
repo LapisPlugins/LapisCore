@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Benjamin Martin
+ * Copyright 2025 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,7 +58,7 @@ public class LapisCorePlugin extends JavaPlugin {
      */
     public LapisCorePlugin() {
         instance = this;
-        tasks = new LapisTaskHandler();
+        tasks = new LapisTaskHandler(this);
     }
 
     /**

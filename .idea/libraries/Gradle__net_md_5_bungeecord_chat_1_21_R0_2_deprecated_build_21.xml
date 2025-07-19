@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: net.md-5:bungeecord-chat:1.21-R0.2-deprecated+build.21" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="net.md-5" artifactId="bungeecord-chat" version="1.21-R0.2-deprecated+build.21" baseVersion="1.21-R0.2-deprecated+build.21" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.md-5/bungeecord-chat/1.21-R0.2-deprecated+build.21/a87a9222a1dcfa429b4a06264899f65313a4ed5c/bungeecord-chat-1.21-R0.2-deprecated+build.21.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

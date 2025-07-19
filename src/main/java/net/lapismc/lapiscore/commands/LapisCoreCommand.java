@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Benjamin Martin
+ * Copyright 2025 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -81,7 +81,7 @@ public abstract class LapisCoreCommand extends BukkitCommand {
     private void setupCommand(boolean takeConflicts) {
         registerCommand();
         if (takeConflicts) {
-            Bukkit.getScheduler().runTask(core, this::takeConflictingCommands);
+            core.tasks.runTask(this::takeConflictingCommands, false);
         }
     }
 

@@ -17,10 +17,8 @@
 package net.lapismc.lapiscore.utils;
 
 import net.lapismc.lapiscore.LapisCorePlugin;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +33,7 @@ import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 public class LapisCoreFileWatcher {
 
     private final LapisCorePlugin core;
-    private BukkitTask task;
+    private LapisTaskHandler.LapisTask task;
     private WatchService watcher;
     private boolean stop;
 
@@ -50,7 +48,7 @@ public class LapisCoreFileWatcher {
     }
 
     private void start() {
-        task = Bukkit.getScheduler().runTaskAsynchronously(core, () -> {
+        task = core.tasks.runTask(() -> {
             try {
                 watcher();
             } catch (IOException | InterruptedException e) {
@@ -66,7 +64,7 @@ public class LapisCoreFileWatcher {
                 }
             } catch (ClosedWatchServiceException ignored) {
             }
-        });
+        }, true);
         core.tasks.addShutdownTask(this::stop);
     }
 

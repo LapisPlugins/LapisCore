@@ -5,6 +5,8 @@
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ocpsoft.prettytime/prettytime/5.0.8.Final/ba330d9fa50d83c24f8939e7937138ae38458dd0/prettytime-5.0.8.Final.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ocpsoft.prettytime/prettytime/5.0.8.Final/3b1c179517a26d4a484a11ca44dda1559a0d55ff/prettytime-5.0.8.Final-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

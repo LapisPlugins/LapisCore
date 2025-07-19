@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Benjamin Martin
+ * Copyright 2025 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,9 @@
 
 package net.lapismc.lapiscore.utils;
 
+import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
+import net.lapismc.lapiscore.LapisCorePlugin;
+import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
@@ -23,18 +26,97 @@ import java.util.List;
 
 /**
  * A class for storing BukkitTasks so that they can be cleanly canceled when the plugin disables
+ * Folia compatibility adapted from <a href="https://mineacademy.org/tutorial-38/">MineAcademy</a>
  */
 public class LapisTaskHandler {
 
-    private final List<BukkitTask> tasks = new ArrayList<>();
+    private final LapisCorePlugin plugin;
+    private final List<LapisTask> tasks = new ArrayList<>();
+    private boolean isFolia;
     private final List<Runnable> shutdownTasks = new ArrayList<>();
+
+    /**
+     * Initialize the task handler with the core plugin for creating and scheduling tasks
+     *
+     * @param plugin The core plugin that tasks should be scheduled with
+     */
+    public LapisTaskHandler(LapisCorePlugin plugin) {
+        this.plugin = plugin;
+        try {
+            Class.forName("io.papermc.paper.threadedregions.RegionizedServer");
+            isFolia = true;
+
+        } catch (final ClassNotFoundException e) {
+            isFolia = false;
+        }
+    }
+
+    /**
+     * Run a task on the next tick
+     *
+     * @param runnable The task to run
+     * @param isAsync  Should the task be async (Bukkit Only)
+     */
+    public LapisTask runTask(Runnable runnable, boolean isAsync) {
+        if (isFolia) {
+            Bukkit.getGlobalRegionScheduler().execute(plugin, runnable);
+            return new LapisTask(null);
+        } else {
+            if (isAsync)
+                return new LapisTask(Bukkit.getScheduler().runTaskAsynchronously(plugin, runnable));
+            else
+                return new LapisTask(Bukkit.getScheduler().runTask(plugin, runnable));
+        }
+    }
+
+    /**
+     * Run a task later
+     *
+     * @param runnable   The task to run
+     * @param delayTicks The delay before it is run in game ticks
+     * @param isAsync    Should the task be async (Bukkit Only)
+     * @return a LapisTask object that can be used to cancel the task
+     */
+    public LapisTask runTaskLater(Runnable runnable, long delayTicks, boolean isAsync) {
+        if (isFolia)
+            return new LapisTask(Bukkit.getGlobalRegionScheduler().runDelayed(plugin,
+                    t -> runnable.run(), delayTicks));
+        else {
+            if (isAsync)
+                return new LapisTask(Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, runnable, delayTicks));
+            else
+                return new LapisTask(Bukkit.getScheduler().runTaskLater(plugin,
+                        runnable, delayTicks));
+        }
+    }
+
+    /**
+     * Run a task repeatedly
+     *
+     * @param runnable    The task to run
+     * @param delayTicks  The delay before first run in ticks
+     * @param periodTicks The delay between each run in ticks
+     * @param isAsync     Should the task be async (Bukkit Only)
+     * @return a LapisTask object that can be used to cancel the task
+     */
+    public LapisTask runTaskTimer(Runnable runnable, long delayTicks, long periodTicks, boolean isAsync) {
+        if (isFolia)
+            return new LapisTask(Bukkit.getGlobalRegionScheduler().runAtFixedRate(plugin,
+                    t -> runnable.run(), delayTicks, periodTicks));
+        else {
+            if (isAsync)
+                return new LapisTask(Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, runnable, delayTicks, periodTicks));
+            else
+                return new LapisTask(Bukkit.getScheduler().runTaskTimer(plugin, runnable, delayTicks, periodTicks));
+        }
+    }
 
     /**
      * Add a task so that it can be canceled later
      *
      * @param task The task to register
      */
-    public void addTask(BukkitTask task) {
+    public void addTask(LapisTask task) {
         tasks.add(task);
     }
 
@@ -43,7 +125,7 @@ public class LapisTaskHandler {
      *
      * @param task The task to remove
      */
-    public void removeTask(BukkitTask task) {
+    public void removeTask(LapisTask task) {
         tasks.remove(task);
     }
 
@@ -61,8 +143,35 @@ public class LapisTaskHandler {
      * Should only be called from on disable as it will cancel all registered commands
      */
     public void stopALlTasks() {
-        tasks.forEach(BukkitTask::cancel);
+        tasks.forEach(LapisTask::cancel);
         shutdownTasks.forEach(Runnable::run);
+    }
+
+    /**
+     * A class to represent tasks for Folia or Bukkit
+     */
+    public static class LapisTask {
+
+        private Object foliaTask;
+        private BukkitTask bukkitTask;
+
+        LapisTask(Object foliaTask) {
+            this.foliaTask = foliaTask;
+        }
+
+        LapisTask(BukkitTask bukkitTask) {
+            this.bukkitTask = bukkitTask;
+        }
+
+        /**
+         * Cancel the task
+         */
+        public void cancel() {
+            if (foliaTask != null)
+                ((ScheduledTask) foliaTask).cancel();
+            else
+                bukkitTask.cancel();
+        }
     }
 
 }

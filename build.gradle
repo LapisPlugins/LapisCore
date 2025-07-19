@@ -17,22 +17,22 @@
 plugins {
     id 'java'
     id 'maven-publish'
-    id "com.github.johnrengelman.shadow" version "8.1.1"
+    id "com.gradleup.shadow" version "9.0.0-rc1"
 }
 
 group = 'net.lapismc'
 archivesBaseName = "LapisCore"
-version = '1.12.19'
+version = '1.13.0'
 description = 'LapisCore'
-sourceCompatibility = '17'
-targetCompatibility = '17'
+sourceCompatibility = '21'
+targetCompatibility = '21'
 defaultTasks 'clean', 'build', 'shadow'
 
 repositories {
     mavenCentral()
-    //Spigot Repo
+    //Paper Repo
     maven {
-        url = uri('https://hub.spigotmc.org/nexus/content/groups/public/')
+        url = 'https://repo.papermc.io/repository/maven-public/'
     }
     //Personal Repo
     maven {
@@ -52,7 +52,7 @@ repositories {
 dependencies {
     implementation 'com.tchristofferson:ConfigUpdater:2.1'
     implementation 'org.ocpsoft.prettytime:prettytime:5.0.8.Final'
-    compileOnly 'org.spigotmc:spigot-api:1.20.3-R0.1-SNAPSHOT'
+    compileOnly 'io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT'
     compileOnly 'me.clip:placeholderapi:2.11.6'
     compileOnly 'net.luckperms:api:5.4'
     compileOnly 'com.discordsrv:discordsrv:1.29.0'
@@ -72,12 +72,12 @@ shadowJar {
     relocate("com.tchristofferson.configupdater", "net.lapismc.lapiscore.utils.configupdater")
 }
 
-task javadocJar(type: Jar) {
+tasks.register('javadocJar', Jar) {
     archiveClassifier.set('javadoc')
     from javadoc
 }
 
-task sourcesJar(type: Jar) {
+tasks.register('sourcesJar', Jar) {
     archiveClassifier.set('sources')
     from sourceSets.main.allSource
 }
@@ -86,7 +86,7 @@ artifacts {
     archives javadocJar, sourcesJar
 }
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
