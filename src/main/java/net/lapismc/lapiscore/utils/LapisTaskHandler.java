@@ -59,8 +59,12 @@ public class LapisTaskHandler {
      */
     public LapisTask runTask(Runnable runnable, boolean isAsync) {
         if (isFolia) {
-            Bukkit.getGlobalRegionScheduler().execute(plugin, runnable);
-            return new LapisTask(null);
+            if (isAsync)
+                return new LapisTask(new LapisThread(runnable));
+            else {
+                Bukkit.getGlobalRegionScheduler().execute(plugin, runnable);
+                return new LapisTask();
+            }
         } else {
             if (isAsync)
                 return new LapisTask(Bukkit.getScheduler().runTaskAsynchronously(plugin, runnable));
@@ -153,10 +157,19 @@ public class LapisTaskHandler {
     public static class LapisTask {
 
         private Object foliaTask;
+        private LapisThread thread;
         private BukkitTask bukkitTask;
 
-        LapisTask(Object foliaTask) {
+        LapisTask() {
+        }
+
+        LapisTask(ScheduledTask foliaTask) {
             this.foliaTask = foliaTask;
+        }
+
+        LapisTask(LapisThread thread) {
+            this.thread = thread;
+            thread.start();
         }
 
         LapisTask(BukkitTask bukkitTask) {
@@ -169,9 +182,26 @@ public class LapisTaskHandler {
         public void cancel() {
             if (foliaTask != null)
                 ((ScheduledTask) foliaTask).cancel();
-            else
+            else if (bukkitTask != null)
                 bukkitTask.cancel();
+            else if (thread != null)
+                thread.cancel();
         }
+    }
+
+    public static class LapisThread extends Thread {
+
+        protected boolean shouldStop = false;
+
+        public LapisThread(Runnable runnable) {
+            super(runnable);
+        }
+
+        public void cancel() {
+            shouldStop = true;
+            this.interrupt();
+        }
+
     }
 
 }
