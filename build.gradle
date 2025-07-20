@@ -22,7 +22,7 @@ plugins {
 
 group = 'net.lapismc'
 archivesBaseName = "LapisCore"
-version = '1.13.1'
+version = '1.13.3'
 description = 'LapisCore'
 sourceCompatibility = '21'
 targetCompatibility = '21'

@@ -27,6 +27,7 @@ import java.util.List;
 /**
  * A class for storing BukkitTasks so that they can be cleanly canceled when the plugin disables
  * Folia compatibility adapted from <a href="https://mineacademy.org/tutorial-38/">MineAcademy</a>
+ * NOTE: Tasks on Folia can lock the global region, hence Async uses threads in run task
  */
 public class LapisTaskHandler {
 
@@ -62,8 +63,7 @@ public class LapisTaskHandler {
             if (isAsync)
                 return new LapisTask(new LapisThread(runnable));
             else {
-                Bukkit.getGlobalRegionScheduler().execute(plugin, runnable);
-                return new LapisTask();
+                return new LapisTask(Bukkit.getGlobalRegionScheduler().run(plugin, t -> runnable.run()));
             }
         } else {
             if (isAsync)
@@ -156,22 +156,34 @@ public class LapisTaskHandler {
      */
     public static class LapisTask {
 
-        private Object foliaTask;
+        private ScheduledTask foliaTask;
         private LapisThread thread;
         private BukkitTask bukkitTask;
 
-        LapisTask() {
-        }
-
+        /**
+         * Register a task from Folia
+         *
+         * @param foliaTask The task to register
+         */
         LapisTask(ScheduledTask foliaTask) {
             this.foliaTask = foliaTask;
         }
 
+        /**
+         * Register a LapisThread from TaskHandler
+         *
+         * @param thread The thread to register
+         */
         LapisTask(LapisThread thread) {
             this.thread = thread;
             thread.start();
         }
 
+        /**
+         * Register a BukkitTask from Bukkit
+         *
+         * @param bukkitTask The task to register
+         */
         LapisTask(BukkitTask bukkitTask) {
             this.bukkitTask = bukkitTask;
         }
@@ -181,7 +193,7 @@ public class LapisTaskHandler {
          */
         public void cancel() {
             if (foliaTask != null)
-                ((ScheduledTask) foliaTask).cancel();
+                foliaTask.cancel();
             else if (bukkitTask != null)
                 bukkitTask.cancel();
             else if (thread != null)
@@ -189,14 +201,29 @@ public class LapisTaskHandler {
         }
     }
 
+    /**
+     * An implementation of Thread to support canceling via LapisTask class
+     */
     public static class LapisThread extends Thread {
 
+        /**
+         * This value can be access from inside the thread
+         * The task should stop at its earliest convince when this is true
+         */
         protected boolean shouldStop = false;
 
+        /**
+         * Create a thread
+         *
+         * @param runnable The runnable that will be executed on the new thread
+         */
         public LapisThread(Runnable runnable) {
             super(runnable);
         }
 
+        /**
+         * Cancel the thread
+         */
         public void cancel() {
             shouldStop = true;
             this.interrupt();

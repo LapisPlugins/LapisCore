@@ -119,6 +119,12 @@ public class LapisCoreFileWatcher {
                 }
             }
             key.reset();
+            //Check if we are running in a LapisThread and should stop
+            Thread t = Thread.currentThread();
+            if (t instanceof LapisTaskHandler.LapisThread) {
+                if (((LapisTaskHandler.LapisThread) t).shouldStop)
+                    stop = true;
+            }
             if (!stop) {
                 try {
                     key = watcher.take();
