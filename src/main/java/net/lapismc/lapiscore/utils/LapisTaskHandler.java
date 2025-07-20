@@ -19,6 +19,7 @@ package net.lapismc.lapiscore.utils;
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import net.lapismc.lapiscore.LapisCorePlugin;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class LapisTaskHandler {
      *
      * @param runnable The task to run
      * @param isAsync  Should the task be async (Bukkit Only)
+     * @return a LapisTask object that can be used to cancel the task
      */
     public LapisTask runTask(Runnable runnable, boolean isAsync) {
         if (isFolia) {
@@ -70,6 +72,21 @@ public class LapisTaskHandler {
                 return new LapisTask(Bukkit.getScheduler().runTaskAsynchronously(plugin, runnable));
             else
                 return new LapisTask(Bukkit.getScheduler().runTask(plugin, runnable));
+        }
+    }
+
+    /**
+     * Run a task that is relevant to a location in the world, this will run now, not on next tick
+     * This should be used if editing the world like placing blocks
+     *
+     * @param runnable The task to run
+     * @param location Where this task will take place
+     */
+    public void runRegionalTaskNow(Runnable runnable, Location location) {
+        if (isFolia) {
+            Bukkit.getServer().getRegionScheduler().execute(plugin, location, runnable);
+        } else {
+            runnable.run();
         }
     }
 
