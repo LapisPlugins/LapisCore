@@ -91,6 +91,25 @@ public class LapisTaskHandler {
     }
 
     /**
+     * Run a task synchronously
+     * For Folia this means running in the global region
+     * For Bukkit this means running on the main thread
+     *
+     * @param runnable The task to run
+     */
+    public void runSynchronousTaskNow(Runnable runnable) {
+        if (isFolia) {
+            Bukkit.getGlobalRegionScheduler().execute(plugin, runnable);
+        } else {
+            if (Bukkit.isPrimaryThread()) {
+                runnable.run();
+            } else {
+                Bukkit.getScheduler().runTask(plugin, runnable);
+            }
+        }
+    }
+
+    /**
      * Run a task later
      *
      * @param runnable   The task to run
