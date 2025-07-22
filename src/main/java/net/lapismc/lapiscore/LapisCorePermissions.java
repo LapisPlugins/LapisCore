@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Benjamin Martin
+ * Copyright 2025 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,10 +63,13 @@ public class LapisCorePermissions {
     /**
      * Call this method to load the permission values from config
      * once all of your LapisPermissions have been registered
+     * or to reload permission values from the config
      */
     public void loadPermissions() {
         //clear the list before its populated again in case this is a permission reload
         permissions.clear();
+        //Clear the cache of assigned permission so that all player get the new permissions assigned
+        assignedPermissionCache.invalidateAll();
         //get the permissions section of the config
         ConfigurationSection permsSection = core.getConfig().getConfigurationSection("Permissions");
         Set<String> perms = permsSection.getKeys(false);
