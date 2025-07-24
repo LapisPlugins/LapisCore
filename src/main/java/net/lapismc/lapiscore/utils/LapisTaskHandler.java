@@ -54,6 +54,15 @@ public class LapisTaskHandler {
     }
 
     /**
+     * Check if the plugin is running on a Folia server
+     *
+     * @return true if tbe server is Folia, otherwise false
+     */
+    public boolean isFolia() {
+        return isFolia;
+    }
+
+    /**
      * Run a task on the next tick
      *
      * @param runnable The task to run
