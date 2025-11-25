@@ -22,7 +22,7 @@ plugins {
 
 group = 'net.lapismc'
 archivesBaseName = "LapisCore"
-version = '1.13.8'
+version = '1.13.9'
 description = 'LapisCore'
 sourceCompatibility = '21'
 targetCompatibility = '21'
@@ -50,12 +50,12 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.tchristofferson:ConfigUpdater:2.1'
-    implementation 'org.ocpsoft.prettytime:prettytime:5.0.8.Final'
-    compileOnly 'io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT'
-    compileOnly 'me.clip:placeholderapi:2.11.6'
+    implementation 'com.tchristofferson:ConfigUpdater:2.2'
+    implementation 'org.ocpsoft.prettytime:prettytime:5.0.9.Final'
+    compileOnly 'io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT'
+    compileOnly 'me.clip:placeholderapi:2.11.7'
     compileOnly 'net.luckperms:api:5.4'
-    compileOnly 'com.discordsrv:discordsrv:1.29.0'
+    compileOnly 'com.discordsrv:discordsrv:1.30.2'
 }
 
 javadoc {

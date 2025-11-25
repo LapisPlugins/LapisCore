@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: me.clip:placeholderapi:2.11.7" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="me.clip" artifactId="placeholderapi" version="2.11.7" baseVersion="2.11.7" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.clip/placeholderapi/2.11.7/f6e2e8f8054ec797fe20b08ec81a44574bdced50/placeholderapi-2.11.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

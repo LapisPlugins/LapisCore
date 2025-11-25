@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.tchristofferson:ConfigUpdater:2.2" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="com.tchristofferson" artifactId="ConfigUpdater" version="2.2" baseVersion="2.2" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tchristofferson/ConfigUpdater/2.2/34370c71d87fcd04a4299b56faf63bdca06f1037/ConfigUpdater-2.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

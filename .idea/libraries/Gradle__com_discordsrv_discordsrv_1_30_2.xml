@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.discordsrv:discordsrv:1.30.2" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="com.discordsrv" artifactId="discordsrv" version="1.30.2" baseVersion="1.30.2" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.discordsrv/discordsrv/1.30.2/188fd2159cee3b537c4a5894dccc66f7ddb86618/discordsrv-1.30.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
