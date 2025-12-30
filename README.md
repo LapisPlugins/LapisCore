@@ -6,7 +6,7 @@ If you think it should have any extra features or you encounter a bug, make an i
 
 # Getting the API
 
-The LapisCore API is on my personal Nexus server.
+The LapisCore API is on my personal Maven server.
 
 Simply use the LapisCore repo and dependency and Maven or Gradle will fetch the API
 
@@ -16,8 +16,8 @@ Declare Repo:
 
 ```
 maven {
-    name = "lapismc-repo"
-    url = "https://maven.lapismc.net/repository/maven/"
+    name "lapisMCReleases"
+    url "https://maven.lapismc.net/releases"
 }
 ```
 
@@ -25,7 +25,7 @@ Declare Dependency:
 
 ```
 dependencies {
-    implementation 'net.lapismc:LapisCore:1.12.5'
+    implementation "net.lapismc:LapisCore:VERSION"
 }
 ```
 ## Maven
@@ -34,8 +34,9 @@ Declare Repo:
 
 ```
 <repository>
-    <id>lapismc-repo</id>
-    <url>https://maven.lapismc.net/repository/maven/</url>
+  <id>LapisMC-releases</id>
+  <name>Lapis MC Maven Repo</name>
+  <url>https://maven.lapismc.net/releases</url>
 </repository>
 ```
 
@@ -45,6 +46,6 @@ Declare Dependency:
 <dependency>
   <groupId>net.lapismc</groupId>
   <artifactId>LapisCore</artifactId>
-  <version>1.7.2</version>
+  <version>VERSION</version>
 </dependency>
 ```
