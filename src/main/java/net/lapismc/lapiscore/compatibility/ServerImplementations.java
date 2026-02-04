@@ -37,7 +37,7 @@ public class ServerImplementations {
         } catch (ClassNotFoundException ignored) {
         }
         try {
-            Class.forName("org.bukkit.Server.Spigot");
+            Class.forName("org.spigotmc.SpigotConfig");
             implementations.add(imp.Spigot);
         } catch (ClassNotFoundException ignored) {
         }
