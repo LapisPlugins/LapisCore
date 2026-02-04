@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id="LapisCore:main" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="net.lapismc" external.system.module.type="sourceSet" external.system.module.version="1.13.9" type="JAVA_MODULE" version="4">
+<module external.linked.project.id="LapisCore:main" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="net.lapismc" external.system.module.type="sourceSet" external.system.module.version="1.13.10" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="minecraft" name="Minecraft">
       <configuration>
         <autoDetectTypes>
-          <platformType>PAPER</platformType>
           <platformType>ADVENTURE</platformType>
         </autoDetectTypes>
         <projectReimportVersion>1</projectReimportVersion>
@@ -19,7 +18,7 @@
     </content>
     <orderEntry type="jdk" jdkName="21" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: me.clip:placeholderapi:2.11.7" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: net.luckperms:api:5.4" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.discordsrv:discordsrv:1.30.2" level="project" />
