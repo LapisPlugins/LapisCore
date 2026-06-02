@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Benjamin Martin
+ * Copyright 2026 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package net.lapismc.lapiscore.utils;
 
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import net.lapismc.lapiscore.LapisCorePlugin;
+import net.lapismc.lapiscore.compatibility.ServerImplementations;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitTask;
@@ -34,7 +35,7 @@ public class LapisTaskHandler {
 
     private final LapisCorePlugin plugin;
     private final List<LapisTask> tasks = new ArrayList<>();
-    private boolean isFolia;
+    private final boolean isFolia;
     private final List<Runnable> shutdownTasks = new ArrayList<>();
 
     /**
@@ -44,13 +45,7 @@ public class LapisTaskHandler {
      */
     public LapisTaskHandler(LapisCorePlugin plugin) {
         this.plugin = plugin;
-        try {
-            Class.forName("io.papermc.paper.threadedregions.RegionizedServer");
-            isFolia = true;
-
-        } catch (final ClassNotFoundException e) {
-            isFolia = false;
-        }
+        isFolia = new ServerImplementations().getImplementations().contains(ServerImplementations.imp.Folia);
     }
 
     /**
@@ -70,7 +65,7 @@ public class LapisTaskHandler {
      * @return a LapisTask object that can be used to cancel the task
      */
     public LapisTask runTask(Runnable runnable, boolean isAsync) {
-        if (isFolia) {
+        if (isFolia()) {
             if (isAsync)
                 return new LapisTask(new LapisThread(runnable));
             else {
@@ -92,7 +87,7 @@ public class LapisTaskHandler {
      * @param location Where this task will take place
      */
     public void runRegionalTaskNow(Runnable runnable, Location location) {
-        if (isFolia) {
+        if (isFolia()) {
             Bukkit.getServer().getRegionScheduler().execute(plugin, location, runnable);
         } else {
             runnable.run();
@@ -107,7 +102,7 @@ public class LapisTaskHandler {
      * @param runnable The task to run
      */
     public void runSynchronousTaskNow(Runnable runnable) {
-        if (isFolia) {
+        if (isFolia()) {
             Bukkit.getGlobalRegionScheduler().execute(plugin, runnable);
         } else {
             if (Bukkit.isPrimaryThread()) {
@@ -127,7 +122,7 @@ public class LapisTaskHandler {
      * @return a LapisTask object that can be used to cancel the task
      */
     public LapisTask runTaskLater(Runnable runnable, long delayTicks, boolean isAsync) {
-        if (isFolia)
+        if (isFolia())
             return new LapisTask(Bukkit.getGlobalRegionScheduler().runDelayed(plugin,
                     t -> runnable.run(), delayTicks));
         else {
@@ -149,7 +144,7 @@ public class LapisTaskHandler {
      * @return a LapisTask object that can be used to cancel the task
      */
     public LapisTask runTaskTimer(Runnable runnable, long delayTicks, long periodTicks, boolean isAsync) {
-        if (isFolia)
+        if (isFolia())
             return new LapisTask(Bukkit.getGlobalRegionScheduler().runAtFixedRate(plugin,
                     t -> runnable.run(), delayTicks, periodTicks));
         else {
