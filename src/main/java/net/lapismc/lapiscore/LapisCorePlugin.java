@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Benjamin Martin
+ * Copyright 2026 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -112,6 +112,8 @@ public class LapisCorePlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         tasks.stopALlTasks();
+        if (fileWatcher != null)
+            fileWatcher.stop();
         getLogger().info(getName() + " has been disabled!");
     }
 }

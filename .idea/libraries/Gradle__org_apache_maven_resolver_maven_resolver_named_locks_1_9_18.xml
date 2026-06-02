@@ -5,6 +5,8 @@
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.maven.resolver/maven-resolver-named-locks/1.9.18/31f948d89dcb3d9739e70d5e1000ebd68eb4405d/maven-resolver-named-locks-1.9.18.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.maven.resolver/maven-resolver-named-locks/1.9.18/bc415bfdb1c077c0c09507b3b1969bcb4474a5ce/maven-resolver-named-locks-1.9.18-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

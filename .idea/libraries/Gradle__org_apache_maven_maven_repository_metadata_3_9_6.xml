@@ -5,6 +5,8 @@
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.maven/maven-repository-metadata/3.9.6/497cda3149f3c661113f9a663e0270ce2566cc95/maven-repository-metadata-3.9.6.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.maven/maven-repository-metadata/3.9.6/120ad7da7200f28c6fa1e44fbbd174ffd294cb64/maven-repository-metadata-3.9.6-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

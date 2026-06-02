@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Benjamin Martin
+ * Copyright 2026 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,15 +17,12 @@
 plugins {
     id 'java'
     id 'maven-publish'
-    id "com.gradleup.shadow" version "9.0.0-rc1"
+    id "com.gradleup.shadow" version "9.4.2"
 }
 
 group = 'net.lapismc'
-archivesBaseName = "LapisCore"
-version = '1.13.9'
+version = '1.13.10'
 description = 'LapisCore'
-sourceCompatibility = '21'
-targetCompatibility = '21'
 defaultTasks 'clean', 'build', 'shadow'
 
 repositories {
@@ -52,7 +49,7 @@ repositories {
 dependencies {
     implementation 'com.tchristofferson:ConfigUpdater:2.2'
     implementation 'org.ocpsoft.prettytime:prettytime:5.0.9.Final'
-    compileOnly 'io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT'
+    compileOnly 'io.papermc.paper:paper-api:26.1.2.build.+'
     compileOnly 'me.clip:placeholderapi:2.11.7'
     compileOnly 'net.luckperms:api:5.4'
     compileOnly 'com.discordsrv:discordsrv:1.30.2'
@@ -66,7 +63,7 @@ javadoc {
 }
 
 shadowJar {
-    archiveFileName.set(archivesBaseName + "-" + project.version + ".jar")
+    archiveFileName.set("LapisCore-" + project.version + ".jar")
     exclude 'javax/**'
     relocate("org.ocpsoft.prettytime", "net.lapismc.lapiscore.utils.prettytime")
     relocate("com.tchristofferson.configupdater", "net.lapismc.lapiscore.utils.configupdater")

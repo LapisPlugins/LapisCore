@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: net.kyori:adventure-text-serializer-legacy:4.26.1" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="net.kyori" artifactId="adventure-text-serializer-legacy" version="4.26.1" baseVersion="4.26.1" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.kyori/adventure-text-serializer-legacy/4.26.1/3267b14ac7fa167b97beb8c114d87d83609847af/adventure-text-serializer-legacy-4.26.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.kyori/adventure-text-serializer-legacy/4.26.1/a7439b416690d634a1ece81bcc0b19f635ca53bf/adventure-text-serializer-legacy-4.26.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

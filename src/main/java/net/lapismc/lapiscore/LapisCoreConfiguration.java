@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Benjamin Martin
+ * Copyright 2026 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -135,16 +135,11 @@ public class LapisCoreConfiguration {
 
     /**
      * Gets the raw String from the messages.yml file
-     * Also has a failsafe for if something has happened to the messages YML in memory
-     * This will reload the messages file if it cant find the message on the first pass
      *
      * @param key The message to be retrieved
      * @return Returns a String from the messages.yml
      */
     private String getRawMessage(String key) {
-        if (!messages.contains(key)) {
-            reloadMessages();
-        }
         return messages.getString(key, "&sError retrieving message from config");
     }
 

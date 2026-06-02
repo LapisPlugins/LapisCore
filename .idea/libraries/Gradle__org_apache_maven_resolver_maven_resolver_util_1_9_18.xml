@@ -5,6 +5,8 @@
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.maven.resolver/maven-resolver-util/1.9.18/5ae9406f188ae4a999c353fce3fd77273797a216/maven-resolver-util-1.9.18.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.maven.resolver/maven-resolver-util/1.9.18/dcfdd5003f373a2c0eb2549c983b945de73a37eb/maven-resolver-util-1.9.18-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

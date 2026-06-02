@@ -5,6 +5,8 @@
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.discordsrv/discordsrv/1.30.2/188fd2159cee3b537c4a5894dccc66f7ddb86618/discordsrv-1.30.2.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.discordsrv/discordsrv/1.30.2/ef32b2917cfc9f20048d070f453b0f6d3313282b/discordsrv-1.30.2-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

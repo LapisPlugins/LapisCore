@@ -5,6 +5,8 @@
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tchristofferson/ConfigUpdater/2.2/34370c71d87fcd04a4299b56faf63bdca06f1037/ConfigUpdater-2.2.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tchristofferson/ConfigUpdater/2.2/1cdb1f1bbcdc19d71024239d9cb07fd9a89d68b6/ConfigUpdater-2.2-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

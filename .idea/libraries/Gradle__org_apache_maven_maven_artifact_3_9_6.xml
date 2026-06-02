@@ -5,6 +5,8 @@
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.maven/maven-artifact/3.9.6/fb0979832c10c1a25d038a33ca862bef055fcdc8/maven-artifact-3.9.6.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.maven/maven-artifact/3.9.6/e320a85bccc2645504152771d2ef86dabcc70edd/maven-artifact-3.9.6-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

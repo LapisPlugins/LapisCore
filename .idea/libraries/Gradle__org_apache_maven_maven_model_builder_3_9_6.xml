@@ -5,6 +5,8 @@
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.maven/maven-model-builder/3.9.6/983ce00d50a9f78ad1b805e21e4fd71807fa6ebf/maven-model-builder-3.9.6.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.maven/maven-model-builder/3.9.6/f006cf5ef51213569e4987e99242f99dc3f25bdf/maven-model-builder-3.9.6-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

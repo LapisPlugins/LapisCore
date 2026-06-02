@@ -2,9 +2,9 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="17">
-      <module name="LapisCore" target="21" />
-      <module name="LapisCore.main" target="21" />
-      <module name="net.lapismc.LapisCore.test" target="21" />
+      <module name="LapisCore" target="25" />
+      <module name="LapisCore.main" target="25" />
+      <module name="net.lapismc.LapisCore.test" target="25" />
     </bytecodeTargetLevel>
   </component>
 </project>
