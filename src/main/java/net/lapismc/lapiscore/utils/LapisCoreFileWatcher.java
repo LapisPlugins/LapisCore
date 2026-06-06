@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Benjamin Martin
+ * Copyright 2026 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -150,9 +150,7 @@ public class LapisCoreFileWatcher {
             new YamlConfiguration().load(file);
         } catch (InvalidConfigurationException | IOException e) {
             //Display an error and do not continue to load it, this allows the end user to fix the issue and try again
-            core.getLogger().warning("An error occurred loading changes to " + f.getName() + "!");
-            core.getLogger().warning("See the below stack trace:");
-            e.printStackTrace();
+            core.getLogger().warning("An error occurred loading changes to " + f.getName() + "! Check that the Yaml is valid and try again");
             return;
         }
         switch (name) {
