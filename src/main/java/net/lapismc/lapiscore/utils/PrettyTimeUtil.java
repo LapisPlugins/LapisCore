@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Benjamin Martin
+ * Copyright 2026 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ public class PrettyTimeUtil {
      * @param removeJustNow Should "Just Now" be removed as a time unit
      */
     public PrettyTimeUtil(String locale, boolean removeJustNow) {
-        Locale loc = new Locale(locale);
+        Locale loc = Locale.forLanguageTag(locale);
         prettyTime = new PrettyTime(loc);
         if (removeJustNow)
             prettyTime.removeUnit(JustNow.class);
