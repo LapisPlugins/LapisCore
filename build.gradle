@@ -21,7 +21,7 @@ plugins {
 }
 
 group = 'net.lapismc'
-version = '1.13.13'
+version = '1.13.14'
 description = 'LapisCore'
 defaultTasks 'clean', 'build', 'shadow'
 

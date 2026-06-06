@@ -68,8 +68,10 @@ public class LapisSound {
             if (soundRegistry == null)
                 return null;
             sound = soundRegistry.get(soundKey);
-        } catch (NoSuchMethodError e) {
+        } catch (NoSuchMethodError | IllegalArgumentException e) {
             //This means we aren't on paper or are on an older version
+            //or
+            //The namespaced key wasn't valid
         }
         if (sound == null) {
             //The key was incorrect, or we are on an old version
