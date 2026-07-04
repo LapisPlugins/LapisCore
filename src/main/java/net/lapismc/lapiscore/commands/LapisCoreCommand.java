@@ -24,6 +24,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 
 import java.lang.reflect.Field;
@@ -38,7 +39,7 @@ public abstract class LapisCoreCommand extends BukkitCommand {
 
     private final LapisCorePlugin core;
     private TabCompleter tabCompleter;
-    private final List<String> aliases;
+    private List<String> aliases;
     private final Set<String> takenAliases;
 
     /**
@@ -66,7 +67,6 @@ public abstract class LapisCoreCommand extends BukkitCommand {
         takenAliases = new HashSet<>();
         setDescription(desc);
         setAliases(aliases);
-        this.aliases = aliases;
         setupCommand(takeConflicts);
         CommandRegistry.registerCommand(this);
     }
@@ -86,6 +86,12 @@ public abstract class LapisCoreCommand extends BukkitCommand {
     @Override
     public @NonNull List<String> getAliases() {
         return aliases;
+    }
+
+    @Override
+    public @NotNull Command setAliases(List<String> aliases) {
+        this.aliases = aliases;
+        return this;
     }
 
     private void setupCommand(boolean takeConflicts) {
@@ -113,7 +119,7 @@ public abstract class LapisCoreCommand extends BukkitCommand {
      * Attempts to redirect conflicting commands or aliases to this command
      */
     private void takeConflictingCommands() {
-        for (String alias : aliases) {
+        for (String alias : getAliases()) {
             if (Bukkit.getPluginCommand(alias) != null) {
                 PluginCommand command = Bukkit.getPluginCommand(alias);
                 if (command.getPlugin().equals(core)) {
