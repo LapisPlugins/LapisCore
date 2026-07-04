@@ -21,7 +21,7 @@ plugins {
 }
 
 group = 'net.lapismc'
-version = '1.13.15'
+version = '1.13.16'
 description = 'LapisCore'
 defaultTasks 'clean', 'build', 'shadow'
 
@@ -99,12 +99,23 @@ publishing {
         }
     }
     repositories {
-        maven {
-            name 'nexus'
-            url "https://reposilite.dnablue2112.com/releases/"
-            credentials {
-                username reposiliteUser
-                password reposilitePassword
+        if (version.contains("SNAPSHOT")) {
+            maven {
+                name 'nexus'
+                url "https://reposilite.dnablue2112.com/snapshots/"
+                credentials {
+                    username project.findProperty('reposiliteUser') ?: ""
+                    password project.findProperty('reposilitePassword') ?: ""
+                }
+            }
+        } else {
+            maven {
+                name 'nexus'
+                url "https://reposilite.dnablue2112.com/releases/"
+                credentials {
+                    username project.findProperty('reposiliteUser') ?: ""
+                    password project.findProperty('reposilitePassword') ?: ""
+                }
             }
         }
     }

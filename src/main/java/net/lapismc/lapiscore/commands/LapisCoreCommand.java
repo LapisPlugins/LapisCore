@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Benjamin Martin
+ * Copyright 2026 Benjamin Martin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,20 +26,22 @@ import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
- * An utility class to make custom commands that are not in the plugin.yml
+ * A utility class to make custom commands that are not in the plugin.yml
  */
 public abstract class LapisCoreCommand extends BukkitCommand {
 
     private final LapisCorePlugin core;
     private TabCompleter tabCompleter;
-    private final List<String> takenAliases;
+    private final List<String> aliases;
+    private final Set<String> takenAliases;
 
     /**
-     * If in doubt use this constructor
+     * If in doubt, use this constructor
      *
      * @param core    The {@link LapisCorePlugin} that the command should be registered to
      * @param name    The name of the command, this won't include the slash
@@ -51,8 +53,6 @@ public abstract class LapisCoreCommand extends BukkitCommand {
     }
 
     /**
-     * This constructor allows you to take conflicting commands and aliases
-     *
      * @param core          The {@link LapisCorePlugin} that the command should be registered to
      * @param name          The name of the command, this won't include the slash
      * @param desc          The description for the /help menu
@@ -62,9 +62,10 @@ public abstract class LapisCoreCommand extends BukkitCommand {
     protected LapisCoreCommand(LapisCorePlugin core, String name, String desc, List<String> aliases, boolean takeConflicts) {
         super(name);
         this.core = core;
-        takenAliases = new ArrayList<>();
+        takenAliases = new HashSet<>();
         setDescription(desc);
         setAliases(aliases);
+        this.aliases = aliases;
         setupCommand(takeConflicts);
         CommandRegistry.registerCommand(this);
     }
@@ -74,7 +75,7 @@ public abstract class LapisCoreCommand extends BukkitCommand {
      *
      * @return A list of command names as strings
      */
-    public List<String> getTakenAliases() {
+    public Set<String> getTakenAliases() {
         return takenAliases;
     }
 
@@ -86,7 +87,7 @@ public abstract class LapisCoreCommand extends BukkitCommand {
     }
 
     /**
-     * Registers the command in the servers command map
+     * Registers the command in the server's command map
      */
     private void registerCommand() {
         try {
@@ -103,9 +104,12 @@ public abstract class LapisCoreCommand extends BukkitCommand {
      * Attempts to redirect conflicting commands or aliases to this command
      */
     private void takeConflictingCommands() {
-        for (String alias : getAliases()) {
+        for (String alias : aliases) {
             if (Bukkit.getPluginCommand(alias) != null) {
                 PluginCommand command = Bukkit.getPluginCommand(alias);
+                if (command.getPlugin().equals(core)) {
+                    continue;
+                }
                 command.setExecutor(new LapisCoreCommandExecutor());
                 if (tabCompleter != null)
                     command.setTabCompleter(tabCompleter);
