@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.google.j2objc:j2objc-annotations:3.1" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="com.google.j2objc" artifactId="j2objc-annotations" version="3.1" baseVersion="3.1" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.j2objc/j2objc-annotations/3.1/a892ca9507839bbdb900d64310ac98256cab992f/j2objc-annotations-3.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.j2objc/j2objc-annotations/3.1/4922f4d62bdf4544fe79e85d4fba0eb42b78312b/j2objc-annotations-3.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

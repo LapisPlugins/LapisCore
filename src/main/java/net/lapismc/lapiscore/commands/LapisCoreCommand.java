@@ -24,6 +24,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
+import org.jspecify.annotations.NonNull;
 
 import java.lang.reflect.Field;
 import java.util.HashSet;
@@ -77,6 +78,14 @@ public abstract class LapisCoreCommand extends BukkitCommand {
      */
     public Set<String> getTakenAliases() {
         return takenAliases;
+    }
+
+    /**
+     * Override the stock getAliases method with our stored ones
+     */
+    @Override
+    public @NonNull List<String> getAliases() {
+        return aliases;
     }
 
     private void setupCommand(boolean takeConflicts) {
