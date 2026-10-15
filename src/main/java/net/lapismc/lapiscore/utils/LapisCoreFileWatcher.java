@@ -162,7 +162,7 @@ public class LapisCoreFileWatcher {
                 break;
             case "messages":
                 core.config.reloadMessages();
-                core.getLogger().info("Changes made to " + core.getName() + " messages.yml have been loaded");
+                core.getLogger().info("Changes made to the " + core.getName() + " messages.yml have been loaded");
                 break;
             default:
                 checkOtherFile(f);
